@@ -1,9 +1,11 @@
 import { NotificationsPanel } from "@/components/blocks/notifications-panel"
 import { useState } from "react"
 
+type NotificationType = "newTournament" | "teamJoin" | "reminder" | "update" | "result"
+
 interface Notification {
   id: string
-  type: string
+  type: NotificationType
   title: string
   description: string
   date: string
