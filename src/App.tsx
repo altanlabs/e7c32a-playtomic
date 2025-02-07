@@ -12,6 +12,7 @@ import Players from "./pages/players";
 import Tournaments from "./pages/tournaments";
 import CreateTournament from "./pages/tournaments/create";
 import TournamentDetail from "./pages/tournaments/[id]";
+import Notifications from "./pages/notifications";
 import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
 
@@ -36,6 +37,7 @@ const App = () => {
             ],
             showUserMenu: true,
             showThemeToggle: true,
+            showNotifications: true,
           }}
           footer={{
             text: "© 2024 Dribla. Todos los derechos reservados.",
@@ -68,6 +70,10 @@ const App = () => {
         {
           path: "/tournaments/:id",
           element: <TournamentDetail />,
+        },
+        {
+          path: "/notifications",
+          element: <Notifications />,
         },
         {
           path: "*",
