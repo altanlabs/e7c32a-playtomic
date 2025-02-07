@@ -23,19 +23,20 @@ const App = () => {
           showHeader={true} 
           showFooter={true}
           header={{
-            title: "Playtomic",
+            title: "Basketball 3x3",
             navigation: [
               { label: "Inicio", href: "/" },
-              { label: "Clubs", href: "/clubs" },
-              { label: "Deportes", href: "/sports" },
+              { label: "Canchas", href: "/courts" },
+              { label: "Torneos", href: "/tournaments" },
+              { label: "Rankings", href: "/rankings" },
             ],
             showUserMenu: true,
             showThemeToggle: true,
           }}
           footer={{
-            text: "© 2024 Playtomic Clone. Todos los derechos reservados.",
+            text: "© 2024 Basketball 3x3. Todos los derechos reservados.",
             links: [
-              { label: "Privacidad", href: "/privacy" },
+              { label: "Reglas 3x3", href: "/rules" },
               { label: "Términos", href: "/terms" },
               { label: "Contacto", href: "/contact" },
             ],
