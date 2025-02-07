@@ -9,10 +9,10 @@ interface ClubCardProps {
   address: string
   rating: number
   distance: string
-  sports: string[]
+  features: string[]
 }
 
-export function ClubCard({ name, image, address, rating, distance, sports }: ClubCardProps) {
+export function ClubCard({ name, image, address, rating, distance, features }: ClubCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-all">
       <div className="relative h-48">
@@ -33,11 +33,11 @@ export function ClubCard({ name, image, address, rating, distance, sports }: Clu
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2 mb-4">
-          {sports.map((sport) => (
-            <Badge key={sport} variant="outline">{sport}</Badge>
+          {features.map((feature) => (
+            <Badge key={feature} variant="outline">{feature}</Badge>
           ))}
         </div>
-        <Button className="w-full">Ver pistas disponibles</Button>
+        <Button className="w-full">Ver disponibilidad</Button>
       </CardContent>
     </Card>
   )
