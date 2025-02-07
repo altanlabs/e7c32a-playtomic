@@ -3,37 +3,43 @@ import { SearchBar } from "@/components/blocks/search-bar"
 import { SportCard } from "@/components/blocks/sport-card"
 import { ClubCard } from "@/components/blocks/club-card"
 
-const sports = [
-  { name: "Pádel", icon: "/sports/padel.svg", available: true },
-  { name: "Tenis", icon: "/sports/tennis.svg", available: true },
-  { name: "Fútbol", icon: "/sports/football.svg", available: false },
-  { name: "Baloncesto", icon: "/sports/basketball.svg", available: false },
+const basketballModes = [
+  { 
+    name: "3x3 Básico", 
+    players: "3 vs 3", 
+    icon: "/sports/basketball-3x3.svg"
+  },
+  { 
+    name: "3x3 Pro", 
+    players: "3 vs 3 + Árbitro", 
+    icon: "/sports/basketball-pro.svg"
+  },
 ]
 
-const clubs = [
+const courts = [
   {
-    name: "Club Deportivo Central",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop",
-    address: "Calle Principal 123",
+    name: "Cancha Street Basketball",
+    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop",
+    address: "Parque Deportivo Central",
     rating: 4.8,
     distance: "2.3 km",
-    sports: ["Pádel", "Tenis"]
+    features: ["Iluminación", "Suelo Profesional"]
   },
   {
-    name: "Polideportivo Municipal",
-    image: "https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?q=80&w=1471&auto=format&fit=crop",
-    address: "Avenida del Deporte 45",
+    name: "Urban Court Downtown",
+    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop",
+    address: "Plaza del Deporte",
     rating: 4.5,
     distance: "3.1 km",
-    sports: ["Pádel", "Tenis", "Fútbol"]
+    features: ["Nocturno", "Gradas"]
   },
   {
-    name: "Club Social Deportivo",
-    image: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=1469&auto=format&fit=crop",
-    address: "Plaza del Deporte 78",
+    name: "The Cage",
+    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop",
+    address: "Complejo Deportivo Sur",
     rating: 4.7,
     distance: "1.8 km",
-    sports: ["Pádel"]
+    features: ["Cubierto", "Vestuarios"]
   }
 ]
 
@@ -44,8 +50,8 @@ export default function IndexPage() {
       <section className="relative h-[500px] flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=1470&auto=format&fit=crop" 
-            alt="Hero background" 
+            src="https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop" 
+            alt="Basketball court" 
             className="w-full h-full object-cover brightness-50"
           />
         </div>
@@ -57,10 +63,10 @@ export default function IndexPage() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold text-white">
-              Reserva tu pista deportiva
+              Baloncesto 3x3
             </h1>
             <p className="text-xl text-gray-200">
-              Encuentra y reserva pistas cerca de ti de forma fácil y rápida
+              Encuentra tu cancha y organiza tu partido de 3x3
             </p>
           </motion.div>
           <motion.div
@@ -73,23 +79,23 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Sports Section */}
+      {/* Game Modes Section */}
       <section className="py-16 container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">Deportes disponibles</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {sports.map((sport) => (
-            <SportCard key={sport.name} {...sport} />
+        <h2 className="text-3xl font-bold mb-8">Modalidades de juego</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {basketballModes.map((mode) => (
+            <SportCard key={mode.name} {...mode} />
           ))}
         </div>
       </section>
 
-      {/* Clubs Section */}
+      {/* Courts Section */}
       <section className="py-16 bg-white dark:bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">Clubs destacados</h2>
+          <h2 className="text-3xl font-bold mb-8">Canchas disponibles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {clubs.map((club) => (
-              <ClubCard key={club.name} {...club} />
+            {courts.map((court) => (
+              <ClubCard key={court.name} {...court} />
             ))}
           </div>
         </div>
@@ -99,21 +105,21 @@ export default function IndexPage() {
       <section className="py-16 container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Reserva fácil</h3>
+            <h3 className="text-xl font-semibold mb-4">Encuentra equipo</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Encuentra y reserva tu pista en segundos
+              Únete a partidos abiertos o crea el tuyo propio
             </p>
           </div>
           <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Pago seguro</h3>
+            <h3 className="text-xl font-semibold mb-4">Reserva tu cancha</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Realiza tus pagos de forma segura y rápida
+              Elige el horario que mejor te convenga
             </p>
           </div>
           <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Cancela gratis</h3>
+            <h3 className="text-xl font-semibold mb-4">Rankings y torneos</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Cancela tu reserva hasta 24h antes sin coste
+              Compite y sube en el ranking de tu zona
             </p>
           </div>
         </div>
