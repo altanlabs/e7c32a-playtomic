@@ -61,7 +61,7 @@ export default function IndexPage() {
               Baloncesto 3x3
             </h1>
             <p className="text-xl text-gray-200">
-              Encuentra tu cancha y organiza tu partido de 3x3
+              Encuentra tu cancha y organiza tu partido
             </p>
           </motion.div>
           <motion.div
