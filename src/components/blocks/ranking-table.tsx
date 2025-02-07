@@ -42,7 +42,7 @@ export function RankingTable({ players, onPlayerClick }: RankingTableProps) {
     if (streak === 0) return null
     return (
       <Badge 
-        variant={streak > 0 ? "success" : "destructive"}
+        variant={streak > 0 ? "secondary" : "destructive"}
         className="ml-2"
       >
         {streak > 0 ? `+${streak}` : streak}
@@ -52,10 +52,9 @@ export function RankingTable({ players, onPlayerClick }: RankingTableProps) {
 
   const getLevelColor = (level: string) => {
     switch (level.toLowerCase()) {
-      
       case 'avanzado': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100'
-      case 'avanzado': return 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100'
-      case 'intermedio': return 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
+      case 'intermedio': return 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100'
+      case 'principiante': return 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100'
     }
   }
