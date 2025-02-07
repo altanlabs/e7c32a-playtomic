@@ -51,7 +51,7 @@ export function TeamRankingTable({ teams, onTeamClick }: TeamRankingTableProps) 
     if (streak === 0) return null
     return (
       <Badge 
-        variant={streak > 0 ? "success" : "destructive"}
+        variant={streak > 0 ? "secondary" : "destructive"}
         className="ml-2"
       >
         {streak > 0 ? `+${streak}` : streak}
