@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 import Layout from "./layout";
 import Index from "./pages/index";
+import Players from "./pages/players";
 import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
 
@@ -23,9 +24,10 @@ const App = () => {
           showHeader={true} 
           showFooter={true}
           header={{
-            title: "Basketball 3x3",
+            title: "Dribla",
             navigation: [
               { label: "Inicio", href: "/" },
+              { label: "Jugadores", href: "/players" },
               { label: "Canchas", href: "/courts" },
               { label: "Torneos", href: "/tournaments" },
               { label: "Rankings", href: "/rankings" },
@@ -34,7 +36,7 @@ const App = () => {
             showThemeToggle: true,
           }}
           footer={{
-            text: "© 2024 Basketball 3x3. Todos los derechos reservados.",
+            text: "© 2024 Dribla. Todos los derechos reservados.",
             links: [
               { label: "Reglas 3x3", href: "/rules" },
               { label: "Términos", href: "/terms" },
@@ -48,6 +50,10 @@ const App = () => {
         {
           index: true,
           element: <Index />,
+        },
+        {
+          path: "/players",
+          element: <Players />,
         },
         {
           path: "*",
