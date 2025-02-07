@@ -43,7 +43,7 @@ export function CourtCalendar({ slots, onSlotSelect }: CourtCalendarProps) {
           }}
           disabled={(date) => {
             // Deshabilitar fechas pasadas y días sin slots disponibles
-            return date < new Date() || !hasAvailableSlots(date)
+            return date < new Date().toISOString() || !hasAvailableSlots(date)
           }}
           className="rounded-md border"
         />

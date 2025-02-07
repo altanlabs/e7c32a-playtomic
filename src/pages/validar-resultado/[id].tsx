@@ -12,7 +12,7 @@ import {
   Clock,
   Confetti
 } from "lucide-react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { useState } from "react"
 
 export default function ValidarResultado() {

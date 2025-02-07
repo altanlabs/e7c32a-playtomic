@@ -12,7 +12,7 @@ import {
   Clock,
   ChevronLeft
 } from "lucide-react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 
 export default function PerfilJugador() {
   // Mock data - esto vendrá de la base de datos

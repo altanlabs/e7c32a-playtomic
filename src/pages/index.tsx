@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown } from "lucide-react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Input } from "@/components/ui/input"
 
 export default function IndexPage() {
