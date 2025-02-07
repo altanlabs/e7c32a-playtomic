@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Search, Star, MapPin, Users, Clock, Euro } from "lucide-react"
+import { ArrowRight, Search, Star, MapPin, Users, Clock } from "lucide-react"
+import Link from "next/link"
 import { Input } from "@/components/ui/input"
 
 export default function IndexPage() {
@@ -39,29 +40,35 @@ export default function IndexPage() {
 
               <div className="flex flex-col gap-4 max-w-xl">
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    size="lg" 
-                    className="flex-1 text-lg py-8 bg-white text-black hover:bg-white/90 rounded-xl"
-                  >
-                    Reserva aro
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                  <Link href="/reservar" className="flex-1">
+                    <Button 
+                      size="lg" 
+                      className="w-full text-lg py-8 bg-white text-black hover:bg-white/90 rounded-xl"
+                    >
+                      Reserva aro
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Link href="/partidos" className="flex-1">
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
+                    >
+                      Unirse a un partido
+                    </Button>
+                  </Link>
+                </div>
+                <Link href="/publicar-pista">
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="flex-1 text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
+                    className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
                   >
-                    Unirse a un partido
+                    ¿Eres un club? Publica tu pista
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                </div>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
-                >
-                  ¿Eres un club? Publica tu pista
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -86,7 +93,7 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Search Section with Quick Filters */}
+      {/* Search Section */}
       <section className="py-32 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -149,10 +156,12 @@ export default function IndexPage() {
                   <h2 className="text-4xl font-bold">Pistas cercanas</h2>
                   <p className="text-gray-400">Las mejores pistas cerca de ti</p>
                 </div>
-                <Button variant="link" className="text-[#FFA726]">
-                  Ver todas
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link href="/pistas">
+                  <Button variant="link" className="text-[#FFA726]">
+                    Ver todas
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -182,52 +191,43 @@ export default function IndexPage() {
                     time: "Cierra a las 22:00"
                   }
                 ].map((court, index) => (
-                  <motion.div
-                    key={court.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors"
-                  >
-                    <div className="aspect-[4/3]">
-                      <img
-                        src={`https://source.unsplash.com/random/800x600?basketball-court&${index}`}
-                        alt={court.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4 text-[#FFA726]" />
-                          <span className="text-sm text-gray-300">{court.location}</span>
-                        </div>
-                        <h3 className="text-xl font-semibold">{court.name}</h3>
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-1">
-                            <Star className="h-4 w-4 text-[#FFA726]" />
-                            <span className="text-sm">{court.rating}</span>
+                  <Link href={`/pista/${index + 1}`} key={court.name}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors"
+                    >
+                      <div className="aspect-[4/3]">
+                        <img
+                          src={`https://source.unsplash.com/random/800x600?basketball-court&${index}`}
+                          alt={court.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-[#FFA726]" />
+                            <span className="text-sm text-gray-300">{court.location}</span>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Users className="h-4 w-4 text-gray-400" />
-                            <span className="text-sm text-gray-400">{court.players} jugadores ahora</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4 pt-2">
-                          <div className="flex items-center gap-1">
-                            <Euro className="h-4 w-4 text-gray-400" />
-                            <span className="text-sm text-gray-400">{court.price}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4 text-gray-400" />
-                            <span className="text-sm text-gray-400">{court.time}</span>
+                          <h3 className="text-xl font-semibold">{court.name}</h3>
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1">
+                              <Star className="h-4 w-4 text-[#FFA726]" />
+                              <span className="text-sm">{court.rating}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Users className="h-4 w-4 text-gray-400" />
+                              <span className="text-sm text-gray-400">{court.players} jugadores ahora</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </Link>
                 ))}
               </div>
             </motion.div>
@@ -235,7 +235,7 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Eventos y Torneos */}
       <section className="py-32 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -246,56 +246,93 @@ export default function IndexPage() {
               transition={{ duration: 0.8 }}
               className="space-y-12"
             >
-              <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-6xl font-bold">
-                  Lo que dicen nuestros jugadores
-                </h2>
-                <p className="text-xl text-gray-400">
-                  Miles de jugadores ya confían en nosotros
-                </p>
+              <div className="flex justify-between items-end">
+                <div className="space-y-4">
+                  <h2 className="text-4xl font-bold">Eventos y torneos</h2>
+                  <p className="text-gray-400">Próximos eventos en tu zona</p>
+                </div>
+                <Link href="/eventos">
+                  <Button variant="link" className="text-[#FFA726]">
+                    Ver todos
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                   {
-                    name: "Carlos R.",
-                    role: "Jugador amateur",
-                    text: "Increíble app para encontrar partidos. He conocido gente genial y mejorado mi juego. Las pistas son de primera calidad."
+                    name: "Torneo 3x3 Verano",
+                    date: "15 Jul 2024",
+                    location: "Les Corts",
+                    price: "20€/equipo",
+                    spots: "8 plazas libres"
                   },
                   {
-                    name: "Laura M.",
-                    role: "Jugadora semi-pro",
-                    text: "La mejor forma de reservar pista y organizar partidos. La interfaz es súper intuitiva y el sistema de reservas funciona perfectamente."
+                    name: "Liga Local 5x5",
+                    date: "Inicio: 1 Ago 2024",
+                    location: "Varios lugares",
+                    price: "100€/equipo",
+                    spots: "4 equipos necesarios"
                   },
                   {
-                    name: "Miguel A.",
-                    role: "Entrenador",
-                    text: "Como entrenador, me facilita muchísimo la organización de entrenamientos. La variedad de pistas y horarios es excelente."
+                    name: "Clinic Juvenil",
+                    date: "22 Jul 2024",
+                    location: "Sarrià",
+                    price: "15€/persona",
+                    spots: "12 plazas libres"
                   }
-                ].map((testimonial, index) => (
-                  <motion.div
-                    key={testimonial.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-colors space-y-6"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA726] to-[#FF7043]" />
-                      <div>
-                        <h3 className="font-semibold">{testimonial.name}</h3>
-                        <p className="text-sm text-gray-400">{testimonial.role}</p>
+                ].map((event, index) => (
+                  <Link href={`/evento/${index + 1}`} key={event.name}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors"
+                    >
+                      <div className="aspect-[4/3]">
+                        <img
+                          src={`https://source.unsplash.com/random/800x600?basketball-tournament&${index}`}
+                          alt={event.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                       </div>
-                    </div>
-                    <p className="text-gray-300 leading-relaxed">{testimonial.text}</p>
-                    <div className="flex items-center gap-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="h-4 w-4 fill-[#FFA726] text-[#FFA726]" />
-                      ))}
-                    </div>
-                  </motion.div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <Clock className="h-4 w-4 text-[#FFA726]" />
+                            <span className="text-sm text-gray-300">{event.date}</span>
+                          </div>
+                          <h3 className="text-xl font-semibold">{event.name}</h3>
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1">
+                              <MapPin className="h-4 w-4 text-gray-400" />
+                              <span className="text-sm text-gray-400">{event.location}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Users className="h-4 w-4 text-gray-400" />
+                              <span className="text-sm text-gray-400">{event.spots}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Link>
                 ))}
+              </div>
+
+              <div className="flex justify-center">
+                <Link href="/publicar-evento">
+                  <Button 
+                    size="lg"
+                    className="bg-[#FFA726] hover:bg-[#FF9800] text-white px-8 py-6 rounded-xl"
+                  >
+                    Organizar un evento
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
