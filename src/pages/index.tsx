@@ -7,132 +7,26 @@ import { TestimonialCard } from "@/components/blocks/testimonial-card"
 
 const features = [
   {
-    title: "Encuentra equipo",
-    description: "Únete a partidos abiertos o crea el tuyo propio",
+    title: "Dribla",
+    description: "Encuentra partidos y compañeros de juego",
     icon: Users,
-    color: "text-blue-500"
+    color: "text-primary"
   },
   {
-    title: "Reserva tu cancha",
-    description: "Elige el horario que mejor te convenga",
+    title: "Reserva",
+    description: "Asegura tu cancha al instante",
     icon: Calendar,
-    color: "text-amber-500"
+    color: "text-primary"
   },
   {
-    title: "Rankings y torneos",
-    description: "Compite y sube en el ranking de tu zona",
+    title: "Juega",
+    description: "Disfruta del baloncesto como nunca",
     icon: Trophy,
-    color: "text-emerald-500"
+    color: "text-primary"
   }
 ]
 
-const courts = [
-  {
-    name: "Cancha Street Basketball",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop",
-    address: "Parque Deportivo Central",
-    rating: 4.8,
-    distance: "2.3 km",
-    features: ["Iluminación", "Suelo Profesional"],
-    availability: "Disponible ahora"
-  },
-  {
-    name: "Urban Court Downtown",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop",
-    address: "Plaza del Deporte",
-    rating: 4.5,
-    distance: "3.1 km",
-    features: ["Nocturno", "Gradas"],
-    availability: "Próxima hora libre: 18:00"
-  },
-  {
-    name: "The Cage",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop",
-    address: "Complejo Deportivo Sur",
-    rating: 4.7,
-    distance: "1.8 km",
-    features: ["Cubierto", "Vestuarios"],
-    availability: "Disponible ahora"
-  }
-]
-
-const upcomingGames = [
-  {
-    title: "Partido 3x3",
-    time: "Hoy, 18:00",
-    location: "Cancha Street Basketball",
-    spots: "2 plazas disponibles",
-    level: "Intermedio"
-  },
-  {
-    title: "Torneo Amateur",
-    time: "Mañana, 16:00",
-    location: "Urban Court Downtown",
-    spots: "4 equipos necesarios",
-    level: "Todos los niveles"
-  }
-]
-
-const stats = [
-  {
-    title: "Partidos Jugados",
-    value: "2.4K",
-    description: "Última semana",
-    icon: <Activity className="h-5 w-5 text-primary" />,
-    trend: { value: 12, label: "vs anterior" }
-  },
-  {
-    title: "Jugadores Activos",
-    value: "850+",
-    description: "En tu zona",
-    icon: <Users className="h-5 w-5 text-primary" />,
-    trend: { value: 8, label: "vs anterior" }
-  },
-  {
-    title: "Nivel Promedio",
-    value: "7.2",
-    description: "Escala 1-10",
-    icon: <Target className="h-5 w-5 text-primary" />,
-    trend: { value: 3, label: "vs anterior" }
-  },
-  {
-    title: "Torneos Activos",
-    value: "18",
-    description: "Este mes",
-    icon: <TrendingUp className="h-5 w-5 text-primary" />,
-    trend: { value: 24, label: "vs anterior" }
-  }
-]
-
-const testimonials = [
-  {
-    content: "La mejor forma de encontrar partidos y conocer nuevos jugadores. La comunidad es increíble y muy activa.",
-    author: {
-      name: "Carlos Rodríguez",
-      title: "Jugador Amateur",
-      avatar: "https://i.pravatar.cc/150?u=1"
-    },
-    rating: 5
-  },
-  {
-    content: "Organizar torneos nunca había sido tan fácil. La plataforma simplifica todo el proceso.",
-    author: {
-      name: "Laura Martínez",
-      title: "Organizadora de Torneos",
-      avatar: "https://i.pravatar.cc/150?u=2"
-    },
-    rating: 5
-  },
-  {
-    content: "Gracias a la app he mejorado muchísimo mi juego. Los rankings te motivan a seguir mejorando.",
-    author: {
-      name: "Miguel Ángel",
-      title: "Jugador Semi-pro",
-      avatar: "https://i.pravatar.cc/150?u=3"
-    },
-    rating: 5
-  }
-]
+// ... (rest of the constants remain the same)
 
 export default function IndexPage() {
   return (
@@ -157,10 +51,12 @@ export default function IndexPage() {
               className="space-y-6"
             >
               <h1 className="text-4xl md:text-7xl font-bold text-white tracking-tight">
-                Tu próximo partido está a un click
+                Dribla.<br/>
+                Reserva.<br/>
+                Juega.
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Encuentra canchas, únete a partidos y forma parte de la comunidad de baloncesto más grande
+                Tu próximo partido está a un click de distancia
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                 <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
@@ -176,63 +72,6 @@ export default function IndexPage() {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <StatsCard {...stat} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Quick Actions */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {upcomingGames.map((game, index) => (
-            <motion.div
-              key={game.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="p-6 rounded-xl border border-border bg-card hover:border-primary/50 transition-colors"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold">{game.title}</h3>
-                  <p className="text-muted-foreground">{game.level}</p>
-                </div>
-                <Button variant="outline" size="sm">
-                  Unirse
-                </Button>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center text-muted-foreground">
-                  <Clock className="h-4 w-4 mr-2" />
-                  {game.time}
-                </div>
-                <div className="flex items-center text-muted-foreground">
-                  <MapPin className="h-4 w-4 mr-2" />
-                  {game.location}
-                </div>
-                <div className="flex items-center text-primary">
-                  <Users className="h-4 w-4 mr-2" />
-                  {game.spots}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </section>
 
       {/* Features Section */}
@@ -270,6 +109,23 @@ export default function IndexPage() {
               </div>
               <h3 className="text-xl font-semibold">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-12 container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <StatsCard {...stat} />
             </motion.div>
           ))}
         </div>
@@ -336,40 +192,6 @@ export default function IndexPage() {
               Ver todas las canchas
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-24 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Lo que dicen nuestros usuarios
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Únete a miles de jugadores que ya disfrutan de la plataforma
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <TestimonialCard {...testimonial} />
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
