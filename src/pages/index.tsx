@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Star, Trophy, Users, Calendar, MapPin, Clock, Activity, Target, TrendingUp } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 export default function IndexPage() {
   return (
@@ -107,20 +107,19 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-32 bg-black">
+      {/* Features Preview */}
+      <section className="py-32 bg-black relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-[90rem] mx-auto space-y-32">
-            {/* Feature 1 */}
+          <div className="max-w-[90rem] mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center"
+              className="grid grid-cols-1 md:grid-cols-2 gap-24"
             >
+              {/* Left Column */}
               <div className="space-y-8">
-                <span className="text-[#FFA726] font-medium">01</span>
                 <h2 className="text-4xl md:text-6xl font-bold">
                   Encuentra tu próximo partido
                 </h2>
@@ -134,6 +133,8 @@ export default function IndexPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
+
+              {/* Right Column - Image */}
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=2071&auto=format&fit=crop"
@@ -143,116 +144,12 @@ export default function IndexPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
             </motion.div>
-
-            {/* Feature 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center"
-            >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden md:order-2">
-                <img
-                  src="https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?q=80&w=2074&auto=format&fit=crop"
-                  alt="Basketball court reservation"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-              <div className="space-y-8 md:order-1">
-                <span className="text-[#FFA726] font-medium">02</span>
-                <h2 className="text-4xl md:text-6xl font-bold">
-                  Reserva pistas al instante
-                </h2>
-                <p className="text-xl text-gray-400 leading-relaxed">
-                  Encuentra y reserva las mejores canchas cerca de ti. Sin esperas, sin llamadas.
-                </p>
-                <Button 
-                  className="text-lg px-8 py-6 bg-white text-black hover:bg-white/90 rounded-full"
-                >
-                  Ver canchas disponibles
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </motion.div>
-
-            {/* Feature 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center"
-            >
-              <div className="space-y-8">
-                <span className="text-[#FFA726] font-medium">03</span>
-                <h2 className="text-4xl md:text-6xl font-bold">
-                  Compite en torneos
-                </h2>
-                <p className="text-xl text-gray-400 leading-relaxed">
-                  Participa en torneos locales, sigue las clasificaciones y demuestra tu nivel.
-                </p>
-                <Button 
-                  className="text-lg px-8 py-6 bg-white text-black hover:bg-white/90 rounded-full"
-                >
-                  Descubrir torneos
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=2070&auto=format&fit=crop"
-                  alt="Basketball tournament"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* App Preview Section */}
-      <section className="py-32 bg-gradient-to-b from-black to-[#1a1a1a]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-[90rem] mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-center space-y-8 mb-16"
-            >
-              <h2 className="text-4xl md:text-6xl font-bold">
-                Todo en tu móvil
-              </h2>
-              <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Gestiona tus partidos, reservas y torneos desde cualquier lugar
-              </p>
-            </motion.div>
-
-            <div className="relative mt-16">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                className="relative z-10 max-w-4xl mx-auto"
-              >
-                <img
-                  src="https://placehold.co/1200x800/1a1a1a/ffffff?text=App+Preview"
-                  alt="App Preview"
-                  className="w-full rounded-2xl shadow-2xl"
-                />
-              </motion.div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-[#1a1a1a]">
+      <section className="py-32 bg-gradient-to-b from-black to-[#1a1a1a]">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
