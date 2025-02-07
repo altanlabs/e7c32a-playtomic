@@ -40,8 +40,8 @@ export function RankingFilters({ onFilterChange, totalPlayers }: RankingFiltersP
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todos los niveles</SelectItem>
-            <SelectItem value="pro">Pro</SelectItem>
-            <SelectItem value="elite">Elite</SelectItem>
+            
+            <SelectItem value="avanzado">Avanzado</SelectItem>
             <SelectItem value="avanzado">Avanzado</SelectItem>
             <SelectItem value="intermedio">Intermedio</SelectItem>
           </SelectContent>
