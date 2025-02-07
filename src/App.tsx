@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/theme/theme-provider";
 import RootBoundary from "./components/errors/RootBoundary";
+import { Toaster } from "@/components/ui/sonner";
 
 import Layout from "./layout";
 import Index from "./pages/index";
@@ -17,7 +18,29 @@ const App = () => {
     {
       path: "/",
       element: (
-        <Layout showSidebar={false} showHeader={false} showFooter={false} />
+        <Layout 
+          showSidebar={false} 
+          showHeader={true} 
+          showFooter={true}
+          header={{
+            title: "Playtomic",
+            navigation: [
+              { label: "Inicio", href: "/" },
+              { label: "Clubs", href: "/clubs" },
+              { label: "Deportes", href: "/sports" },
+            ],
+            showUserMenu: true,
+            showThemeToggle: true,
+          }}
+          footer={{
+            text: "© 2024 Playtomic Clone. Todos los derechos reservados.",
+            links: [
+              { label: "Privacidad", href: "/privacy" },
+              { label: "Términos", href: "/terms" },
+              { label: "Contacto", href: "/contact" },
+            ],
+          }}
+        />
       ),
       errorElement: <RootBoundary />,
       children: [
@@ -38,6 +61,7 @@ const App = () => {
       <Theme appearance={theme === "system" ? "light" : theme}>
         <div className={theme}>
           <RouterProvider router={router} />
+          <Toaster />
         </div>
       </Theme>
     </ThemeProvider>
