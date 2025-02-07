@@ -26,7 +26,84 @@ const features = [
   }
 ]
 
-// ... (rest of the constants remain the same)
+const stats = [
+  {
+    title: "Usuarios activos",
+    value: "10,000+",
+    description: "Jugadores en la plataforma",
+    icon: Users,
+    trend: "+12% este mes"
+  },
+  {
+    title: "Partidos jugados",
+    value: "50,000+",
+    description: "Encuentros organizados",
+    icon: Activity,
+    trend: "+8% este mes"
+  },
+  {
+    title: "Canchas disponibles",
+    value: "200+",
+    description: "En toda la ciudad",
+    icon: MapPin,
+    trend: "+5% este mes"
+  },
+  {
+    title: "Torneos realizados",
+    value: "100+",
+    description: "Competiciones exitosas",
+    icon: Trophy,
+    trend: "+15% este mes"
+  }
+]
+
+const courts = [
+  {
+    name: "Polideportivo Central",
+    address: "Av. Principal 123, Barcelona",
+    rating: 4.8,
+    distance: "1.2 km",
+    availability: "Disponible ahora",
+    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=2069&auto=format&fit=crop"
+  },
+  {
+    name: "Club Deportivo Elite",
+    address: "Calle Deportiva 456, Barcelona",
+    rating: 4.9,
+    distance: "2.5 km",
+    availability: "Disponible en 1h",
+    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=2069&auto=format&fit=crop"
+  },
+  {
+    name: "Centro Deportivo Municipal",
+    address: "Plaza del Deporte 789, Barcelona",
+    rating: 4.7,
+    distance: "3.1 km",
+    availability: "Disponible mañana",
+    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=2069&auto=format&fit=crop"
+  }
+]
+
+const testimonials = [
+  {
+    name: "Carlos Rodríguez",
+    role: "Jugador amateur",
+    content: "Dribla ha revolucionado la forma en que organizo mis partidos. ¡Es increíble!",
+    avatar: "https://i.pravatar.cc/150?u=1"
+  },
+  {
+    name: "Laura Martínez",
+    role: "Capitana de equipo",
+    content: "La mejor plataforma para encontrar canchas y organizar torneos. Muy recomendable.",
+    avatar: "https://i.pravatar.cc/150?u=2"
+  },
+  {
+    name: "Miguel Ángel",
+    role: "Entrenador",
+    content: "Una herramienta esencial para cualquier amante del baloncesto.",
+    avatar: "https://i.pravatar.cc/150?u=3"
+  }
+]
 
 export default function IndexPage() {
   return (
@@ -192,6 +269,40 @@ export default function IndexPage() {
               Ver todas las canchas
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Lo que dicen nuestros usuarios
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Descubre por qué miles de jugadores confían en Dribla
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <TestimonialCard {...testimonial} />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
