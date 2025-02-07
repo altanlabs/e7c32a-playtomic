@@ -1,8 +1,22 @@
 import { NotificationsPanel } from "@/components/blocks/notifications-panel"
 import { useState } from "react"
 
+interface Notification {
+  id: string
+  type: string
+  title: string
+  description: string
+  date: string
+  read: boolean
+  actionUrl: string
+  tournament?: {
+    name: string
+    date: string
+  }
+}
+
 // Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_NOTIFICATIONS = [
+const MOCK_NOTIFICATIONS: Notification[] = [
   {
     id: "1",
     type: "newTournament",
@@ -56,10 +70,10 @@ const MOCK_NOTIFICATIONS = [
     read: true,
     actionUrl: "/tournaments/1"
   }
-] as const
+]
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS)
+  const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS)
 
   const handleReadAll = () => {
     setNotifications(notifications.map(n => ({ ...n, read: true })))
