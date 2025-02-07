@@ -9,6 +9,9 @@ import { Toaster } from "@/components/ui/sonner";
 import Layout from "./layout";
 import Index from "./pages/index";
 import Players from "./pages/players";
+import Tournaments from "./pages/tournaments";
+import CreateTournament from "./pages/tournaments/create";
+import TournamentDetail from "./pages/tournaments/[id]";
 import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
 
@@ -28,7 +31,6 @@ const App = () => {
             navigation: [
               { label: "Inicio", href: "/" },
               { label: "Jugadores", href: "/players" },
-              { label: "Canchas", href: "/courts" },
               { label: "Torneos", href: "/tournaments" },
               { label: "Rankings", href: "/rankings" },
             ],
@@ -54,6 +56,18 @@ const App = () => {
         {
           path: "/players",
           element: <Players />,
+        },
+        {
+          path: "/tournaments",
+          element: <Tournaments />,
+        },
+        {
+          path: "/tournaments/create",
+          element: <CreateTournament />,
+        },
+        {
+          path: "/tournaments/:id",
+          element: <TournamentDetail />,
         },
         {
           path: "*",
