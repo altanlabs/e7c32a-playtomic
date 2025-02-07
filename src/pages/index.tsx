@@ -36,20 +36,30 @@ export default function IndexPage() {
                 Tu próximo partido está a un clic de distancia
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 max-w-xl">
-                <Button 
-                  size="lg" 
-                  className="flex-1 text-lg py-8 bg-white text-black hover:bg-white/90 rounded-xl"
-                >
-                  Reserva aro
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+              <div className="flex flex-col gap-4 max-w-xl">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button 
+                    size="lg" 
+                    className="flex-1 text-lg py-8 bg-white text-black hover:bg-white/90 rounded-xl"
+                  >
+                    Reserva aro
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="flex-1 text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
+                  >
+                    Unirse a un partido
+                  </Button>
+                </div>
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="flex-1 text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
+                  className="text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
                 >
-                  Unirse a un partido
+                  ¿Eres un club? Publica tu pista
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
             </motion.div>
