@@ -67,7 +67,6 @@ interface LayoutProps {
 }
 
 const DefaultNavigation: NavItem[] = [
-  { label: "Inicio", href: "/" },
   { label: "Canchas", href: "/courts" },
   { label: "Rankings", href: "/rankings" },
   { label: "Torneos", href: "/tournaments" },
