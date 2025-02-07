@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { CircleDot, Trophy, Users, CalendarDays, UserCircle } from "lucide-react"
+import { CircleDot, Trophy, Users, CalendarDays, UserCircle, Home, Search } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -32,7 +32,12 @@ const defaultItems = [
   {
     label: "Inicio",
     href: "/",
-    icon: <CircleDot className="h-4 w-4" />,
+    icon: <Home className="h-4 w-4" />,
+  },
+  {
+    label: "Explorar",
+    href: "/explore",
+    icon: <Search className="h-4 w-4" />,
   },
   {
     label: "Canchas",
@@ -79,7 +84,7 @@ export function AppSidebar({
             {items.map((item, index) => (
               <SidebarMenuItem key={index}>
                 <SidebarMenuButton asChild>
-                  <Link to={item.href}>
+                  <Link to={item.href} className="flex items-center gap-2">
                     {item.icon}
                     <span>{item.label}</span>
                   </Link>
