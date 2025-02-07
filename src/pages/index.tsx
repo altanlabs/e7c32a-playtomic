@@ -1,22 +1,26 @@
 import { motion } from "framer-motion"
-import { SearchBar } from "@/components/blocks/search-bar"
-import { SportCard } from "@/components/blocks/sport-card"
-import { ClubCard } from "@/components/blocks/club-card"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Star, Trophy, Users } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-const basketballModes = [
-  { 
-    name: "3x3", 
-    description: "Baloncesto urbano 3 contra 3",
-    players: "3 vs 3", 
-    icon: "/sports/basketball-3x3.svg",
-    features: [
-      "Partidos rápidos",
-      "Media cancha",
-      "Formato urbano",
-      "Rankings por zona"
-    ]
+const features = [
+  {
+    title: "Encuentra equipo",
+    description: "Únete a partidos abiertos o crea el tuyo propio",
+    icon: Users,
+    color: "text-blue-500"
+  },
+  {
+    title: "Reserva tu cancha",
+    description: "Elige el horario que mejor te convenga",
+    icon: Star,
+    color: "text-amber-500"
+  },
+  {
+    title: "Rankings y torneos",
+    description: "Compite y sube en el ranking de tu zona",
+    icon: Trophy,
+    color: "text-emerald-500"
   }
 ]
 
@@ -51,89 +55,165 @@ export default function IndexPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-[500px] flex items-center justify-center">
+      <section className="relative min-h-screen flex items-center justify-center bg-black">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop" 
             alt="Basketball court" 
-            className="w-full h-full object-cover brightness-50"
+            className="w-full h-full object-cover opacity-50"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div 
-            className="text-center space-y-6 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-white">
-              Baloncesto 3x3
-            </h1>
-            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-              Encuentra canchas, organiza partidos y compite en torneos
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-2xl mx-auto"
-          >
-            <SearchBar />
-          </motion.div>
+
+        <div className="container relative z-10 px-4 py-32 mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <h1 className="text-4xl md:text-7xl font-bold text-white tracking-tight">
+                Encuentra tu cancha ideal para jugar
+              </h1>
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Reserva canchas, organiza partidos y únete a la comunidad de baloncesto más grande
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+                <Button size="lg" className="text-lg px-8">
+                  Empezar ahora
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button size="lg" variant="outline" className="text-lg px-8 bg-white/10 hover:bg-white/20 text-white border-white/20">
+                  Ver canchas
+                </Button>
+              </div>
+            </motion.div>
+          </div>
         </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Game Mode Section */}
-      <section className="py-16 container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">Modalidad de juego</h2>
-        <div className="grid grid-cols-1 gap-6">
-          {basketballModes.map((mode) => (
-            <SportCard key={mode.name} {...mode} />
+      {/* Features Section */}
+      <section className="py-24 container mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Todo lo que necesitas en un solo lugar
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Descubre todas las herramientas para disfrutar al máximo del baloncesto
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="text-center space-y-4"
+            >
+              <div className={cn(
+                "w-16 h-16 rounded-2xl mx-auto flex items-center justify-center",
+                "bg-gradient-to-br from-background to-muted"
+              )}>
+                <feature.icon className={cn("h-8 w-8", feature.color)} />
+              </div>
+              <h3 className="text-xl font-semibold">{feature.title}</h3>
+              <p className="text-muted-foreground">{feature.description}</p>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Courts Section */}
-      <section className="py-16 bg-muted/50">
+      {/* Courts Preview Section */}
+      <section className="py-24 bg-muted/50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">Canchas disponibles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courts.map((court) => (
-              <ClubCard key={court.name} {...court} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Las mejores canchas cerca de ti
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Encuentra y reserva las canchas más populares en tu zona
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courts.map((court, index) => (
+              <motion.div
+                key={court.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 transition-colors"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={court.image}
+                    alt={court.name}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{court.name}</h3>
+                  <p className="text-muted-foreground mb-4">{court.address}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                      <span className="font-medium">{court.rating}</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">{court.distance}</span>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Button size="lg">
-              Ver todas las canchas
-              <ArrowRight className="ml-2 h-4 w-4" />
+
+          <div className="text-center mt-12">
+            <Button size="lg" className="text-lg px-8">
+              Explorar todas las canchas
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Encuentra equipo</h3>
-            <p className="text-muted-foreground">
-              Únete a partidos abiertos o crea el tuyo propio
-            </p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Reserva tu cancha</h3>
-            <p className="text-muted-foreground">
-              Elige el horario que mejor te convenga
-            </p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Rankings y torneos</h3>
-            <p className="text-muted-foreground">
-              Compite y sube en el ranking de tu zona
-            </p>
-          </div>
-        </div>
+      {/* CTA Section */}
+      <section className="py-24 container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto text-center space-y-8"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold">
+            ¿Listo para empezar a jugar?
+          </h2>
+          <p className="text-xl text-muted-foreground">
+            Únete a nuestra comunidad y disfruta del baloncesto como nunca antes
+          </p>
+          <Button size="lg" className="text-lg px-8">
+            Crear cuenta gratis
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </motion.div>
       </section>
     </div>
   )
