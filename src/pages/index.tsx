@@ -109,9 +109,15 @@ export default function IndexPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center bg-[#0a82ec]">
-        <div className="absolute inset-0 z-0 bg-[#0a82ec]">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+      <section className="relative min-h-[90vh] flex items-center justify-center bg-black">
+        <div className="absolute inset-0 z-0">
+          {/* Basketball court background image */}
+          <img
+            src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop"
+            alt="Basketball Court"
+            className="w-full h-full object-cover opacity-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
         </div>
 
         <div className="container relative z-10 px-4 py-32 mx-auto">
@@ -131,7 +137,7 @@ export default function IndexPage() {
                 Tu próximo partido está a un click de distancia
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                <Button size="lg" className="text-lg px-8 bg-white text-[#0a82ec] hover:bg-white/90">
+                <Button size="lg" className="text-lg px-8 bg-white text-black hover:bg-white/90">
                   Reservar cancha
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -147,7 +153,7 @@ export default function IndexPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-[#0a82ec] relative">
+      <section className="py-24 bg-black relative">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -233,7 +239,7 @@ export default function IndexPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-[#0a82ec]/50 transition-colors"
+                className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-black/50 transition-colors"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -253,7 +259,7 @@ export default function IndexPage() {
                     <span className="text-sm text-muted-foreground">{court.distance}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-[#0a82ec]">{court.availability}</span>
+                    <span className="text-sm text-black">{court.availability}</span>
                     <Button variant="outline" size="sm">
                       Reservar
                     </Button>
@@ -264,7 +270,7 @@ export default function IndexPage() {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" className="text-lg px-8 bg-[#0a82ec] hover:bg-[#0a82ec]/90">
+            <Button size="lg" className="text-lg px-8 bg-black hover:bg-black/90 text-white">
               Ver todas las canchas
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -307,7 +313,7 @@ export default function IndexPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-[#0a82ec] relative">
+      <section className="py-24 bg-black relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -321,7 +327,7 @@ export default function IndexPage() {
           <p className="text-xl text-white/80">
             Únete a nuestra comunidad y disfruta del baloncesto como nunca antes
           </p>
-          <Button size="lg" className="text-lg px-8 bg-white text-[#0a82ec] hover:bg-white/90">
+          <Button size="lg" className="text-lg px-8 bg-white text-black hover:bg-white/90">
             Crear cuenta gratis
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
