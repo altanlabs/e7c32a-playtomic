@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Ball, Trophy, Users, Calendar, User } from "lucide-react"
+import { CircleDot, Trophy, Users, CalendarDays, UserCircle } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -32,12 +32,12 @@ const defaultItems = [
   {
     label: "Inicio",
     href: "/",
-    icon: <Ball className="h-4 w-4" />,
+    icon: <CircleDot className="h-4 w-4" />,
   },
   {
     label: "Canchas",
     href: "/courts",
-    icon: <Calendar className="h-4 w-4" />,
+    icon: <CalendarDays className="h-4 w-4" />,
   },
   {
     label: "Rankings",
@@ -52,7 +52,7 @@ const defaultItems = [
   {
     label: "Perfil",
     href: "/profile",
-    icon: <User className="h-4 w-4" />,
+    icon: <UserCircle className="h-4 w-4" />,
   }
 ]
 
@@ -60,7 +60,7 @@ export function AppSidebar({
   items = defaultItems,
   defaultOpen = true,
   companyName = "Dribla",
-  logo = <Ball className="h-6 w-6" />,
+  logo = <CircleDot className="h-6 w-6" />,
   footerComponent,
   className,
 }: AppSidebarProps) {
