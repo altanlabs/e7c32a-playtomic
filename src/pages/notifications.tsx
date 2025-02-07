@@ -18,10 +18,10 @@ interface Notification {
 }
 
 // Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_NOTIFICATIONS: Notification[] = [
+const MOCK_NOTIFICATIONS = [
   {
     id: "1",
-    type: "newTournament",
+    type: "newTournament" as const,
     title: "Nuevo torneo en tu zona",
     description: "El Club Deportivo Central ha organizado un nuevo torneo 3x3 para el próximo mes.",
     date: "Hace 5 minutos",
@@ -34,7 +34,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
   },
   {
     id: "2",
-    type: "teamJoin",
+    type: "teamJoin" as const,
     title: "Nuevo miembro en tu equipo",
     description: "Carlos López se ha unido a tu equipo 'Street Warriors' para el torneo.",
     date: "Hace 1 hora",
@@ -43,7 +43,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
   },
   {
     id: "3",
-    type: "reminder",
+    type: "reminder" as const,
     title: "Recordatorio de torneo",
     description: "Tu torneo 'Liga Amateur 3x3' comienza mañana a las 10:00.",
     date: "Hace 2 horas",
@@ -56,7 +56,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
   },
   {
     id: "4",
-    type: "update",
+    type: "update" as const,
     title: "Cambio en el horario del torneo",
     description: "El horario del torneo 'Torneo Nocturno' ha sido actualizado.",
     date: "Ayer",
@@ -65,26 +65,28 @@ const MOCK_NOTIFICATIONS: Notification[] = [
   },
   {
     id: "5",
-    type: "result",
+    type: "result" as const,
     title: "Resultados disponibles",
     description: "Los resultados de tu último partido están disponibles.",
     date: "Hace 2 días",
     read: true,
     actionUrl: "/tournaments/1"
   }
-]
+] as const
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS)
+  const [notifications, setNotifications] = useState<Array<Notification>>([...MOCK_NOTIFICATIONS])
 
   const handleReadAll = () => {
-    setNotifications(notifications.map(n => ({ ...n, read: true })))
+    setNotifications(prevNotifications => 
+      prevNotifications.map(n => ({ ...n, read: true }))
+    )
   }
 
   const handleRead = (id: string) => {
-    setNotifications(notifications.map(n => 
-      n.id === id ? { ...n, read: true } : n
-    ))
+    setNotifications(prevNotifications => 
+      prevNotifications.map(n => n.id === id ? { ...n, read: true } : n)
+    )
   }
 
   return (
