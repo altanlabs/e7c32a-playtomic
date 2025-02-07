@@ -1,21 +1,23 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Search, Star, MapPin, Users, Clock } from "lucide-react"
+import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 
 export default function IndexPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
+      {/* Hero Section with Dynamic Background */}
       <section className="relative min-h-screen flex items-center justify-center">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=2071&auto=format&fit=crop"
-            alt="Basketball net"
-            className="w-full h-full object-cover opacity-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+          <div className="relative h-full">
+            <img
+              src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=2071&auto=format&fit=crop"
+              alt="Basketball court"
+              className="w-full h-full object-cover opacity-50"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+          </div>
         </div>
 
         <div className="container relative z-10 px-4 mx-auto">
@@ -27,23 +29,38 @@ export default function IndexPage() {
               className="space-y-12"
             >
               <div className="space-y-4">
-                <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
+                <motion.h1 
+                  className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
                   Dribla.<br/>
                   Reserva.<br/>
                   Juega.
-                </h1>
+                </motion.h1>
               </div>
               
-              <p className="text-xl md:text-2xl text-gray-300 max-w-2xl">
+              <motion.p 
+                className="text-xl md:text-2xl text-gray-300 max-w-2xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 Tu próximo partido está a un clic de distancia
-              </p>
+              </motion.p>
 
-              <div className="flex flex-col gap-4 max-w-xl">
+              <motion.div 
+                className="flex flex-col gap-4 max-w-xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="/reservar" className="flex-1">
                     <Button 
                       size="lg" 
-                      className="w-full text-lg py-8 bg-white text-black hover:bg-white/90 rounded-xl"
+                      className="w-full text-lg py-8 bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-xl transform transition-all duration-300 hover:scale-105"
                     >
                       Reserva aro
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -53,7 +70,7 @@ export default function IndexPage() {
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
+                      className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl transform transition-all duration-300 hover:scale-105"
                     >
                       Unirse a un partido
                     </Button>
@@ -63,37 +80,29 @@ export default function IndexPage() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl"
+                    className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl transform transition-all duration-300 hover:scale-105"
                   >
                     ¿Eres un club? Publica tu pista
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-sm text-gray-400">Scroll para explorar</span>
-          <motion.div
-            animate={{
-              y: [0, 10, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-            className="w-1 h-8 bg-white/20 rounded-full relative"
-          >
-            <div className="absolute top-0 left-0 right-0 h-2 bg-white rounded-full" />
-          </motion.div>
-        </div>
+        {/* Animated Scroll Indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span className="text-sm text-gray-400">Explora más</span>
+          <ChevronDown className="h-6 w-6 text-[#FFA726]" />
+        </motion.div>
       </section>
 
-      {/* Search Section */}
+      {/* Search Section with Enhanced UI */}
       <section className="py-32 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -105,7 +114,7 @@ export default function IndexPage() {
               className="space-y-12"
             >
               <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-6xl font-bold">
+                <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-[#FFA726] to-[#FF9800] bg-clip-text text-transparent">
                   Encuentra tu pista perfecta
                 </h2>
                 <p className="text-xl text-gray-400">
@@ -114,11 +123,11 @@ export default function IndexPage() {
               </div>
 
               <div className="max-w-3xl mx-auto space-y-6">
-                <div className="relative">
+                <div className="relative transform transition-all duration-300 hover:scale-[1.02]">
                   <Input
                     type="text"
                     placeholder="Buscar por ubicación..."
-                    className="w-full py-8 pl-12 pr-4 bg-white/5 border-white/20 rounded-xl text-lg"
+                    className="w-full py-8 pl-12 pr-4 bg-white/5 border-white/20 rounded-xl text-lg focus:ring-2 focus:ring-[#FFA726] focus:border-transparent"
                   />
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 </div>
@@ -128,7 +137,7 @@ export default function IndexPage() {
                     <Button
                       key={filter}
                       variant="outline"
-                      className="bg-white/5 hover:bg-white/10 border-white/20 rounded-full"
+                      className="bg-white/5 hover:bg-[#FFA726] hover:text-white border-white/20 rounded-full transition-all duration-300"
                     >
                       {filter}
                     </Button>
@@ -140,7 +149,7 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Nearby Courts */}
+      {/* Nearby Courts with Enhanced Cards */}
       <section className="py-32 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -153,11 +162,13 @@ export default function IndexPage() {
             >
               <div className="flex justify-between items-end">
                 <div className="space-y-4">
-                  <h2 className="text-4xl font-bold">Pistas cercanas</h2>
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-[#FFA726] to-[#FF9800] bg-clip-text text-transparent">
+                    Pistas cercanas
+                  </h2>
                   <p className="text-gray-400">Las mejores pistas cerca de ti</p>
                 </div>
                 <Link href="/pistas">
-                  <Button variant="link" className="text-[#FFA726]">
+                  <Button variant="link" className="text-[#FFA726] hover:text-[#FF9800]">
                     Ver todas
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -197,7 +208,7 @@ export default function IndexPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors"
+                      className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-105"
                     >
                       <div className="aspect-[4/3]">
                         <img
@@ -213,7 +224,9 @@ export default function IndexPage() {
                             <MapPin className="h-4 w-4 text-[#FFA726]" />
                             <span className="text-sm text-gray-300">{court.location}</span>
                           </div>
-                          <h3 className="text-xl font-semibold">{court.name}</h3>
+                          <h3 className="text-xl font-semibold group-hover:text-[#FFA726] transition-colors">
+                            {court.name}
+                          </h3>
                           <div className="flex items-center gap-4">
                             <div className="flex items-center gap-1">
                               <Star className="h-4 w-4 text-[#FFA726]" />
@@ -235,7 +248,7 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Eventos y Torneos */}
+      {/* Events and Tournaments Section */}
       <section className="py-32 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -248,11 +261,13 @@ export default function IndexPage() {
             >
               <div className="flex justify-between items-end">
                 <div className="space-y-4">
-                  <h2 className="text-4xl font-bold">Eventos y torneos</h2>
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-[#FFA726] to-[#FF9800] bg-clip-text text-transparent">
+                    Eventos y torneos
+                  </h2>
                   <p className="text-gray-400">Próximos eventos en tu zona</p>
                 </div>
                 <Link href="/eventos">
-                  <Button variant="link" className="text-[#FFA726]">
+                  <Button variant="link" className="text-[#FFA726] hover:text-[#FF9800]">
                     Ver todos
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -289,7 +304,7 @@ export default function IndexPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors"
+                      className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-all duration-300 hover:scale-105"
                     >
                       <div className="aspect-[4/3]">
                         <img
@@ -305,7 +320,9 @@ export default function IndexPage() {
                             <Clock className="h-4 w-4 text-[#FFA726]" />
                             <span className="text-sm text-gray-300">{event.date}</span>
                           </div>
-                          <h3 className="text-xl font-semibold">{event.name}</h3>
+                          <h3 className="text-xl font-semibold group-hover:text-[#FFA726] transition-colors">
+                            {event.name}
+                          </h3>
                           <div className="flex items-center gap-4">
                             <div className="flex items-center gap-1">
                               <MapPin className="h-4 w-4 text-gray-400" />
@@ -327,7 +344,7 @@ export default function IndexPage() {
                 <Link href="/publicar-evento">
                   <Button 
                     size="lg"
-                    className="bg-[#FFA726] hover:bg-[#FF9800] text-white px-8 py-6 rounded-xl"
+                    className="bg-[#FFA726] hover:bg-[#FF9800] text-white px-8 py-6 rounded-xl transform transition-all duration-300 hover:scale-105"
                   >
                     Organizar un evento
                     <ArrowRight className="ml-2 h-5 w-5" />
