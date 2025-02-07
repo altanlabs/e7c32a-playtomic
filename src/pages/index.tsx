@@ -1,7 +1,9 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Star, Trophy, Users, Calendar, MapPin, Clock } from "lucide-react"
+import { ArrowRight, Star, Trophy, Users, Calendar, MapPin, Clock, Activity, Target, TrendingUp } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { StatsCard } from "@/components/blocks/stats-card"
+import { TestimonialCard } from "@/components/blocks/testimonial-card"
 
 const features = [
   {
@@ -71,6 +73,67 @@ const upcomingGames = [
   }
 ]
 
+const stats = [
+  {
+    title: "Partidos Jugados",
+    value: "2.4K",
+    description: "Última semana",
+    icon: <Activity className="h-5 w-5 text-primary" />,
+    trend: { value: 12, label: "vs anterior" }
+  },
+  {
+    title: "Jugadores Activos",
+    value: "850+",
+    description: "En tu zona",
+    icon: <Users className="h-5 w-5 text-primary" />,
+    trend: { value: 8, label: "vs anterior" }
+  },
+  {
+    title: "Nivel Promedio",
+    value: "7.2",
+    description: "Escala 1-10",
+    icon: <Target className="h-5 w-5 text-primary" />,
+    trend: { value: 3, label: "vs anterior" }
+  },
+  {
+    title: "Torneos Activos",
+    value: "18",
+    description: "Este mes",
+    icon: <TrendingUp className="h-5 w-5 text-primary" />,
+    trend: { value: 24, label: "vs anterior" }
+  }
+]
+
+const testimonials = [
+  {
+    content: "La mejor forma de encontrar partidos y conocer nuevos jugadores. La comunidad es increíble y muy activa.",
+    author: {
+      name: "Carlos Rodríguez",
+      title: "Jugador Amateur",
+      avatar: "https://i.pravatar.cc/150?u=1"
+    },
+    rating: 5
+  },
+  {
+    content: "Organizar torneos nunca había sido tan fácil. La plataforma simplifica todo el proceso.",
+    author: {
+      name: "Laura Martínez",
+      title: "Organizadora de Torneos",
+      avatar: "https://i.pravatar.cc/150?u=2"
+    },
+    rating: 5
+  },
+  {
+    content: "Gracias a la app he mejorado muchísimo mi juego. Los rankings te motivan a seguir mejorando.",
+    author: {
+      name: "Miguel Ángel",
+      title: "Jugador Semi-pro",
+      avatar: "https://i.pravatar.cc/150?u=3"
+    },
+    rating: 5
+  }
+]
+
 export default function IndexPage() {
   return (
     <div className="min-h-screen bg-background">
@@ -113,6 +176,23 @@ export default function IndexPage() {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-12 container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <StatsCard {...stat} />
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Quick Actions */}
@@ -260,8 +340,42 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Testimonials Section */}
       <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Lo que dicen nuestros usuarios
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Únete a miles de jugadores que ya disfrutan de la plataforma
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <TestimonialCard {...testimonial} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
