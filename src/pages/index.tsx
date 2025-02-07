@@ -5,15 +5,10 @@ import { ClubCard } from "@/components/blocks/club-card"
 
 const basketballModes = [
   { 
-    name: "3x3 Básico", 
+    name: "3x3", 
     players: "3 vs 3", 
     icon: "/sports/basketball-3x3.svg"
-  },
-  { 
-    name: "3x3 Pro", 
-    players: "3 vs 3 + Árbitro", 
-    icon: "/sports/basketball-pro.svg"
-  },
+  }
 ]
 
 const courts = [
@@ -81,8 +76,8 @@ export default function IndexPage() {
 
       {/* Game Modes Section */}
       <section className="py-16 container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">Modalidades de juego</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 className="text-3xl font-bold mb-8">Modalidad de juego</h2>
+        <div className="grid grid-cols-1 gap-6">
           {basketballModes.map((mode) => (
             <SportCard key={mode.name} {...mode} />
           ))}
