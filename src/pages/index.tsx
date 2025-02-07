@@ -57,7 +57,7 @@ export default function IndexPage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/reservar" className="flex-1">
+                  <Link to="/courts" className="flex-1">
                     <Button 
                       size="lg" 
                       className="w-full text-lg py-8 bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-xl transform transition-all duration-300 hover:scale-105"
@@ -66,7 +66,7 @@ export default function IndexPage() {
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
-                  <Link to="/partidos" className="flex-1">
+                  <Link to="/tournaments" className="flex-1">
                     <Button 
                       size="lg" 
                       variant="outline" 
@@ -76,7 +76,7 @@ export default function IndexPage() {
                     </Button>
                   </Link>
                 </div>
-                <Link to="/publicar-pista">
+                <Link to="/courts/create">
                   <Button 
                     size="lg" 
                     variant="outline" 
@@ -167,7 +167,7 @@ export default function IndexPage() {
                   </h2>
                   <p className="text-gray-400">Las mejores pistas cerca de ti</p>
                 </div>
-                <Link to="/pistas">
+                <Link to="/courts">
                   <Button variant="link" className="text-[#FFA726] hover:text-[#FF9800]">
                     Ver todas
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -202,7 +202,7 @@ export default function IndexPage() {
                     time: "Cierra a las 22:00"
                   }
                 ].map((court, index) => (
-                  <Link to={`/pista/${index + 1}`} key={court.name}>
+                  <Link to={`/courts/${index + 1}`} key={court.name}>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -266,7 +266,7 @@ export default function IndexPage() {
                   </h2>
                   <p className="text-gray-400">Próximos eventos en tu zona</p>
                 </div>
-                <Link to="/eventos">
+                <Link to="/tournaments">
                   <Button variant="link" className="text-[#FFA726] hover:text-[#FF9800]">
                     Ver todos
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -298,7 +298,7 @@ export default function IndexPage() {
                     spots: "12 plazas libres"
                   }
                 ].map((event, index) => (
-                  <Link to={`/evento/${index + 1}`} key={event.name}>
+                  <Link to={`/tournaments/${index + 1}`} key={event.name}>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -341,7 +341,7 @@ export default function IndexPage() {
               </div>
 
               <div className="flex justify-center">
-                <Link to="/publicar-evento">
+                <Link to="/tournaments/create">
                   <Button 
                     size="lg"
                     className="bg-[#FFA726] hover:bg-[#FF9800] text-white px-8 py-6 rounded-xl transform transition-all duration-300 hover:scale-105"
