@@ -1,151 +1,161 @@
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { MapPin, Search } from "lucide-react"
-import { useState } from "react"
+import { Calendar } from "@/components/ui/calendar"
+import { Badge } from "@/components/ui/badge"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
 
 interface CourtFiltersProps {
   onFilterChange: (filters: any) => void
+  className?: string
 }
 
-export function CourtFilters({ onFilterChange }: CourtFiltersProps) {
-  const [priceRange, setPriceRange] = useState([0, 50])
-
+export function CourtFilters({ onFilterChange, className }: CourtFiltersProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow space-y-6">
-      {/* Búsqueda y ubicación */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-          <Input 
-            placeholder="Buscar cancha..." 
-            className="pl-10"
-            onChange={(e) => onFilterChange({ search: e.target.value })}
-          />
-        </div>
-        <div className="relative">
-          <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-          <Input 
-            placeholder="Ubicación" 
-            className="pl-10"
-            onChange={(e) => onFilterChange({ location: e.target.value })}
-          />
+    <div className={cn("space-y-6", className)}>
+      {/* Date Selection */}
+      <div className="space-y-2">
+        <Label>Fecha</Label>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full justify-start text-left font-normal",
+                !Date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {Date ? format(Date, "PPP") : "Seleccionar fecha"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0">
+            <Calendar
+              mode="single"
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
+
+      {/* Time Range */}
+      <div className="space-y-2">
+        <Label>Horario</Label>
+        <div className="flex gap-4">
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Desde" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 24 }, (_, i) => (
+                <SelectItem key={i} value={`${i}:00`}>
+                  {`${i}:00`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Hasta" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 24 }, (_, i) => (
+                <SelectItem key={i} value={`${i}:00`}>
+                  {`${i}:00`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
-      {/* Filtros principales */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Select onValueChange={(value) => onFilterChange({ availability: value })}>
-          <SelectTrigger>
-            <SelectValue placeholder="Disponibilidad" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="morning">Mañana</SelectItem>
-            <SelectItem value="afternoon">Tarde</SelectItem>
-            <SelectItem value="night">Noche</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select onValueChange={(value) => onFilterChange({ surface: value })}>
-          <SelectTrigger>
-            <SelectValue placeholder="Tipo de superficie" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="concrete">Cemento</SelectItem>
-            <SelectItem value="synthetic">Sintético</SelectItem>
-            <SelectItem value="wood">Madera</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select onValueChange={(value) => onFilterChange({ sort: value })}>
-          <SelectTrigger>
-            <SelectValue placeholder="Ordenar por" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="price_asc">Precio: Menor a mayor</SelectItem>
-            <SelectItem value="price_desc">Precio: Mayor a menor</SelectItem>
-            <SelectItem value="rating">Mejor valoradas</SelectItem>
-            <SelectItem value="distance">Más cercanas</SelectItem>
-          </SelectContent>
-        </Select>
+      {/* Sport Type */}
+      <div className="space-y-2">
+        <Label>Deporte</Label>
+        <RadioGroup defaultValue="basketball" className="flex gap-4">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="basketball" id="basketball" />
+            <Label htmlFor="basketball">Baloncesto</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="football" id="football" />
+            <Label htmlFor="football">Fútbol</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="tennis" id="tennis" />
+            <Label htmlFor="tennis">Tenis</Label>
+          </div>
+        </RadioGroup>
       </div>
 
-      {/* Rango de precios */}
+      {/* Price Range */}
       <div className="space-y-2">
         <Label>Precio por hora</Label>
-        <div className="px-2">
-          <Slider
-            defaultValue={[0, 50]}
-            max={100}
-            step={1}
-            value={priceRange}
-            onValueChange={(value) => {
-              setPriceRange(value)
-              onFilterChange({ priceRange: value })
-            }}
-          />
-        </div>
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <span>{priceRange[0]}€</span>
-          <span>{priceRange[1]}€</span>
+        <Slider
+          defaultValue={[0, 50]}
+          max={50}
+          step={1}
+          className="py-4"
+        />
+        <div className="flex justify-between">
+          <span className="text-sm text-muted-foreground">0€</span>
+          <span className="text-sm text-muted-foreground">50€</span>
         </div>
       </div>
 
-      {/* Características adicionales */}
-      <div className="space-y-4">
-        <Label>Características</Label>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center space-x-2">
-            <Switch id="lights" onCheckedChange={(checked) => 
-              onFilterChange({ lights: checked })
-            }/>
-            <Label htmlFor="lights">Iluminación</Label>
+      {/* Location */}
+      <div className="space-y-2">
+        <Label>Ubicación</Label>
+        <Input placeholder="Introduce una dirección..." />
+      </div>
+
+      {/* Amenities */}
+      <div className="space-y-2">
+        <Label>Servicios</Label>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="parking" className="flex-1">Parking</Label>
+            <Switch id="parking" />
           </div>
-          <div className="flex items-center space-x-2">
-            <Switch id="covered" onCheckedChange={(checked) => 
-              onFilterChange({ covered: checked })
-            }/>
-            <Label htmlFor="covered">Cubierta</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="lockers" className="flex-1">Vestuarios</Label>
+            <Switch id="lockers" />
           </div>
-          <div className="flex items-center space-x-2">
-            <Switch id="locker_room" onCheckedChange={(checked) => 
-              onFilterChange({ lockerRoom: checked })
-            }/>
-            <Label htmlFor="locker_room">Vestuarios</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="lighting" className="flex-1">Iluminación</Label>
+            <Switch id="lighting" />
           </div>
-          <div className="flex items-center space-x-2">
-            <Switch id="parking" onCheckedChange={(checked) => 
-              onFilterChange({ parking: checked })
-            }/>
-            <Label htmlFor="parking">Parking</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="cafe" className="flex-1">Cafetería</Label>
+            <Switch id="cafe" />
           </div>
         </div>
       </div>
 
-      {/* Botones de acción */}
-      <div className="flex justify-end gap-2">
-        <Button 
-          variant="outline" 
-          onClick={() => {
-            setPriceRange([0, 50])
-            onFilterChange({})
-          }}
-        >
-          Limpiar filtros
-        </Button>
-        <Button>
-          Aplicar filtros
-        </Button>
+      {/* Rating */}
+      <div className="space-y-2">
+        <Label>Valoración mínima</Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Seleccionar valoración" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="3">3+ estrellas</SelectItem>
+            <SelectItem value="4">4+ estrellas</SelectItem>
+            <SelectItem value="4.5">4.5+ estrellas</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
+
+      {/* Apply Filters Button */}
+      <Button className="w-full">Aplicar filtros</Button>
     </div>
   )
 }
