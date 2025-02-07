@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { Basketball, Trophy, Users, Calendar, User } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -10,7 +11,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Basketball } from "lucide-react"
 
 interface SidebarItem {
   label: string
@@ -37,22 +37,22 @@ const defaultItems = [
   {
     label: "Canchas",
     href: "/courts",
-    icon: <Basketball className="h-4 w-4" />,
+    icon: <Calendar className="h-4 w-4" />,
   },
   {
     label: "Rankings",
     href: "/rankings",
-    icon: <Basketball className="h-4 w-4" />,
+    icon: <Trophy className="h-4 w-4" />,
   },
   {
-    label: "Torneos",
-    href: "/tournaments",
-    icon: <Basketball className="h-4 w-4" />,
+    label: "Equipos",
+    href: "/teams",
+    icon: <Users className="h-4 w-4" />,
   },
   {
     label: "Perfil",
     href: "/profile",
-    icon: <Basketball className="h-4 w-4" />,
+    icon: <User className="h-4 w-4" />,
   }
 ]
 
