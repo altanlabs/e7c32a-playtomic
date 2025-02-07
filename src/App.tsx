@@ -1,109 +1,31 @@
-import { Theme } from "@radix-ui/themes";
-import "@radix-ui/themes/styles.css";
-import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "@/theme/theme-provider";
-import RootBoundary from "./components/errors/RootBoundary";
-import { Toaster } from "@/components/ui/sonner";
+import { DatabaseProvider } from "@altanlabs/database"
+import { AuthProvider } from "@altanlabs/auth"
+import { BrowserRouter as Router } from "react-router-dom"
+import Layout from "./layout"
+import "./App.css"
 
-import Layout from "./layout";
-import Index from "./pages/index";
-import Players from "./pages/players";
-import Tournaments from "./pages/tournaments";
-import CreateTournament from "./pages/tournaments/create";
-import TournamentDetail from "./pages/tournaments/[id]";
-import Courts from "./pages/courts";
-import CourtDetail from "./pages/courts/[id]";
-import Notifications from "./pages/notifications";
-import NotFound from "./pages/NotFound";
-import { useTheme } from "./theme/use-theme";
+const config = {
+  API_BASE_URL: "https://api.altan.ai/galaxia/hook/mo6Vs",
+  SAMPLE_TABLES: {
+    users: "4403ee69-e61c-4676-9a69-b5ec4bdd4695",
+    courts: "57444af1-2c23-40b1-9cc6-4159f2446933",
+    games: "dfb5dbf9-ab97-41e4-a8c0-d198caa2fad5",
+    bookings: "79f0e23d-8e7c-4bbb-ba3a-e10841e3b1bd",
+    rankings: "bc61f364-2d74-4771-9aca-4bb6b0abe751",
+    teams: "bb202367-77a7-4e0c-9bab-f40ee4c37b50"
+  }
+}
 
-const App = () => {
-  const { theme } = useTheme();
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <Layout 
-          showSidebar={false} 
-          showHeader={true} 
-          showFooter={true}
-          header={{
-            title: "Dribla",
-            navigation: [
-              { label: "Inicio", href: "/" },
-              { label: "Jugadores", href: "/players" },
-              { label: "Canchas", href: "/courts" },
-              { label: "Torneos", href: "/tournaments" },
-              { label: "Rankings", href: "/rankings" },
-            ],
-            showUserMenu: true,
-            showThemeToggle: true,
-            showNotifications: true,
-          }}
-          footer={{
-            text: "© 2024 Dribla. Todos los derechos reservados.",
-            links: [
-              { label: "Reglas 3x3", href: "/rules" },
-              { label: "Términos", href: "/terms" },
-              { label: "Contacto", href: "/contact" },
-            ],
-          }}
-        />
-      ),
-      errorElement: <RootBoundary />,
-      children: [
-        {
-          index: true,
-          element: <Index />,
-        },
-        {
-          path: "/players",
-          element: <Players />,
-        },
-        {
-          path: "/courts",
-          element: <Courts />,
-        },
-        {
-          path: "/courts/:id",
-          element: <CourtDetail />,
-        },
-        {
-          path: "/tournaments",
-          element: <Tournaments />,
-        },
-        {
-          path: "/tournaments/create",
-          element: <CreateTournament />,
-        },
-        {
-          path: "/tournaments/:id",
-          element: <TournamentDetail />,
-        },
-        {
-          path: "/notifications",
-          element: <Notifications />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ],
-    },
-  ]);
-
+function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <Theme appearance={theme === "system" ? "light" : theme}>
-        <div className={theme}>
-          <RouterProvider router={router} />
-          <Toaster />
-        </div>
-      </Theme>
-    </ThemeProvider>
-  );
-};
+    <DatabaseProvider config={config}>
+      <AuthProvider>
+        <Router>
+          <Layout />
+        </Router>
+      </AuthProvider>
+    </DatabaseProvider>
+  )
+}
 
-export default App;
+export default App
