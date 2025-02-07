@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Search, Star, MapPin, Users } from "lucide-react"
+import { ArrowRight, Search, Star, MapPin, Users, Clock, Euro } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
 export default function IndexPage() {
@@ -86,7 +86,7 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Search Section */}
+      {/* Search Section with Quick Filters */}
       <section className="py-32 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -102,11 +102,11 @@ export default function IndexPage() {
                   Encuentra tu pista perfecta
                 </h2>
                 <p className="text-xl text-gray-400">
-                  Busca entre cientos de pistas disponibles en tu zona
+                  Más de 200 pistas disponibles en tu zona
                 </p>
               </div>
 
-              <div className="max-w-2xl mx-auto">
+              <div className="max-w-3xl mx-auto space-y-6">
                 <div className="relative">
                   <Input
                     type="text"
@@ -114,6 +114,18 @@ export default function IndexPage() {
                     className="w-full py-8 pl-12 pr-4 bg-white/5 border-white/20 rounded-xl text-lg"
                   />
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {["Indoor", "Outdoor", "3x3", "5x5", "Iluminación", "Parking"].map((filter) => (
+                    <Button
+                      key={filter}
+                      variant="outline"
+                      className="bg-white/5 hover:bg-white/10 border-white/20 rounded-full"
+                    >
+                      {filter}
+                    </Button>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -144,38 +156,73 @@ export default function IndexPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[1, 2, 3].map((court) => (
+                {[
+                  {
+                    name: "Pista Municipal Les Corts",
+                    location: "Barcelona",
+                    rating: 4.8,
+                    players: 12,
+                    price: "15€/h",
+                    time: "Abierto hasta 23:00"
+                  },
+                  {
+                    name: "Club Baloncesto Sarrià",
+                    location: "Barcelona",
+                    rating: 4.9,
+                    players: 8,
+                    price: "20€/h",
+                    time: "Abierto 24h"
+                  },
+                  {
+                    name: "Pista Vall d'Hebron",
+                    location: "Barcelona",
+                    rating: 4.7,
+                    players: 6,
+                    price: "12€/h",
+                    time: "Cierra a las 22:00"
+                  }
+                ].map((court, index) => (
                   <motion.div
-                    key={court}
+                    key={court.name}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: court * 0.1 }}
-                    className="group relative rounded-2xl overflow-hidden"
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group relative rounded-2xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors"
                   >
                     <div className="aspect-[4/3]">
                       <img
-                        src={`https://source.unsplash.com/random/800x600?basketball-court&${court}`}
-                        alt="Basketball court"
+                        src={`https://source.unsplash.com/random/800x600?basketball-court&${index}`}
+                        alt={court.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         <div className="flex items-center gap-2">
                           <MapPin className="h-4 w-4 text-[#FFA726]" />
-                          <span className="text-sm text-gray-300">Barcelona</span>
+                          <span className="text-sm text-gray-300">{court.location}</span>
                         </div>
-                        <h3 className="text-xl font-semibold">Pista {court}</h3>
+                        <h3 className="text-xl font-semibold">{court.name}</h3>
                         <div className="flex items-center gap-4">
                           <div className="flex items-center gap-1">
                             <Star className="h-4 w-4 text-[#FFA726]" />
-                            <span className="text-sm">4.8</span>
+                            <span className="text-sm">{court.rating}</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <Users className="h-4 w-4 text-gray-400" />
-                            <span className="text-sm text-gray-400">12 jugadores ahora</span>
+                            <span className="text-sm text-gray-400">{court.players} jugadores ahora</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4 pt-2">
+                          <div className="flex items-center gap-1">
+                            <Euro className="h-4 w-4 text-gray-400" />
+                            <span className="text-sm text-gray-400">{court.price}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4 text-gray-400" />
+                            <span className="text-sm text-gray-400">{court.time}</span>
                           </div>
                         </div>
                       </div>
@@ -213,17 +260,17 @@ export default function IndexPage() {
                   {
                     name: "Carlos R.",
                     role: "Jugador amateur",
-                    text: "La mejor app para encontrar partidos. He conocido a gente increíble."
+                    text: "Increíble app para encontrar partidos. He conocido gente genial y mejorado mi juego. Las pistas son de primera calidad."
                   },
                   {
                     name: "Laura M.",
                     role: "Jugadora semi-pro",
-                    text: "Reservar pista nunca había sido tan fácil. La recomiendo totalmente."
+                    text: "La mejor forma de reservar pista y organizar partidos. La interfaz es súper intuitiva y el sistema de reservas funciona perfectamente."
                   },
                   {
                     name: "Miguel A.",
                     role: "Entrenador",
-                    text: "Perfecta para organizar entrenamientos y encontrar rivales para amistosos."
+                    text: "Como entrenador, me facilita muchísimo la organización de entrenamientos. La variedad de pistas y horarios es excelente."
                   }
                 ].map((testimonial, index) => (
                   <motion.div
@@ -232,16 +279,16 @@ export default function IndexPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="p-8 rounded-2xl border border-white/10 space-y-6"
+                    className="p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-colors space-y-6"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-white/10" />
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA726] to-[#FF7043]" />
                       <div>
                         <h3 className="font-semibold">{testimonial.name}</h3>
                         <p className="text-sm text-gray-400">{testimonial.role}</p>
                       </div>
                     </div>
-                    <p className="text-gray-300">{testimonial.text}</p>
+                    <p className="text-gray-300 leading-relaxed">{testimonial.text}</p>
                     <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star key={star} className="h-4 w-4 fill-[#FFA726] text-[#FFA726]" />
