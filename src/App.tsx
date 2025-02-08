@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/theme/theme-provider"
-import Layout from '@/components/layout/Layout'
+import Layout from '@/layout'
 import IndexPage from './pages'
 import TournamentsPage from './pages/tournaments'
 import TournamentDetailPage from './pages/tournaments/[id]'
@@ -16,6 +16,8 @@ import InvitePlayersPage from './pages/invite-players'
 import InviteToPlayPage from './pages/invite-to-play'
 import JoinGameListPage from './pages/join-game'
 import JoinGameDetailPage from './pages/join-game/[id]'
+import PlayersPage from './pages/players'
+import CourtsPage from './pages/courts'
 
 function App() {
   return (
@@ -25,8 +27,13 @@ function App() {
           <Routes>
             <Route path="/" element={<IndexPage />} />
             
-            {/* Torneos */}
+            {/* Páginas principales del menú */}
+            <Route path="/players" element={<PlayersPage />} />
+            <Route path="/courts" element={<CourtsPage />} />
             <Route path="/tournaments" element={<TournamentsPage />} />
+            <Route path="/rankings" element={<RankingsPage />} />
+            
+            {/* Torneos */}
             <Route path="/tournaments/:id" element={<TournamentDetailPage />} />
             <Route path="/tournaments/create" element={<CreateTournamentPage />} />
             <Route path="/publicar-evento" element={<CreateTournamentPage />} />
@@ -42,10 +49,6 @@ function App() {
             <Route path="/invite-to-play" element={<InviteToPlayPage />} />
             <Route path="/join-game" element={<JoinGameListPage />} />
             <Route path="/join-game/:id" element={<JoinGameDetailPage />} />
-            
-            {/* Rankings */}
-            <Route path="/rankings" element={<RankingsPage />} />
-            <Route path="/rankings/teams" element={<RankingsPage />} />
             
             {/* 404 */}
             <Route path="*" element={<NotFoundPage />} />
