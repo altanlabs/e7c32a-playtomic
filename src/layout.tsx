@@ -8,21 +8,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Bell, Settings, LogOut, Menu } from "lucide-react";
+import { Bell, Settings, LogOut } from "lucide-react";
 import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/theme/use-theme";
-import { useEffect, useRef, useState } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { useEffect, useRef } from "react";
 
 const DefaultNavigation = [
+  { label: "Inicio", href: "/" },
   { label: "Invitar a jugar", href: "/invite-to-play" },
   { label: "Unirse a partido", href: "/join-game" },
   { label: "Rankings", href: "/rankings" },
@@ -62,7 +55,6 @@ export default function Layout({
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const initialThemeSet = useRef(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     if (initialThemeSet.current) return;
@@ -95,63 +87,22 @@ export default function Layout({
         {header && showHeader && (
           <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-14 items-center">
-              <div className="flex items-center gap-8 flex-1">
-                {/* Menu Button for Mobile */}
-                <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                  <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="md:hidden">
-                      <Menu className="h-5 w-5" />
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left">
-                    <SheetHeader>
-                      <SheetTitle>Menu</SheetTitle>
-                    </SheetHeader>
-                    <nav className="flex flex-col gap-4 mt-4">
-                      {header.navigation?.map((item, index) => (
-                        <Link
-                          key={index}
-                          to={item.href}
-                          onClick={() => setIsMenuOpen(false)}
-                          className={`text-lg py-2 transition-colors hover:text-primary ${
-                            location.pathname === item.href
-                              ? "text-primary font-medium"
-                              : "text-muted-foreground"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </nav>
-                  </SheetContent>
-                </Sheet>
-
-                {/* Logo/Title */}
-                {header.title && (
-                  <Link to="/" className="flex items-center gap-2">
-                    <span className="text-xl font-bold">{header.title}</span>
+              <nav className="flex items-center gap-6 flex-1">
+                {/* Navigation Links */}
+                {header.navigation?.map((item, index) => (
+                  <Link
+                    key={index}
+                    to={item.href}
+                    className={`text-sm transition-colors hover:text-primary ${
+                      location.pathname === item.href
+                        ? "text-primary font-medium"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {item.label}
                   </Link>
-                )}
-
-                {/* Navigation Links - Hidden on Mobile */}
-                {header.navigation && (
-                  <nav className="hidden md:flex items-center gap-6">
-                    {header.navigation.map((item, index) => (
-                      <Link
-                        key={index}
-                        to={item.href}
-                        className={`text-sm transition-colors hover:text-primary ${
-                          location.pathname === item.href
-                            ? "text-primary font-medium"
-                            : "text-muted-foreground"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </nav>
-                )}
-              </div>
+                ))}
+              </nav>
 
               <div className="flex items-center gap-4">
                 {/* Theme Toggle */}
