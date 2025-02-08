@@ -5,8 +5,27 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { Users, Trophy, Star } from "lucide-react"
 
+interface Player {
+  name: string
+  position: string
+  avatar: string
+}
+
+interface Team {
+  id: number
+  name: string
+  level: string
+  wins: number
+  losses: number
+  players: Player[]
+}
+
+interface TournamentTeams {
+  [key: string]: Team[]
+}
+
 // Mock data - En una implementación real, esto vendría de una API
-const MOCK_TEAMS = {
+const MOCK_TEAMS: TournamentTeams = {
   "1": [ // ID del torneo
     {
       id: 1,
@@ -110,7 +129,7 @@ export default function TeamsPage() {
 
           {/* Lista de equipos */}
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {teams.map((team) => (
+            {teams.map((team: Team) => (
               <Card key={team.id} className="w-full max-w-sm mx-auto p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div>
@@ -132,7 +151,7 @@ export default function TeamsPage() {
 
                 <div className="space-y-3">
                   <div className="space-y-2">
-                    {team.players.map((player, index) => (
+                    {team.players.map((player: Player, index: number) => (
                       <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-secondary">
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={player.avatar} />
