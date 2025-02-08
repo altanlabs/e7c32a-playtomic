@@ -1,193 +1,218 @@
-import { useState } from "react"
-import { useParams, Link, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ChevronLeft, Trophy, Users, Star, Mail } from "lucide-react"
-import { toast } from "sonner"
-import { Team } from "@/types/team"
+import { useParams, useNavigate } from "react-router-dom"
+import { Users, Trophy, Star, MapPin, Calendar } from "lucide-react"
 
-// Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_TEAM: Team = {
+// Mock data - En una implementación real, esto vendría de una API
+const MOCK_TEAM = {
   id: "1",
-  name: "Street Warriors",
-  logo: "https://api.dicebear.com/7.x/shapes/svg?seed=street-warriors",
-  description: "Equipo competitivo de baloncesto 3x3 buscando nuevos desafíos. Participamos en torneos locales y buscamos jugadores comprometidos para crecer juntos.",
-  level: "advanced",
+  name: "Los Invencibles",
+  description: "Equipo de baloncesto 3x3 con experiencia en torneos locales y nacionales. Buscamos jugadores comprometidos para completar la plantilla.",
+  level: "Avanzado",
+  location: "Madrid",
+  foundedDate: "2022",
+  stats: {
+    wins: 15,
+    losses: 3,
+    tournamentsWon: 3,
+    currentStreak: "W3"
+  },
+  achievements: [
+    "Campeones Torneo Verano 2023",
+    "Subcampeones Liga Local 2023",
+    "MVP del torneo - Juan Pérez"
+  ],
   players: [
-    {
-      id: "1",
-      name: "Carlos Rodríguez",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=carlos",
+    { 
+      name: "Juan Pérez",
       position: "Base",
-      level: "advanced"
+      number: "5",
+      stats: {
+        ppg: "15.5",
+        apg: "4.2",
+        rpg: "3.1"
+      },
+      avatar: "https://i.pravatar.cc/150?u=juan"
     },
-    {
-      id: "2",
-      name: "Ana Martínez",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ana",
-      position: "Escolta",
-      level: "advanced"
+    { 
+      name: "Ana García",
+      position: "Alero",
+      number: "7",
+      stats: {
+        ppg: "12.3",
+        apg: "2.8",
+        rpg: "5.4"
+      },
+      avatar: "https://i.pravatar.cc/150?u=ana"
+    },
+    { 
+      name: "Carlos López",
+      position: "Pívot",
+      number: "11",
+      stats: {
+        ppg: "10.8",
+        apg: "1.5",
+        rpg: "8.2"
+      },
+      avatar: "https://i.pravatar.cc/150?u=carlos"
     }
   ],
-  captain: {
-    id: "1",
-    name: "Carlos Rodríguez",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=carlos",
-    position: "Base",
-    level: "advanced"
-  },
-  stats: {
-    wins: 28,
-    losses: 14,
-    tournamentsPlayed: 8,
-    tournamentsWon: 2
-  },
-  maxPlayers: 3,
-  status: "looking_for_players",
-  createdAt: new Date("2023-01-01"),
-  updatedAt: new Date("2024-01-15")
+  upcomingTournaments: [
+    {
+      id: "1",
+      name: "Torneo Verano 3x3",
+      date: "15 de Julio, 2024",
+      location: "Pista Central - Madrid"
+    }
+  ]
 }
 
 export default function TeamDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [isJoining, setIsJoining] = useState(false)
-  const [team] = useState<Team>(MOCK_TEAM)
+  
+  // En una implementación real, aquí se haría una llamada a la API
+  const team = MOCK_TEAM // Usar el ID para obtener el equipo correcto
 
-  const handleJoinTeam = async () => {
-    setIsJoining(true)
-    try {
-      // Aquí iría la llamada a la API para unirse al equipo
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulación
-      toast.success("Solicitud enviada correctamente")
-    } catch (error) {
-      toast.error("Error al enviar la solicitud")
-    } finally {
-      setIsJoining(false)
-    }
+  const handleJoinTeam = () => {
+    navigate(`/join-as-player?team=${id}`)
   }
 
   return (
-    <div className="container py-10">
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Navegación */}
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/teams")}>
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <div>
-            <h1 className="text-2xl font-bold">Detalle del equipo</h1>
-            <p className="text-muted-foreground">
-              Información y miembros del equipo
-            </p>
-          </div>
-        </div>
-
-        {/* Información del equipo */}
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Logo y estadísticas */}
-              <div className="w-full md:w-1/3 space-y-4">
-                <Avatar className="w-full h-auto aspect-square">
-                  <AvatarImage src={team.logo} />
+    <div className="min-h-screen bg-background">
+      <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+          {/* Información principal */}
+          <div className="lg:col-span-2 space-y-4">
+            <Card className="p-4">
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <Avatar className="h-16 w-16 sm:h-20 sm:w-20">
+                  <AvatarImage src={`https://i.pravatar.cc/150?u=team${id}`} />
                   <AvatarFallback>{team.name[0]}</AvatarFallback>
                 </Avatar>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1 text-center p-4 bg-muted rounded-lg">
-                    <p className="text-2xl font-bold">{team.stats.wins}</p>
-                    <p className="text-sm text-muted-foreground">Victorias</p>
-                  </div>
-                  <div className="space-y-1 text-center p-4 bg-muted rounded-lg">
-                    <p className="text-2xl font-bold">{team.stats.tournamentsWon}</p>
-                    <p className="text-sm text-muted-foreground">Torneos</p>
+                <div className="text-center sm:text-left">
+                  <h1 className="text-xl sm:text-2xl font-bold">{team.name}</h1>
+                  <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
+                    <Badge variant="secondary" className="text-xs">
+                      {team.level}
+                    </Badge>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      {team.location}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3" />
+                      Desde {team.foundedDate}
+                    </div>
                   </div>
                 </div>
               </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                {team.description}
+              </p>
+            </Card>
 
-              {/* Detalles y acciones */}
-              <div className="flex-1 space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold">{team.name}</h2>
-                    {team.status === "looking_for_players" && (
-                      <Badge className="bg-[#FFA726] text-white">
-                        Buscando jugadores
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground">
-                    {team.description}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">
-                    <Users className="mr-1 h-4 w-4" />
-                    {team.players.length}/{team.maxPlayers} jugadores
-                  </Badge>
-                  <Badge variant="secondary">
-                    <Star className="mr-1 h-4 w-4" />
-                    Nivel {team.level}
-                  </Badge>
-                  <Badge variant="secondary">
-                    <Trophy className="mr-1 h-4 w-4" />
-                    {team.stats.tournamentsWon} torneos ganados
-                  </Badge>
-                </div>
-
-                {team.status === "looking_for_players" && (
-                  <div className="flex gap-4">
-                    <Button
-                      className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
-                      onClick={handleJoinTeam}
-                      disabled={isJoining}
-                    >
-                      {isJoining ? "Enviando solicitud..." : "Unirse al equipo"}
-                    </Button>
-                    <Button variant="outline" className="flex-1">
-                      <Mail className="mr-2 h-4 w-4" />
-                      Contactar capitán
-                    </Button>
-                  </div>
-                )}
-              </div>
+            {/* Estadísticas */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <Card className="p-3 text-center">
+                <p className="text-2xl font-bold">{team.stats.wins}</p>
+                <p className="text-xs text-muted-foreground">Victorias</p>
+              </Card>
+              <Card className="p-3 text-center">
+                <p className="text-2xl font-bold">{team.stats.losses}</p>
+                <p className="text-xs text-muted-foreground">Derrotas</p>
+              </Card>
+              <Card className="p-3 text-center">
+                <p className="text-2xl font-bold">{team.stats.tournamentsWon}</p>
+                <p className="text-xs text-muted-foreground">Torneos ganados</p>
+              </Card>
+              <Card className="p-3 text-center">
+                <p className="text-2xl font-bold">{team.stats.currentStreak}</p>
+                <p className="text-xs text-muted-foreground">Racha actual</p>
+              </Card>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Miembros del equipo */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Miembros del equipo</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {team.players.map((player) => (
-              <Card key={player.id}>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-4">
-                    <Avatar>
+            {/* Jugadores */}
+            <Card className="p-4">
+              <h2 className="text-lg font-semibold mb-4">Jugadores</h2>
+              <div className="space-y-3">
+                {team.players.map((player, index) => (
+                  <div key={index} className="flex items-center gap-3 p-2 rounded-lg bg-secondary">
+                    <Avatar className="h-10 w-10">
                       <AvatarImage src={player.avatar} />
                       <AvatarFallback>{player.name[0]}</AvatarFallback>
                     </Avatar>
-                    <div>
-                      <p className="font-medium">
-                        {player.name}
-                        {player.id === team.captain.id && (
-                          <Badge variant="secondary" className="ml-2">
-                            Capitán
-                          </Badge>
-                        )}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {player.position} · Nivel {player.level}
-                      </p>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium">{player.name}</p>
+                          <p className="text-xs text-muted-foreground">{player.position}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-xs font-medium">#{player.number}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {player.stats.ppg} PPG
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                ))}
+              </div>
+              {team.players.length < 3 && (
+                <Button 
+                  onClick={handleJoinTeam}
+                  className="w-full mt-4 h-7 text-xs bg-[#FFA726] hover:bg-[#FF9800]"
+                >
+                  <Users className="mr-2 h-3 w-3" />
+                  Unirse al equipo
+                </Button>
+              )}
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-4">
+            {/* Logros */}
+            <Card className="p-4">
+              <h2 className="text-lg font-semibold mb-4">Logros</h2>
+              <div className="space-y-2">
+                {team.achievements.map((achievement, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <Trophy className="h-3 w-3 text-yellow-500 flex-shrink-0" />
+                    <p className="text-xs">{achievement}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Próximos torneos */}
+            <Card className="p-4">
+              <h2 className="text-lg font-semibold mb-4">Próximos torneos</h2>
+              <div className="space-y-3">
+                {team.upcomingTournaments.map((tournament) => (
+                  <div 
+                    key={tournament.id}
+                    className="p-2 rounded-lg bg-secondary cursor-pointer hover:bg-secondary/80"
+                    onClick={() => navigate(`/tournaments/${tournament.id}`)}
+                  >
+                    <p className="text-sm font-medium">{tournament.name}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <Calendar className="h-3 w-3" />
+                        {tournament.date}
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <MapPin className="h-3 w-3" />
+                        {tournament.location}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
           </div>
         </div>
       </div>
