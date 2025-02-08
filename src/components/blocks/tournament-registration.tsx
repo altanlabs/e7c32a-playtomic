@@ -26,9 +26,7 @@ function Team({ name, players, maxPlayers, tournamentId }: TeamProps) {
   const navigate = useNavigate()
   
   const handleJoinTeam = () => {
-    // Redirigir con los parámetros necesarios
     navigate(`/join-as-player?team=${encodeURIComponent(name)}&tournament=${tournamentId}`)
-    toast.success("Completando registro como jugador...")
   }
 
   return (
@@ -114,17 +112,12 @@ export function TournamentRegistration({
   const handleRegisterTeam = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      // Aquí iría la lógica para registrar el equipo
-      // Por ahora simulamos el registro
-      toast.success("¡Equipo registrado correctamente!")
       setIsRegisterTeamOpen(false)
       navigate(`/teams/create?tournament=${tournamentId}`, {
-        state: {
-          teamData: teamData
-        }
+        state: { teamData }
       })
     } catch (error) {
-      toast.error("Error al registrar el equipo")
+      toast.error("Error al procesar el registro")
     }
   }
 
@@ -201,7 +194,7 @@ export function TournamentRegistration({
                 />
               </div>
               <Button type="submit" className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
-                Inscribir equipo
+                Continuar registro
               </Button>
             </form>
           </DialogContent>
