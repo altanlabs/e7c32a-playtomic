@@ -1,228 +1,204 @@
 import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card } from "@/components/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+
+const formSchema = z.object({
+  teamName: z.string().min(2, {
+    message: "El nombre del equipo debe tener al menos 2 caracteres.",
+  }),
+  captainName: z.string().min(2, {
+    message: "El nombre del capitán debe tener al menos 2 caracteres.",
+  }),
+  phone: z.string().min(9, {
+    message: "Introduce un número de teléfono válido.",
+  }),
+  email: z.string().email({
+    message: "Introduce un email válido.",
+  }),
+  teamSize: z.enum(["3", "4"], {
+    required_error: "Debes seleccionar el tamaño del equipo.",
+  }),
+  acceptRules: z.boolean().refine((val) => val === true, {
+    message: "Debes aceptar el reglamento del torneo.",
+  }),
+})
 
 export default function JoinTournamentPage() {
-  const [selectedTab, setSelectedTab] = useState("team")
+  const [searchParams] = useSearchParams()
+  const tournamentId = searchParams.get("id")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      teamName: "",
+      captainName: "",
+      phone: "",
+      email: "",
+      teamSize: "3",
+      acceptRules: false,
+    },
+  })
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true)
+    try {
+      console.log(values)
+      // Aquí iría la lógica para enviar los datos al backend
+      alert("¡Inscripción realizada con éxito!")
+    } catch (error) {
+      console.error(error)
+      alert("Error al realizar la inscripción")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Apúntate al torneo</h1>
-        
-        <Tabs defaultValue="team" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="team">Apuntarme como equipo</TabsTrigger>
-            <TabsTrigger value="player">Apuntarme como jugador</TabsTrigger>
-          </TabsList>
+    <div className="container max-w-2xl mx-auto px-4 py-8">
+      <Card className="p-6">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold mb-2">Inscripción al torneo</h1>
+          <p className="text-muted-foreground">
+            Rellena el formulario para inscribir a tu equipo
+          </p>
+        </div>
 
-          <TabsContent value="team">
-            <Card>
-              <CardHeader>
-                <CardTitle>Registro de equipo</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-6">
-                  {/* Información del equipo */}
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Nombre del equipo
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full p-2 rounded-md border bg-background"
-                        placeholder="Nombre de tu equipo"
-                      />
-                    </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="teamName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre del equipo</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Los Invencibles" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Ciudad
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full p-2 rounded-md border bg-background"
-                        placeholder="Ciudad del equipo"
-                      />
-                    </div>
+            <FormField
+              control={form.control}
+              name="captainName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre del capitán</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Juan Pérez" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                    {/* Jugadores del equipo */}
-                    <div className="space-y-4 pt-4 border-t">
-                      <h3 className="font-medium">Jugadores (mínimo 3, máximo 4)</h3>
-                      
-                      {[1, 2, 3, 4].map((num) => (
-                        <div key={num} className="grid grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">
-                              Jugador {num} - Nombre
-                            </label>
-                            <input
-                              type="text"
-                              className="w-full p-2 rounded-md border bg-background"
-                              placeholder="Nombre completo"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">
-                              DNI
-                            </label>
-                            <input
-                              type="text"
-                              className="w-full p-2 rounded-md border bg-background"
-                              placeholder="DNI/NIE"
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Teléfono</FormLabel>
+                    <FormControl>
+                      <Input type="tel" placeholder="666555444" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                    {/* Información de contacto */}
-                    <div className="space-y-4 pt-4 border-t">
-                      <h3 className="font-medium">Información de contacto</h3>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          className="w-full p-2 rounded-md border bg-background"
-                          placeholder="Email de contacto"
-                        />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="tu@email.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={form.control}
+              name="teamSize"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tamaño del equipo</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex gap-4"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="3" id="team-3" />
+                        <label htmlFor="team-3">3 jugadores</label>
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Teléfono
-                        </label>
-                        <input
-                          type="tel"
-                          className="w-full p-2 rounded-md border bg-background"
-                          placeholder="Teléfono de contacto"
-                        />
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="4" id="team-4" />
+                        <label htmlFor="team-4">4 jugadores</label>
                       </div>
-                    </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="acceptRules"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Acepto el reglamento del torneo y las condiciones de participación
+                    </FormLabel>
                   </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                  <Button 
-                    type="submit"
-                    className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
-                  >
-                    Inscribir equipo
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="player">
-            <Card>
-              <CardHeader>
-                <CardTitle>Registro individual</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-6">
-                  {/* Información personal */}
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Nombre completo
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full p-2 rounded-md border bg-background"
-                        placeholder="Tu nombre"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        DNI/NIE
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full p-2 rounded-md border bg-background"
-                        placeholder="DNI/NIE"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Fecha de nacimiento
-                        </label>
-                        <input
-                          type="date"
-                          className="w-full p-2 rounded-md border bg-background"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Posición preferida
-                        </label>
-                        <select className="w-full p-2 rounded-md border bg-background">
-                          <option value="">Selecciona una posición</option>
-                          <option value="base">Base</option>
-                          <option value="escolta">Escolta</option>
-                          <option value="alero">Alero</option>
-                          <option value="ala-pivot">Ala-Pívot</option>
-                          <option value="pivot">Pívot</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Experiencia */}
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Experiencia
-                      </label>
-                      <select className="w-full p-2 rounded-md border bg-background">
-                        <option value="">Selecciona tu nivel</option>
-                        <option value="principiante">Principiante</option>
-                        <option value="intermedio">Intermedio</option>
-                        <option value="avanzado">Avanzado</option>
-                        <option value="profesional">Profesional</option>
-                      </select>
-                    </div>
-
-                    {/* Información de contacto */}
-                    <div className="space-y-4 pt-4 border-t">
-                      <h3 className="font-medium">Información de contacto</h3>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          className="w-full p-2 rounded-md border bg-background"
-                          placeholder="Email de contacto"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Teléfono
-                        </label>
-                        <input
-                          type="tel"
-                          className="w-full p-2 rounded-md border bg-background"
-                          placeholder="Teléfono de contacto"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <Button 
-                    type="submit"
-                    className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
-                  >
-                    Inscribirme como jugador
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
+            <div className="pt-4">
+              <Button 
+                type="submit" 
+                className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Enviando..." : "Completar inscripción"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </Card>
     </div>
   )
 }
