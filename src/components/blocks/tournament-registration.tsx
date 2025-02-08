@@ -4,6 +4,12 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import { Users, UserPlus } from "lucide-react"
+import { useNavigate } from "react-router-dom"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useState } from "react"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
 
 interface TeamProps {
   name: string
@@ -16,6 +22,11 @@ interface TeamProps {
 }
 
 function Team({ name, players, maxPlayers }: TeamProps) {
+  const handleJoinTeam = () => {
+    // Aquí iría la lógica para unirse al equipo
+    toast.success("Solicitud enviada correctamente")
+  }
+
   return (
     <Card className="mb-4">
       <CardHeader>
@@ -47,7 +58,7 @@ function Team({ name, players, maxPlayers }: TeamProps) {
           {/* Espacios vacíos */}
           {players.length < maxPlayers && (
             <div className="mt-4">
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={handleJoinTeam}>
                 <UserPlus className="mr-2 h-4 w-4" />
                 Unirse al equipo
               </Button>
@@ -77,6 +88,23 @@ export function TournamentRegistration({
   maxTeams, 
   registeredTeams 
 }: TournamentRegistrationProps) {
+  const [isRegisterTeamOpen, setIsRegisterTeamOpen] = useState(false)
+  const [isJoinAsPlayerOpen, setIsJoinAsPlayerOpen] = useState(false)
+
+  const handleRegisterTeam = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Aquí iría la lógica para registrar el equipo
+    toast.success("Equipo registrado correctamente")
+    setIsRegisterTeamOpen(false)
+  }
+
+  const handleJoinAsPlayer = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Aquí iría la lógica para unirse como jugador individual
+    toast.success("Solicitud enviada correctamente")
+    setIsJoinAsPlayerOpen(false)
+  }
+
   return (
     <div className="space-y-6">
       {/* Estado del registro */}
@@ -90,14 +118,77 @@ export function TournamentRegistration({
 
       {/* Opciones de registro */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Button className="w-full">
-          <Users className="mr-2 h-4 w-4" />
-          Registrar equipo completo
-        </Button>
-        <Button variant="secondary" className="w-full">
-          <UserPlus className="mr-2 h-4 w-4" />
-          Unirse como jugador individual
-        </Button>
+        <Dialog open={isRegisterTeamOpen} onOpenChange={setIsRegisterTeamOpen}>
+          <DialogTrigger asChild>
+            <Button className="w-full">
+              <Users className="mr-2 h-4 w-4" />
+              Registrar equipo completo
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Registrar equipo</DialogTitle>
+              <DialogDescription>
+                Completa la información de tu equipo para participar en el torneo
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleRegisterTeam} className="space-y-4">
+              <div>
+                <Label htmlFor="team-name">Nombre del equipo</Label>
+                <Input id="team-name" placeholder="Nombre del equipo" required />
+              </div>
+              <div>
+                <Label htmlFor="captain-name">Nombre del capitán</Label>
+                <Input id="captain-name" placeholder="Nombre del capitán" required />
+              </div>
+              <div>
+                <Label htmlFor="email">Email de contacto</Label>
+                <Input id="email" type="email" placeholder="Email" required />
+              </div>
+              <div>
+                <Label htmlFor="phone">Teléfono de contacto</Label>
+                <Input id="phone" type="tel" placeholder="Teléfono" required />
+              </div>
+              <Button type="submit" className="w-full">Registrar equipo</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={isJoinAsPlayerOpen} onOpenChange={setIsJoinAsPlayerOpen}>
+          <DialogTrigger asChild>
+            <Button variant="secondary" className="w-full">
+              <UserPlus className="mr-2 h-4 w-4" />
+              Unirse como jugador individual
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Unirse como jugador</DialogTitle>
+              <DialogDescription>
+                Completa tus datos para unirte al torneo como jugador individual
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleJoinAsPlayer} className="space-y-4">
+              <div>
+                <Label htmlFor="player-name">Nombre completo</Label>
+                <Input id="player-name" placeholder="Tu nombre" required />
+              </div>
+              <div>
+                <Label htmlFor="player-email">Email</Label>
+                <Input id="player-email" type="email" placeholder="Email" required />
+              </div>
+              <div>
+                <Label htmlFor="player-phone">Teléfono</Label>
+                <Input id="player-phone" type="tel" placeholder="Teléfono" required />
+              </div>
+              <div>
+                <Label htmlFor="player-position">Posición preferida</Label>
+                <Input id="player-position" placeholder="Ej: Base, Alero, Pívot" required />
+              </div>
+              <Button type="submit" className="w-full">Enviar solicitud</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Lista de equipos */}
