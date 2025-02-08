@@ -84,9 +84,9 @@ export function TournamentCard({
   }
 
   return (
-    <Card className="w-full max-w-[400px] mx-auto overflow-hidden hover:shadow-lg transition-all">
+    <Card className="w-full max-w-[350px] mx-auto overflow-hidden hover:shadow-lg transition-all">
       <div 
-        className="relative h-40 sm:h-48 cursor-pointer" 
+        className="relative h-32 sm:h-40 cursor-pointer" 
         onClick={handleViewTournament}
       >
         <img 
@@ -94,52 +94,52 @@ export function TournamentCard({
           alt={name} 
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 right-4 flex gap-2">
-          <Badge variant="secondary" className="whitespace-nowrap text-xs">
+        <div className="absolute top-2 right-2 flex gap-1">
+          <Badge variant="secondary" className="text-[10px] py-0">
             {registrationType === "team" ? "Equipos" : "Individual"}
           </Badge>
-          <Badge className="text-xs">{level}</Badge>
+          <Badge className="text-[10px] py-0">{level}</Badge>
         </div>
       </div>
       
-      <CardHeader className="text-center p-3">
-        <div className="flex flex-col items-center gap-2">
+      <CardHeader className="text-center p-2">
+        <div className="flex flex-col items-center gap-1">
           <CardTitle 
-            className="text-base cursor-pointer hover:text-primary text-center"
+            className="text-sm cursor-pointer hover:text-primary text-center line-clamp-1"
             onClick={handleViewTournament}
           >
             {name}
           </CardTitle>
-          <p className="text-xs text-muted-foreground">{clubName}</p>
-          <Badge variant="destructive" className="text-xs py-0.5">
+          <p className="text-[10px] text-muted-foreground">{clubName}</p>
+          <Badge variant="destructive" className="text-[10px] py-0">
             {price}€
           </Badge>
         </div>
       </CardHeader>
 
-      <CardContent className="p-3 space-y-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+      <CardContent className="p-2 space-y-3">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-center gap-1 text-muted-foreground">
             <MapPin className="w-3 h-3 flex-shrink-0" />
-            <span className="text-xs text-center">{location}</span>
+            <span className="text-[10px] text-center line-clamp-1">{location}</span>
           </div>
-          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+          <div className="flex items-center justify-center gap-1 text-muted-foreground">
             <Calendar className="w-3 h-3 flex-shrink-0" />
-            <span className="text-xs text-center">{date}</span>
+            <span className="text-[10px] text-center">{date}</span>
           </div>
-          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+          <div className="flex items-center justify-center gap-1 text-muted-foreground">
             <Trophy className="w-3 h-3 flex-shrink-0" />
-            <span className="text-xs text-center">Premio: {prizePool}</span>
+            <span className="text-[10px] text-center line-clamp-1">Premio: {prizePool}</span>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs">
+        <div className="space-y-1">
+          <div className="flex justify-between text-[10px]">
             <span>Equipos registrados</span>
             <span className="font-medium">{registeredTeamsCount}/{maxTeams}</span>
           </div>
-          <Progress value={registrationProgress} className="h-1.5" />
-          <p className="text-xs text-muted-foreground flex items-center justify-center gap-1">
+          <Progress value={registrationProgress} className="h-1" />
+          <p className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
             <Users className="w-3 h-3 flex-shrink-0" />
             {spotsLeft} {registrationType === "team" ? "equipos" : "plazas"} disponibles
           </p>
@@ -150,45 +150,45 @@ export function TournamentCard({
             <Dialog open={isRegisterTeamOpen} onOpenChange={setIsRegisterTeamOpen}>
               <DialogTrigger asChild>
                 <Button 
-                  className="bg-[#FFA726] hover:bg-[#FF9800] h-6 text-xs px-2"
+                  className="h-6 text-[10px] px-2 bg-[#FFA726] hover:bg-[#FF9800]"
                 >
                   Inscribir equipo
                 </Button>
               </DialogTrigger>
-              <DialogContent className="w-[90%] max-w-[400px] p-4">
+              <DialogContent className="w-[90%] max-w-[350px] p-3">
                 <DialogHeader>
                   <DialogTitle className="text-sm text-center">
                     Inscribir equipo en {name}
                   </DialogTitle>
-                  <DialogDescription className="text-xs text-center">
+                  <DialogDescription className="text-[10px] text-center">
                     Completa la información de tu equipo
                   </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleRegisterTeam} className="space-y-3">
+                <form onSubmit={handleRegisterTeam} className="space-y-2">
                   <div>
-                    <Label htmlFor="teamName" className="text-xs">Nombre del equipo</Label>
+                    <Label htmlFor="teamName" className="text-[10px]">Nombre del equipo</Label>
                     <Input 
                       id="teamName" 
                       placeholder="Nombre del equipo" 
                       value={teamData.teamName}
                       onChange={handleInputChange}
                       required 
-                      className="h-7 text-xs"
+                      className="h-7 text-[10px]"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="captainName" className="text-xs">Nombre del capitán</Label>
+                    <Label htmlFor="captainName" className="text-[10px]">Nombre del capitán</Label>
                     <Input 
                       id="captainName" 
                       placeholder="Nombre del capitán" 
                       value={teamData.captainName}
                       onChange={handleInputChange}
                       required 
-                      className="h-7 text-xs"
+                      className="h-7 text-[10px]"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email" className="text-xs">Email de contacto</Label>
+                    <Label htmlFor="email" className="text-[10px]">Email de contacto</Label>
                     <Input 
                       id="email" 
                       type="email" 
@@ -196,11 +196,11 @@ export function TournamentCard({
                       value={teamData.email}
                       onChange={handleInputChange}
                       required 
-                      className="h-7 text-xs"
+                      className="h-7 text-[10px]"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-xs">Teléfono de contacto</Label>
+                    <Label htmlFor="phone" className="text-[10px]">Teléfono de contacto</Label>
                     <Input 
                       id="phone" 
                       type="tel" 
@@ -208,7 +208,7 @@ export function TournamentCard({
                       value={teamData.phone}
                       onChange={handleInputChange}
                       required 
-                      className="h-7 text-xs"
+                      className="h-7 text-[10px]"
                     />
                   </div>
                   <div className="flex justify-center gap-2 pt-2">
@@ -216,13 +216,13 @@ export function TournamentCard({
                       type="button" 
                       variant="outline"
                       onClick={() => setIsRegisterTeamOpen(false)}
-                      className="h-6 text-xs px-2"
+                      className="h-6 text-[10px] px-2"
                     >
                       Cancelar
                     </Button>
                     <Button 
                       type="submit"
-                      className="bg-[#FFA726] hover:bg-[#FF9800] h-6 text-xs px-2"
+                      className="h-6 text-[10px] px-2 bg-[#FFA726] hover:bg-[#FF9800]"
                     >
                       Continuar
                     </Button>
@@ -233,14 +233,14 @@ export function TournamentCard({
           ) : (
             <>
               <Button 
-                className="bg-[#FFA726] hover:bg-[#FF9800] h-6 text-xs px-2"
+                className="h-6 text-[10px] px-2 bg-[#FFA726] hover:bg-[#FF9800]"
                 onClick={handleJoinAsPlayer}
               >
                 Unirse como jugador
               </Button>
               <Button 
                 variant="outline"
-                className="h-6 text-xs px-2"
+                className="h-6 text-[10px] px-2"
                 onClick={handleViewTeams}
               >
                 Ver equipos
