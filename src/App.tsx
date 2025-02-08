@@ -1,139 +1,52 @@
-import { Theme } from "@radix-ui/themes";
-import "@radix-ui/themes/styles.css";
-import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "@/theme/theme-provider";
-import RootBoundary from "./components/errors/RootBoundary";
-import { Toaster } from "@/components/ui/sonner";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Toaster } from "@/components/ui/sonner"
+import { ThemeProvider } from "@/theme/theme-provider"
+import Layout from '@/components/layout/Layout'
+import IndexPage from './pages'
+import TournamentsPage from './pages/tournaments'
+import TournamentDetailPage from './pages/tournaments/[id]'
+import CreateTournamentPage from './pages/tournaments/create'
+import TeamsPage from './pages/teams'
+import TeamDetailPage from './pages/teams/[id]'
+import CreateTeamPage from './pages/teams/create'
+import JoinAsPlayerPage from './pages/join-as-player'
+import RankingsPage from './pages/rankings'
+import NotFoundPage from './pages/NotFound'
 
-import Layout from "./layout";
-import Index from "./pages/index";
-import Players from "./pages/players";
-import Tournaments from "./pages/tournaments";
-import CreateTournament from "./pages/tournaments/create";
-import TournamentDetail from "./pages/tournaments/[id]";
-import Courts from "./pages/courts";
-import CourtDetail from "./pages/courts/[id]";
-import BookCourt from "./pages/courts/book";
-import ManageCourt from "./pages/courts/manage";
-import Notifications from "./pages/notifications";
-import NotFound from "./pages/NotFound";
-import { useTheme } from "./theme/use-theme";
-import Teams from "./pages/teams";
-import CreateTeam from "./pages/teams/create";
-import TeamDetail from "./pages/teams/[id]";
-import JoinAsPlayer from "./pages/join-as-player";
-
-const App = () => {
-  const { theme } = useTheme();
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <Layout 
-          showSidebar={true} 
-          showHeader={true} 
-          showFooter={true}
-          header={{
-            title: "Dribla",
-            navigation: [
-              { label: "Jugadores", href: "/players" },
-              { label: "Equipos", href: "/teams" },
-              { label: "Canchas", href: "/courts" },
-              { label: "Torneos", href: "/tournaments" },
-              { label: "Rankings", href: "/rankings" },
-            ],
-            showUserMenu: true,
-            showThemeToggle: true,
-            showNotifications: true,
-          }}
-          footer={{
-            text: "© 2024 Dribla. Todos los derechos reservados.",
-            links: [
-              { label: "Reglas 3x3", href: "/rules" },
-              { label: "Términos", href: "/terms" },
-              { label: "Contacto", href: "/contact" },
-            ],
-          }}
-        />
-      ),
-      errorElement: <RootBoundary />,
-      children: [
-        {
-          index: true,
-          element: <Index />,
-        },
-        {
-          path: "/players",
-          element: <Players />,
-        },
-        {
-          path: "/courts",
-          element: <Courts />,
-        },
-        {
-          path: "/courts/book/:id",
-          element: <BookCourt />,
-        },
-        {
-          path: "/courts/manage/:id",
-          element: <ManageCourt />,
-        },
-        {
-          path: "/courts/:id",
-          element: <CourtDetail />,
-        },
-        {
-          path: "/tournaments",
-          element: <Tournaments />,
-        },
-        {
-          path: "/tournaments/create",
-          element: <CreateTournament />,
-        },
-        {
-          path: "/tournaments/:id",
-          element: <TournamentDetail />,
-        },
-        {
-          path: "/teams",
-          element: <Teams />,
-        },
-        {
-          path: "/teams/create",
-          element: <CreateTeam />,
-        },
-        {
-          path: "/teams/:id",
-          element: <TeamDetail />,
-        },
-        {
-          path: "/join-as-player",
-          element: <JoinAsPlayer />,
-        },
-        {
-          path: "/notifications",
-          element: <Notifications />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ],
-    },
-  ]);
-
+function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <Theme appearance={theme === "system" ? "light" : theme}>
-        <div className={theme}>
-          <RouterProvider router={router} />
-          <Toaster />
-        </div>
-      </Theme>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<IndexPage />} />
+            
+            {/* Torneos */}
+            <Route path="/tournaments" element={<TournamentsPage />} />
+            <Route path="/tournaments/:id" element={<TournamentDetailPage />} />
+            <Route path="/tournaments/create" element={<CreateTournamentPage />} />
+            <Route path="/publicar-evento" element={<CreateTournamentPage />} />
+            
+            {/* Equipos */}
+            <Route path="/teams" element={<TeamsPage />} />
+            <Route path="/teams/:id" element={<TeamDetailPage />} />
+            <Route path="/teams/create" element={<CreateTeamPage />} />
+            
+            {/* Jugadores */}
+            <Route path="/join-as-player" element={<JoinAsPlayerPage />} />
+            
+            {/* Rankings */}
+            <Route path="/rankings" element={<RankingsPage />} />
+            <Route path="/rankings/teams" element={<RankingsPage />} />
+            
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Layout>
+        <Toaster />
+      </Router>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App
