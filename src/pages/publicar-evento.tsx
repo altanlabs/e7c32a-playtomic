@@ -1,334 +1,185 @@
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { 
-  ChevronLeft,
-  Upload,
-  Calendar,
-  Clock,
-  Euro,
-  Check,
-  Users,
-  Trophy,
-  Medal,
-  Target,
-  Shield,
-  Gift,
-  Cloud,
-  Sun
-} from "lucide-react"
-import { Link } from "react-router-dom"
 import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
-export default function PublicarEvento() {
+export default function PublicarEventoPage() {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    
+    try {
+      // Aquí iría la llamada a la API para crear el torneo
+      console.log({
+        name: formData.get("name"),
+        description: formData.get("description"),
+        location: formData.get("location"),
+        date: formData.get("date"),
+        price: formData.get("price"),
+        prizePool: formData.get("prizePool"),
+        maxTeams: formData.get("maxTeams"),
+        level: formData.get("level"),
+        type: formData.get("type")
+      })
+
+      toast.success("¡Torneo creado con éxito!")
+      navigate("/tournaments")
+    } catch (error) {
+      toast.error("Error al crear el torneo")
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/50 backdrop-blur-lg border-b border-white/10">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-white/80 hover:text-white">
-            <ChevronLeft className="h-5 w-5" />
-            <span>Volver</span>
-          </Link>
-          <Button className="bg-[#FFA726] hover:bg-[#FF9800] text-white">
-            Publicar evento
-            <Check className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
-          >
-            <h1 className="text-3xl font-bold">Crear nuevo evento</h1>
-            <p className="text-gray-400">
-              Organiza torneos, partidos especiales y eventos para la comunidad
+    <div className="min-h-screen bg-background px-4 py-6 sm:py-8">
+      <Card className="max-w-md mx-auto">
+        <div className="p-4 sm:p-6">
+          <div className="text-center mb-6">
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">Crear nuevo torneo</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground">
+              Completa la información para publicar tu torneo
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-8"
-          >
-            {/* Información básica */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Información del evento</h2>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Nombre del evento</Label>
-                  <Input
-                    placeholder="Ej: Torneo 3x3 Verano 2024"
-                    className="bg-white/5 border-white/20"
-                  />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Tipo de evento</Label>
-                    <Select>
-                      <SelectTrigger className="bg-white/5 border-white/20">
-                        <SelectValue placeholder="Seleccionar tipo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="torneo">Torneo</SelectItem>
-                        <SelectItem value="liga">Liga</SelectItem>
-                        <SelectItem value="amistoso">Partido amistoso</SelectItem>
-                        <SelectItem value="clinic">Clínic</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Formato</Label>
-                    <Select>
-                      <SelectTrigger className="bg-white/5 border-white/20">
-                        <SelectValue placeholder="Formato de juego" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="3x3">3x3</SelectItem>
-                        <SelectItem value="5x5">5x5</SelectItem>
-                        <SelectItem value="otro">Otro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Descripción</Label>
-                  <Textarea
-                    placeholder="Describe el evento, formato, premios y toda la información relevante..."
-                    className="bg-white/5 border-white/20 min-h-[100px]"
-                  />
-                </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-3">
+              <div>
+                <Label htmlFor="name" className="text-sm">Nombre del torneo</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="Nombre del torneo"
+                  required
+                  className="h-8 text-sm"
+                />
               </div>
-            </div>
 
-            {/* Fecha y hora */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Fecha y hora</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Fecha inicio</Label>
-                  <Input
-                    type="date"
-                    className="bg-white/5 border-white/20"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Hora inicio</Label>
-                  <Input
-                    type="time"
-                    className="bg-white/5 border-white/20"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Fecha fin</Label>
-                  <Input
-                    type="date"
-                    className="bg-white/5 border-white/20"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Hora fin</Label>
-                  <Input
-                    type="time"
-                    className="bg-white/5 border-white/20"
-                  />
-                </div>
+              <div>
+                <Label htmlFor="description" className="text-sm">Descripción</Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  placeholder="Describe el torneo..."
+                  className="h-20 text-sm resize-none"
+                  required
+                />
               </div>
-            </div>
 
-            {/* Ubicación y tipo de pista */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Ubicación y tipo de pista</h2>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Pista</Label>
-                  <Select>
-                    <SelectTrigger className="bg-white/5 border-white/20">
-                      <SelectValue placeholder="Seleccionar pista" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pista1">Pista Municipal Les Corts</SelectItem>
-                      <SelectItem value="pista2">Club Baloncesto Sarrià</SelectItem>
-                      <SelectItem value="pista3">Pista Vall d'Hebron</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Tipo de pista</Label>
-                    <Select>
-                      <SelectTrigger className="bg-white/5 border-white/20">
-                        <SelectValue placeholder="Seleccionar tipo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="cubierta">Cubierta</SelectItem>
-                        <SelectItem value="aire-libre">Al aire libre</SelectItem>
-                        <SelectItem value="semi-cubierta">Semi-cubierta</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Tipo de suelo</Label>
-                    <Select>
-                      <SelectTrigger className="bg-white/5 border-white/20">
-                        <SelectValue placeholder="Seleccionar suelo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="parquet">Parquet</SelectItem>
-                        <SelectItem value="sintetico">Sintético</SelectItem>
-                        <SelectItem value="cemento">Cemento</SelectItem>
-                        <SelectItem value="asfalto">Asfalto</SelectItem>
-                        <SelectItem value="otro">Otro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+              <div>
+                <Label htmlFor="location" className="text-sm">Ubicación</Label>
+                <Input
+                  id="location"
+                  name="location"
+                  placeholder="Dirección del torneo"
+                  required
+                  className="h-8 text-sm"
+                />
               </div>
-            </div>
 
-            {/* Participantes */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Participantes</h2>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Mínimo participantes</Label>
-                    <Input
-                      type="number"
-                      placeholder="Ej: 8"
-                      className="bg-white/5 border-white/20"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Máximo participantes</Label>
-                    <Input
-                      type="number"
-                      placeholder="Ej: 32"
-                      className="bg-white/5 border-white/20"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label>Nivel requerido</Label>
-                  <Select>
-                    <SelectTrigger className="bg-white/5 border-white/20">
-                      <SelectValue placeholder="Seleccionar nivel" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todos">Todos los niveles</SelectItem>
-                      <SelectItem value="principiante">Principiante</SelectItem>
-                      <SelectItem value="intermedio">Intermedio</SelectItem>
-                      <SelectItem value="avanzado">Avanzado</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div>
+                <Label htmlFor="date" className="text-sm">Fecha</Label>
+                <Input
+                  id="date"
+                  name="date"
+                  type="date"
+                  required
+                  className="h-8 text-sm"
+                />
               </div>
-            </div>
 
-            {/* Premios y cuotas */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Premios y cuotas</h2>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Cuota de inscripción (€)</Label>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="price" className="text-sm">Precio inscripción (€)</Label>
                   <Input
+                    id="price"
+                    name="price"
                     type="number"
-                    placeholder="Ej: 20"
-                    className="bg-white/5 border-white/20"
+                    min="0"
+                    placeholder="60"
+                    required
+                    className="h-8 text-sm"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label>Premios</Label>
-                  <Textarea
-                    placeholder="Describe los premios para los ganadores..."
-                    className="bg-white/5 border-white/20 min-h-[100px]"
+                <div>
+                  <Label htmlFor="maxTeams" className="text-sm">Máximo equipos</Label>
+                  <Input
+                    id="maxTeams"
+                    name="maxTeams"
+                    type="number"
+                    min="2"
+                    placeholder="16"
+                    required
+                    className="h-8 text-sm"
                   />
                 </div>
               </div>
-            </div>
 
-            {/* Características */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Características</h2>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { icon: Trophy, label: "Trofeos" },
-                  { icon: Medal, label: "Medallas" },
-                  { icon: Gift, label: "Premios" },
-                  { icon: Shield, label: "Seguro incluido" },
-                  { icon: Target, label: "Árbitros oficiales" },
-                  { icon: Users, label: "Equipos mixtos" },
-                  { icon: Cloud, label: "Plan lluvia" },
-                  { icon: Sun, label: "Plan calor" }
-                ].map((feature) => (
-                  <div
-                    key={feature.label}
-                    className="flex items-center justify-between p-4 rounded-xl bg-white/5"
-                  >
-                    <div className="flex items-center gap-3">
-                      <feature.icon className="h-5 w-5 text-gray-400" />
-                      <span>{feature.label}</span>
-                    </div>
-                    <Switch />
-                  </div>
-                ))}
+              <div>
+                <Label htmlFor="prizePool" className="text-sm">Premio</Label>
+                <Input
+                  id="prizePool"
+                  name="prizePool"
+                  placeholder="1000€ + Trofeos"
+                  required
+                  className="h-8 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="level" className="text-sm">Nivel</Label>
+                <Select name="level" required>
+                  <SelectTrigger className="h-8 text-sm">
+                    <SelectValue placeholder="Selecciona el nivel" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="principiante">Principiante</SelectItem>
+                    <SelectItem value="intermedio">Intermedio</SelectItem>
+                    <SelectItem value="avanzado">Avanzado</SelectItem>
+                    <SelectItem value="profesional">Profesional</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="type" className="text-sm">Tipo de torneo</Label>
+                <Select name="type" required>
+                  <SelectTrigger className="h-8 text-sm">
+                    <SelectValue placeholder="Selecciona el tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="3x3">3x3</SelectItem>
+                    <SelectItem value="5x5">5x5</SelectItem>
+                    <SelectItem value="liga">Liga</SelectItem>
+                    <SelectItem value="copa">Copa</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
-            {/* Imagen del evento */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Imagen del evento</h2>
-              <div className="aspect-[16/9] rounded-xl border-2 border-dashed border-white/20 flex items-center justify-center bg-white/5 hover:bg-white/10 cursor-pointer transition-colors">
-                <div className="text-center space-y-2">
-                  <Upload className="h-8 w-8 mx-auto text-gray-400" />
-                  <div className="text-sm text-gray-400">
-                    Subir imagen del evento
-                  </div>
-                </div>
-              </div>
+            <div className="flex justify-center gap-3 pt-2">
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={() => navigate("/tournaments")}
+                className="h-7 text-xs px-3"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit" 
+                className="h-7 text-xs px-3 bg-[#FFA726] hover:bg-[#FF9800]"
+              >
+                Publicar torneo
+              </Button>
             </div>
-
-          </motion.div>
-
-          {/* Botones de acción */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 pt-8"
-          >
-            <Button
-              className="flex-1 bg-[#FFA726] hover:bg-[#FF9800] text-white"
-            >
-              Publicar evento
-              <Check className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              className="flex-1 bg-white/5 hover:bg-white/10 border-white/20"
-            >
-              Guardar borrador
-            </Button>
-          </motion.div>
+          </form>
         </div>
-      </main>
+      </Card>
     </div>
   )
 }
