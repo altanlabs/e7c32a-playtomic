@@ -56,14 +56,6 @@ export default function TournamentsPage() {
         </Button>
       </div>
 
-      {/* Quick Filters */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-        <Button variant="outline" size="sm">Todos</Button>
-        <Button variant="outline" size="sm">Próximos</Button>
-        <Button variant="outline" size="sm">Este mes</Button>
-        <Button variant="outline" size="sm">Con plazas</Button>
-      </div>
-
       {/* Tournaments Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {tournaments.map((tournament) => (
@@ -90,19 +82,21 @@ export default function TournamentsPage() {
                   <Users className="h-4 w-4 mr-2" />
                   <span>Equipos: {tournament.teams}</span>
                 </div>
-              </div>
-              <div className="mt-4 pt-4 border-t">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">{tournament.price}</span>
-                  <div className="space-x-2">
-                    <Button variant="outline">Ver detalles</Button>
-                    <Link to={`/tournaments/join?id=${tournament.id}`}>
-                      <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
-                        Apuntarme
-                      </Button>
-                    </Link>
-                  </div>
+                <div className="font-semibold text-lg text-foreground">
+                  {tournament.price}
                 </div>
+              </div>
+              <div className="mt-4 pt-4 border-t flex flex-col gap-2">
+                <Link to={`/tournaments/${tournament.id}`}>
+                  <Button variant="outline" className="w-full">
+                    Ver detalles
+                  </Button>
+                </Link>
+                <Link to={`/tournaments/join?id=${tournament.id}`}>
+                  <Button className="w-full bg-[#66BB6A] hover:bg-[#4CAF50]">
+                    Me apunto
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card>
