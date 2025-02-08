@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -20,15 +21,16 @@ const timeSlots = [
 ]
 
 export default function BookingPage() {
-  const [selectedDate, setSelectedDate] = useState<Date>()
-  const [selectedTime, setSelectedTime] = useState<string>()
-  const [step, setStep] = useState(1)
+  const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedTime, setSelectedTime] = useState<string>();
 
   const handleContinue = () => {
-    if (step === 1 && selectedDate && selectedTime) {
-      setStep(2)
+    if (selectedDate && selectedTime) {
+      // Aquí podrías guardar los datos en un estado global o pasarlos como parámetros
+      navigate('/booking/payment');
     }
-  }
+  };
 
   return (
     <div className="container mx-auto py-8">
@@ -36,25 +38,19 @@ export default function BookingPage() {
         {/* Progress Steps */}
         <div className="flex justify-between mb-8">
           <div className="flex items-center">
-            <div className={`rounded-full h-8 w-8 flex items-center justify-center ${
-              step >= 1 ? "bg-[#FFA726] text-white" : "bg-muted text-muted-foreground"
-            }`}>
+            <div className="rounded-full h-8 w-8 flex items-center justify-center bg-[#FFA726] text-white">
               1
             </div>
             <div className="ml-2">Fecha y hora</div>
           </div>
           <div className="flex items-center">
-            <div className={`rounded-full h-8 w-8 flex items-center justify-center ${
-              step >= 2 ? "bg-[#FFA726] text-white" : "bg-muted text-muted-foreground"
-            }`}>
+            <div className="rounded-full h-8 w-8 flex items-center justify-center bg-muted text-muted-foreground">
               2
             </div>
             <div className="ml-2">Pago</div>
           </div>
           <div className="flex items-center">
-            <div className={`rounded-full h-8 w-8 flex items-center justify-center ${
-              step >= 3 ? "bg-[#FFA726] text-white" : "bg-muted text-muted-foreground"
-            }`}>
+            <div className="rounded-full h-8 w-8 flex items-center justify-center bg-muted text-muted-foreground">
               3
             </div>
             <div className="ml-2">Confirmación</div>
