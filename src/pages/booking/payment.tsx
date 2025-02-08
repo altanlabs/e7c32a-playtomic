@@ -1,55 +1,24 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Elements } from '@stripe/react-stripe-js';
-import stripePromise from '@/lib/stripe';
-import { StripePaymentForm } from '@/components/payment/stripe-payment-form';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { CalendarIcon, Clock, CreditCard, Euro } from "lucide-react"
-import { notificationService } from '@/lib/notifications';
+import { useNavigate, useLocation } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
+import { CalendarIcon, Clock, CreditCard } from "lucide-react"
 
-export default function PaymentPage() {
+export default function BookingPaymentPage() {
   const navigate = useNavigate();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const location = useLocation();
+  const { date, time } = location.state || {};
 
-  const handlePaymentSuccess = async () => {
-    setIsProcessing(true);
-    try {
-      // Simular la creación de la reserva en el backend
-      const bookingId = 'booking-' + Date.now();
-      const courtName = 'Pista Central';
-      const bookingDate = new Date('2024-03-15T18:00:00');
-      const bookingTime = '18:00';
-
-      // Enviar confirmación y programar recordatorios
-      await notificationService.sendBookingConfirmation(
-        bookingId,
-        courtName,
-        bookingDate,
-        bookingTime
-      );
-
-      // Redirigir a la página de confirmación
-      navigate('/booking/confirmation');
-    } catch (error) {
-      console.error('Error processing booking:', error);
-    } finally {
-      setIsProcessing(false);
-    }
+  const handlePayment = () => {
+    navigate('/booking/confirmation');
   };
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
         {/* Progress Steps */}
         <div className="flex justify-between mb-8">
           <div className="flex items-center">
-            <div className="rounded-full h-8 w-8 flex items-center justify-center bg-[#FFA726] text-white">
+            <div className="rounded-full h-8 w-8 flex items-center justify-center bg-muted text-muted-foreground">
               1
             </div>
             <div className="ml-2">Fecha y hora</div>
@@ -73,19 +42,58 @@ export default function PaymentPage() {
           <div className="md:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle>Información de pago</CardTitle>
+                <CardTitle>Método de pago</CardTitle>
                 <CardDescription>
-                  Pago seguro con Stripe
+                  Introduce los datos de tu tarjeta
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <Elements stripe={stripePromise}>
-                  <StripePaymentForm
-                    amount={30}
-                    onSuccess={handlePaymentSuccess}
+              <CardContent className="space-y-6">
+                {/* Card Number */}
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Número de tarjeta
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full p-2 rounded-md border bg-background"
+                    placeholder="1234 5678 9012 3456"
                   />
-                </Elements>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Expiry Date */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Fecha de caducidad
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full p-2 rounded-md border bg-background"
+                      placeholder="MM/YY"
+                    />
+                  </div>
+
+                  {/* CVC */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      CVC
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full p-2 rounded-md border bg-background"
+                      placeholder="123"
+                    />
+                  </div>
+                </div>
               </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
+                  onClick={handlePayment}
+                >
+                  Pagar 30€
+                </Button>
+              </CardFooter>
             </Card>
           </div>
 
@@ -101,41 +109,24 @@ export default function PaymentPage() {
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     <span>Fecha</span>
                   </div>
-                  <span className="font-medium">15 marzo 2024</span>
+                  <span className="font-medium">{date || "-"}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <Clock className="mr-2 h-4 w-4" />
                     <span>Hora</span>
                   </div>
-                  <span className="font-medium">18:00</span>
+                  <span className="font-medium">{time || "-"}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <Euro className="mr-2 h-4 w-4" />
-                    <span>Precio</span>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    <span>Total</span>
                   </div>
                   <span className="font-medium">30€</span>
                 </div>
-                <div className="pt-4 border-t">
-                  <div className="flex justify-between items-center font-semibold">
-                    <span>Total</span>
-                    <span>30€</span>
-                  </div>
-                </div>
               </CardContent>
             </Card>
-
-            <div className="mt-4">
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    Pago seguro con cifrado SSL
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </div>
       </div>
