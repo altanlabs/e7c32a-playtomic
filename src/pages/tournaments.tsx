@@ -10,9 +10,9 @@ export default function TournamentsPage() {
       <div className="relative bg-[#0A0F1C] py-16">
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/headers/basketball-tournament.jpg"
-            alt="Basketball Tournament"
-            className="w-full h-full object-cover opacity-20"
+            src="/headers/basketball-hoop.jpg"
+            alt="Basketball Hoop"
+            className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1C]/80 to-[#0A0F1C]" />
         </div>
@@ -74,7 +74,7 @@ export default function TournamentsPage() {
       {/* Tournaments List */}
       <div className="bg-background py-6">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="max-w-[340px] mx-auto md:max-w-none md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Tournament cards will go here */}
           </div>
         </div>
