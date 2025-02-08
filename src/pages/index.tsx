@@ -12,7 +12,7 @@ export default function IndexPage() {
         <div className="relative container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-7xl font-bold mb-6">
-              Dribla, reserva y juega
+              DRIBLA
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Encuentra canchas, jugadores y torneos. Todo en un solo lugar.
