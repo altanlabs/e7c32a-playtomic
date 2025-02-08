@@ -1,257 +1,90 @@
-import { motion } from "framer-motion"
+import { LandingSections } from "@/components/blocks/landing-sections"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown, Trophy, Calendar, Shield } from "lucide-react"
-import { Link, useNavigate } from "react-router-dom"
-import { Input } from "@/components/ui/input"
-import { UpcomingGamesSection } from "@/components/blocks/upcoming-games-section"
-import { TestimonialSection } from "@/components/blocks/testimonial-section"
-
-const features = [
-  {
-    icon: <Calendar className="h-6 w-6 text-[#FFA726]" />,
-    title: "Reserva instantánea",
-    description: "Encuentra y reserva canchas en tiempo real"
-  },
-  {
-    icon: <Users className="h-6 w-6 text-[#FFA726]" />,
-    title: "Encuentra equipo",
-    description: "Únete a equipos o encuentra jugadores para tu partido"
-  },
-  {
-    icon: <Trophy className="h-6 w-6 text-[#FFA726]" />,
-    title: "Torneos",
-    description: "Participa en torneos y compite con los mejores"
-  },
-  {
-    icon: <Shield className="h-6 w-6 text-[#FFA726]" />,
-    title: "Comunidad segura",
-    description: "Jugadores verificados y sistema de valoraciones"
-  }
-]
-
-const stats = [
-  { number: "500+", label: "Partidos organizados" },
-  { number: "1000+", label: "Jugadores activos" },
-  { number: "50+", label: "Torneos realizados" },
-  { number: "100+", label: "Canchas disponibles" }
-]
 
 export default function IndexPage() {
-  const navigate = useNavigate()
-
-  const handleInviteToPlay = () => {
-    navigate('/invite-to-play')
-  }
-
-  const handleJoinGame = () => {
-    navigate('/join-game')
-  }
-
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Hero Section with Dynamic Background */}
-      <section className="relative min-h-[calc(100vh-2.5rem)] flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <div className="relative h-full">
-            <img
-              src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=2071&auto=format&fit=crop"
-              alt="Basketball court"
-              className="w-full h-full object-cover opacity-50"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
-          </div>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-32">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop')] bg-cover bg-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-background to-background/60" />
         </div>
-
-        <div className="container relative z-10 px-3 mx-auto">
-          <div className="max-w-[90rem] mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-8 sm:space-y-12"
-            >
-              <div className="space-y-4">
-                <motion.h1 
-                  className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  Dribla.<br/>
-                  Reserva.<br/>
-                  Juega.
-                </motion.h1>
-              </div>
-              
-              <motion.p 
-                className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                Tu próximo partido está a un clic de distancia
-              </motion.p>
-
-              <motion.div 
-                className="flex flex-col gap-3 max-w-xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Button 
-                    className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-lg transform transition-all duration-300 hover:scale-105"
-                    onClick={handleJoinGame}
-                  >
-                    Unirse a un partido
-                    <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
-                    onClick={handleInviteToPlay}
-                  >
-                    Invitar a jugar
-                  </Button>
-                </div>
-                <Link to="/teams/create">
-                  <Button 
-                    variant="outline" 
-                    className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
-                  >
-                    Inscribir un equipo
-                    <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
-                </Link>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Animated Scroll Indicator */}
-        <motion.div 
-          className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span className="text-xs sm:text-sm text-gray-400">Explora más</span>
-          <ChevronDown className="h-4 w-4 sm:h-6 sm:w-6 text-[#FFA726]" />
-        </motion.div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-black to-gray-900">
-        <div className="container mx-auto px-3">
-          <div className="max-w-[90rem] mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-            >
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="p-6 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  <div className="mb-4">{feature.icon}</div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 text-sm">{feature.description}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+        
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Tu comunidad de baloncesto 3x3
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+              Encuentra canchas, jugadores y torneos. Todo en un solo lugar.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
+                Empezar ahora
+              </Button>
+              <Button size="lg" variant="outline">
+                Ver canchas disponibles
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Upcoming Games Section */}
-      <UpcomingGamesSection />
-
-      {/* Testimonials Section */}
-      <TestimonialSection />
+      {/* Main Features */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-background to-background/50" />
+        <div className="relative container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">
+              Todo lo que necesitas para jugar 3x3
+            </h2>
+            <p className="text-muted-foreground">
+              Gestiona tus partidos y encuentra jugadores de forma fácil y rápida
+            </p>
+          </div>
+          
+          <LandingSections />
+        </div>
+      </section>
 
       {/* Stats Section */}
-      <section className="py-16 sm:py-24 bg-black">
-        <div className="container mx-auto px-3">
-          <div className="max-w-[90rem] mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-8"
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
-                >
-                  <div className="text-3xl sm:text-4xl font-bold text-[#FFA726] mb-2">{stat.number}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
+      <section className="py-20 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-bold text-[#FFA726] mb-2">150+</div>
+              <div className="text-muted-foreground">Canchas disponibles</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-[#66BB6A] mb-2">2,500+</div>
+              <div className="text-muted-foreground">Jugadores activos</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-[#42A5F5] mb-2">50+</div>
+              <div className="text-muted-foreground">Torneos organizados</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-[#EC407A] mb-2">98%</div>
+              <div className="text-muted-foreground">Usuarios satisfechos</div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-24 bg-[#FFA726]">
-        <div className="container mx-auto px-3">
-          <div className="max-w-[90rem] mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center space-y-6"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                ¿Listo para jugar?
-              </h2>
-              <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                Únete a la comunidad de baloncesto 3x3 más grande de España
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button 
-                  className="w-full sm:w-auto bg-white text-[#FFA726] hover:bg-white/90"
-                  onClick={handleJoinGame}
-                >
-                  Buscar partido
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full sm:w-auto border-white text-white hover:bg-white/20"
-                  onClick={handleInviteToPlay}
-                >
-                  Invitar a jugar
-                </Button>
-              </div>
-            </motion.div>
-          </div>
+      <section className="py-20 bg-[#0A0F1C]">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            ¿Listo para empezar a jugar?
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Únete a la comunidad de baloncesto 3x3 más grande de España y empieza a disfrutar del mejor baloncesto urbano.
+          </p>
+          <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
+            Crear cuenta gratis
+          </Button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-4 sm:py-8 bg-black border-t border-white/10">
-        <div className="container mx-auto px-3">
-          <div className="max-w-[90rem] mx-auto">
-            <p className="text-xs sm:text-sm text-gray-400 text-center">
-              Hecho con <span className="font-bold">altan</span>
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
