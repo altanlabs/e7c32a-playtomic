@@ -11,8 +11,7 @@ export default function TournamentsPage() {
       date: "15-20 Marzo 2024",
       location: "Barcelona",
       teams: "16/32",
-      price: "150€",
-      image: "/sports/basketball-3x3.svg"
+      price: "150",
     },
     {
       id: 2,
@@ -20,8 +19,7 @@ export default function TournamentsPage() {
       date: "1-5 Julio 2024",
       location: "Madrid",
       teams: "8/16",
-      price: "100€",
-      image: "/sports/basketball-3x3.svg"
+      price: "100",
     },
     // Más torneos aquí
   ]
