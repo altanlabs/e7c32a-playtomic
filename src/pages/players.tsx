@@ -50,7 +50,7 @@ export default function PlayersPage() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative bg-[#0A0F1C] py-8">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-6">
             <h1 className="text-2xl sm:text-4xl font-bold mb-3">
               Jugadores
@@ -64,7 +64,7 @@ export default function PlayersPage() {
 
       {/* Search and Filters Section - Fixed below hero */}
       <div className="sticky top-0 z-10 bg-[#0A0F1C] shadow-lg">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-6 py-4">
           {/* Search Bar */}
           <div className="relative mb-4">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
@@ -107,10 +107,10 @@ export default function PlayersPage() {
       </div>
 
       {/* Players List */}
-      <div className="container mx-auto py-6">
+      <div className="container mx-auto py-6 px-6">
         {/* Mobile view (1 column, centered) */}
         <div className="md:hidden flex flex-col items-center">
-          <div className="w-[90%] max-w-[300px] space-y-3">
+          <div className="w-full max-w-[320px] space-y-3">
             {players.map((player) => (
               <div key={player.id}>
                 <PlayerCard {...player} />
