@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CalendarIcon, Clock, Euro } from "lucide-react"
+import { CalendarIcon, Clock, Euro, Users } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function BookingPage() {
   return (
@@ -70,6 +71,20 @@ export default function BookingPage() {
                       ))}
                     </div>
                   </div>
+
+                  {/* Me apunto button */}
+                  <div className="pt-4 border-t">
+                    <Link to="/join-game">
+                      <Button 
+                        className="w-full bg-[#66BB6A] hover:bg-[#4CAF50] mb-2"
+                      >
+                        Me apunto al partido
+                      </Button>
+                    </Link>
+                    <p className="text-sm text-muted-foreground text-center">
+                      ¿Buscas equipo o jugadores? Apúntate al partido
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -95,6 +110,13 @@ export default function BookingPage() {
                     <span>Hora</span>
                   </div>
                   <span className="font-medium">-</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <Users className="mr-2 h-4 w-4" />
+                    <span>Jugadores apuntados</span>
+                  </div>
+                  <span className="font-medium">0/6</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
