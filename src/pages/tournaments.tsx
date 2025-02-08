@@ -67,37 +67,43 @@ export default function TournamentsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="space-y-8">
+    <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="space-y-6 sm:space-y-8">
         {/* Encabezado */}
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">Torneos</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2">Torneos</h1>
             <p className="text-muted-foreground">
               Encuentra y participa en torneos 3x3 cerca de ti
             </p>
           </div>
-          <Button onClick={handleCreateTournament}>
+          <Button 
+            onClick={handleCreateTournament}
+            className="w-full sm:w-auto"
+          >
             <PlusCircle className="mr-2 h-4 w-4" />
             Organizar torneo
           </Button>
         </div>
 
         {/* Filtros */}
-        <TournamentFilters onFilterChange={handleFilterChange} />
+        <div className="w-full max-w-3xl mx-auto">
+          <TournamentFilters onFilterChange={handleFilterChange} />
+        </div>
 
         {/* Lista de torneos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {tournaments.map((tournament) => (
-            <TournamentCard 
-              key={tournament.id} 
-              {...tournament} 
-            />
+            <div key={tournament.id} className="flex justify-center">
+              <div className="w-full max-w-md">
+                <TournamentCard {...tournament} />
+              </div>
+            </div>
           ))}
         </div>
 
         {/* Estado de búsqueda */}
-        <div className="text-center text-muted-foreground">
+        <div className="text-center text-muted-foreground py-4">
           Mostrando {tournaments.length} torneos disponibles
         </div>
       </div>
