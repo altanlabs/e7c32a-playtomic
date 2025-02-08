@@ -13,20 +13,20 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="relative min-h-screen">
-      {/* Mobile sidebar */}
-      <div className="sticky top-0 z-50 flex h-12 items-center justify-between border-b bg-background px-4 lg:hidden">
+      {/* Mobile header */}
+      <header className="sticky top-0 z-50 flex h-10 items-center justify-between border-b bg-background px-3 lg:hidden">
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
+            <Button variant="ghost" size="icon" className="h-6 w-6">
               <Menu className="h-4 w-4" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-64 p-0">
+          <SheetContent side="left" className="w-[80%] max-w-[250px] p-0">
             <AppSidebar />
           </SheetContent>
         </Sheet>
-        <div className="text-sm font-medium">Altan</div>
-      </div>
+        <div className="text-xs font-medium">Altan</div>
+      </header>
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col lg:border-r">
@@ -35,7 +35,7 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Main content */}
       <div className="lg:pl-64">
-        <main className="min-h-screen bg-background">
+        <main className="min-h-[calc(100vh-2.5rem)] bg-background">
           {children}
         </main>
       </div>
