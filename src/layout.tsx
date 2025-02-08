@@ -8,71 +8,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Bell, Settings, LogOut } from "lucide-react";
+import { Bell, Settings, LogOut, Menu } from "lucide-react";
 import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/theme/use-theme";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface HeaderAction {
-  icon: React.ReactNode;
-  label: string;
-  onClick?: () => void;
-}
-
-interface HeaderProps {
-  title?: string;
-  navigation?: NavItem[];
-  actions?: HeaderAction[];
-  showNotifications?: boolean;
-  showUserMenu?: boolean;
-  showThemeToggle?: boolean;
-  userMenuItems?: HeaderAction[];
-  avatarSrc?: string;
-  avatarFallback?: string;
-}
-
-interface FooterProps {
-  text?: string;
-  links?: Array<{ label: string; href: string }>;
-}
-
-interface SidebarItem {
-  label: string;
-  href: string;
-  icon?: React.ReactNode;
-  items?: SidebarItem[];
-}
-
-interface SidebarProps {
-  items: SidebarItem[];
-  defaultOpen?: boolean;
-  companyName?: string;
-  logo?: React.ReactNode;
-  footerComponent?: React.ReactNode;
-}
-
-interface LayoutProps {
-  showSidebar?: boolean;
-  showHeader?: boolean;
-  showFooter?: boolean;
-  sidebarConfig?: SidebarProps;
-  header?: HeaderProps | false;
-  footer?: FooterProps | false;
-}
-
-const DefaultNavigation: NavItem[] = [
-  { label: "Canchas", href: "/courts" },
+const DefaultNavigation = [
+  { label: "Invitar a jugar", href: "/invite-to-play" },
+  { label: "Unirse a partido", href: "/join-game" },
   { label: "Rankings", href: "/rankings" },
   { label: "Torneos", href: "/tournaments" },
 ];
 
-const DefaultHeader: HeaderProps = {
+const DefaultHeader = {
   title: "Dribla",
   navigation: DefaultNavigation,
   showNotifications: true,
@@ -85,7 +42,7 @@ const DefaultHeader: HeaderProps = {
   avatarFallback: "JD",
 };
 
-const DefaultFooter: FooterProps = {
+const DefaultFooter = {
   text: "© 2024 Dribla. Todos los derechos reservados.",
   links: [
     { label: "Reglas 3x3", href: "/rules" },
@@ -101,10 +58,11 @@ export default function Layout({
   sidebarConfig,
   header = DefaultHeader,
   footer = DefaultFooter,
-}: LayoutProps) {
+}) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const initialThemeSet = useRef(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     if (initialThemeSet.current) return;
@@ -138,15 +96,46 @@ export default function Layout({
           <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-14 items-center">
               <div className="flex items-center gap-8 flex-1">
+                {/* Menu Button for Mobile */}
+                <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                  <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon" className="md:hidden">
+                      <Menu className="h-5 w-5" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left">
+                    <SheetHeader>
+                      <SheetTitle>Menu</SheetTitle>
+                    </SheetHeader>
+                    <nav className="flex flex-col gap-4 mt-4">
+                      {header.navigation?.map((item, index) => (
+                        <Link
+                          key={index}
+                          to={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className={`text-lg py-2 transition-colors hover:text-primary ${
+                            location.pathname === item.href
+                              ? "text-primary font-medium"
+                              : "text-muted-foreground"
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </nav>
+                  </SheetContent>
+                </Sheet>
+
+                {/* Logo/Title */}
                 {header.title && (
                   <Link to="/" className="flex items-center gap-2">
                     <span className="text-xl font-bold">{header.title}</span>
                   </Link>
                 )}
 
-                {/* Navigation Links */}
+                {/* Navigation Links - Hidden on Mobile */}
                 {header.navigation && (
-                  <nav className="flex items-center gap-6">
+                  <nav className="hidden md:flex items-center gap-6">
                     {header.navigation.map((item, index) => (
                       <Link
                         key={index}
@@ -180,18 +169,6 @@ export default function Layout({
                     {theme === "dark" ? <SunIcon /> : <MoonIcon />}
                   </Toggle>
                 )}
-
-                {/* Custom Actions */}
-                {header.actions?.map((action, index) => (
-                  <Button
-                    key={index}
-                    variant="ghost"
-                    size="icon"
-                    onClick={action.onClick}
-                  >
-                    {action.icon}
-                  </Button>
-                ))}
 
                 {/* Notifications */}
                 {header.showNotifications && (
