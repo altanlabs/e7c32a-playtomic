@@ -19,14 +19,16 @@ interface TeamProps {
     position: string
   }[]
   maxPlayers: number
+  tournamentId: string
 }
 
-function Team({ name, players, maxPlayers }: TeamProps) {
+function Team({ name, players, maxPlayers, tournamentId }: TeamProps) {
   const navigate = useNavigate()
   
   const handleJoinTeam = () => {
-    navigate("/join-as-player")
-    toast.success("Redirigiendo al formulario de registro...")
+    // Redirigir con los parámetros necesarios
+    navigate(`/join-as-player?team=${encodeURIComponent(name)}&tournament=${tournamentId}`)
+    toast.success("Completando registro como jugador...")
   }
 
   return (
@@ -94,21 +96,40 @@ export function TournamentRegistration({
 }: TournamentRegistrationProps) {
   const navigate = useNavigate()
   const [isRegisterTeamOpen, setIsRegisterTeamOpen] = useState(false)
+  const [teamData, setTeamData] = useState({
+    teamName: "",
+    captainName: "",
+    email: "",
+    phone: ""
+  })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target
+    setTeamData(prev => ({
+      ...prev,
+      [id]: value
+    }))
+  }
 
   const handleRegisterTeam = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       // Aquí iría la lógica para registrar el equipo
+      // Por ahora simulamos el registro
       toast.success("¡Equipo registrado correctamente!")
       setIsRegisterTeamOpen(false)
-      navigate("/teams")
+      navigate(`/teams/create?tournament=${tournamentId}`, {
+        state: {
+          teamData: teamData
+        }
+      })
     } catch (error) {
       toast.error("Error al registrar el equipo")
     }
   }
 
   const handleViewTeams = () => {
-    navigate("/teams")
+    navigate(`/teams?tournament=${tournamentId}`)
   }
 
   return (
@@ -138,20 +159,46 @@ export function TournamentRegistration({
             </DialogHeader>
             <form onSubmit={handleRegisterTeam} className="space-y-4">
               <div>
-                <Label htmlFor="team-name">Nombre del equipo</Label>
-                <Input id="team-name" placeholder="Nombre del equipo" required />
+                <Label htmlFor="teamName">Nombre del equipo</Label>
+                <Input 
+                  id="teamName" 
+                  placeholder="Nombre del equipo" 
+                  value={teamData.teamName}
+                  onChange={handleInputChange}
+                  required 
+                />
               </div>
               <div>
-                <Label htmlFor="captain-name">Nombre del capitán</Label>
-                <Input id="captain-name" placeholder="Nombre del capitán" required />
+                <Label htmlFor="captainName">Nombre del capitán</Label>
+                <Input 
+                  id="captainName" 
+                  placeholder="Nombre del capitán" 
+                  value={teamData.captainName}
+                  onChange={handleInputChange}
+                  required 
+                />
               </div>
               <div>
                 <Label htmlFor="email">Email de contacto</Label>
-                <Input id="email" type="email" placeholder="Email" required />
+                <Input 
+                  id="email" 
+                  type="email" 
+                  placeholder="Email" 
+                  value={teamData.email}
+                  onChange={handleInputChange}
+                  required 
+                />
               </div>
               <div>
                 <Label htmlFor="phone">Teléfono de contacto</Label>
-                <Input id="phone" type="tel" placeholder="Teléfono" required />
+                <Input 
+                  id="phone" 
+                  type="tel" 
+                  placeholder="Teléfono" 
+                  value={teamData.phone}
+                  onChange={handleInputChange}
+                  required 
+                />
               </div>
               <Button type="submit" className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
                 Inscribir equipo
@@ -177,7 +224,8 @@ export function TournamentRegistration({
             key={index} 
             name={team.name} 
             players={team.players} 
-            maxPlayers={3} 
+            maxPlayers={3}
+            tournamentId={tournamentId}
           />
         ))}
       </div>
