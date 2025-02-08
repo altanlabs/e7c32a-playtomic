@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Search, Users, Trophy, PlusCircle } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Search, Users, Trophy, PlusCircle, UserPlus } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
 import { Team } from "@/types/team"
 
 // Datos de ejemplo - En una implementación real, esto vendría de una API
@@ -187,6 +187,14 @@ const MOCK_TEAMS: Team[] = [
 ]
 
 function TeamCard({ team }: { team: Team }) {
+  const navigate = useNavigate()
+
+  const handleJoinTeam = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate("/join-as-player")
+  }
+
   return (
     <Link to={`/teams/${team.id}`}>
       <Card className="hover:bg-muted/50 transition-colors">
@@ -229,6 +237,17 @@ function TeamCard({ team }: { team: Team }) {
                   <span>{team.players.length} miembros</span>
                 </div>
               </div>
+
+              {team.status === "looking_for_players" && (
+                <Button 
+                  variant="outline" 
+                  className="w-full mt-4 bg-[#FFA726] hover:bg-[#FF9800] text-white"
+                  onClick={handleJoinTeam}
+                >
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Unirse como jugador
+                </Button>
+              )}
             </div>
           </div>
         </CardContent>
@@ -240,6 +259,7 @@ function TeamCard({ team }: { team: Team }) {
 export default function TeamsPage() {
   const [teams] = useState<Team[]>(MOCK_TEAMS)
   const [searchQuery, setSearchQuery] = useState("")
+  const navigate = useNavigate()
 
   const filteredTeams = teams.filter(team =>
     team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -250,19 +270,30 @@ export default function TeamsPage() {
     <div className="container py-10">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Encabezado */}
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-3xl font-bold mb-2">Equipos</h1>
             <p className="text-muted-foreground">
               Encuentra tu equipo o crea uno nuevo
             </p>
           </div>
-          <Link to="/teams/create">
-            <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
+          <div className="flex gap-4 w-full md:w-auto">
+            <Button 
+              className="flex-1 md:flex-none"
+              variant="outline"
+              onClick={() => navigate("/join-as-player")}
+            >
+              <UserPlus className="mr-2 h-4 w-4" />
+              Unirse como jugador
+            </Button>
+            <Button 
+              className="flex-1 md:flex-none bg-[#FFA726] hover:bg-[#FF9800]"
+              onClick={() => navigate("/teams/create")}
+            >
               <PlusCircle className="mr-2 h-4 w-4" />
               Crear equipo
             </Button>
-          </Link>
+          </div>
         </div>
 
         {/* Barra de búsqueda */}
