@@ -39,14 +39,22 @@ export default function CourtsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="relative bg-[#0A0F1C] py-8">
-        <div className="container mx-auto px-4">
+      {/* Hero Section with Background */}
+      <div className="relative bg-[#0A0F1C] py-16">
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="/headers/basketball-court.jpg"
+            alt="Basketball Court"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1C]/80 to-[#0A0F1C]" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-6">
             <h1 className="text-2xl sm:text-4xl font-bold mb-3">
               Reserva tu aro
             </h1>
-            <p className="text-muted-foreground text-base sm:text-lg mb-4">
+            <p className="text-muted-foreground text-base sm:text-lg mb-6">
               Encuentra y reserva las mejores canchas de baloncesto
             </p>
             <Link to="/clubs/publish">
