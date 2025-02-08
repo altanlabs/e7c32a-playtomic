@@ -1,144 +1,97 @@
-import { TournamentCard } from "@/components/blocks/tournament-card"
 import { Button } from "@/components/ui/button"
-import { PlusCircle, Search } from "lucide-react"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-// Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_TOURNAMENTS = [
-  {
-    id: "1",
-    name: "Torneo Verano 3x3",
-    clubName: "Club Deportivo Central",
-    location: "Pista Central - Madrid",
-    date: "15 de Julio, 2024",
-    price: 60,
-    prizePool: "1000€ + Trofeos",
-    maxTeams: 16,
-    registeredTeams: 10,
-    registrationType: "team",
-    level: "Avanzado",
-    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
-  },
-  {
-    id: "2",
-    name: "Liga Amateur 3x3",
-    clubName: "Urban Court Downtown",
-    location: "Plaza del Deporte - Barcelona",
-    date: "Todos los Sábados",
-    price: 40,
-    prizePool: "500€ por jornada",
-    maxTeams: 24,
-    registeredTeams: 15,
-    registrationType: "individual",
-    level: "Intermedio",
-    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
-  },
-  {
-    id: "3",
-    name: "Torneo Nocturno",
-    clubName: "The Cage",
-    location: "Complejo Deportivo Sur - Valencia",
-    date: "22 de Agosto, 2024",
-    price: 75,
-    prizePool: "1500€ + Equipamiento",
-    maxTeams: 12,
-    registeredTeams: 8,
-    registrationType: "team",
-    level: "Pro",
-    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
-  }
-] as const
+import { Card } from "@/components/ui/card"
+import { Link } from "react-router-dom"
+import { Search, Filter, Calendar, MapPin, Users } from "lucide-react"
 
 export default function TournamentsPage() {
-  const navigate = useNavigate()
-  const [searchTerm, setSearchTerm] = useState("")
-  const [levelFilter, setLevelFilter] = useState("all")
-  const [typeFilter, setTypeFilter] = useState("all")
-  const [tournaments] = useState(MOCK_TOURNAMENTS)
-
-  const handleCreateTournament = () => {
-    navigate("/publicar-evento")
-  }
-
-  const filteredTournaments = tournaments.filter(tournament => {
-    const matchesSearch = tournament.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         tournament.location.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesLevel = levelFilter === "all" || tournament.level === levelFilter
-    const matchesType = typeFilter === "all" || tournament.registrationType === typeFilter
-    return matchesSearch && matchesLevel && matchesType
-  })
+  const tournaments = [
+    {
+      id: 1,
+      name: "Liga 3x3 Barcelona",
+      date: "15-20 Marzo 2024",
+      location: "Barcelona",
+      teams: "16/32",
+      price: "150€",
+      image: "/sports/basketball-3x3.svg"
+    },
+    {
+      id: 2,
+      name: "Torneo Verano Madrid",
+      date: "1-5 Julio 2024",
+      location: "Madrid",
+      teams: "8/16",
+      price: "100€",
+      image: "/sports/basketball-3x3.svg"
+    },
+    // Añade más torneos aquí
+  ]
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-[1200px] mx-auto px-3 py-4">
-        <div className="flex flex-col items-center space-y-4">
-          {/* Encabezado */}
-          <div className="w-full text-center max-w-xl mx-auto">
-            <h1 className="text-lg sm:text-2xl font-bold mb-1">Torneos</h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-              Encuentra y participa en torneos 3x3 cerca de ti
-            </p>
-            <Button 
-              onClick={handleCreateTournament}
-              className="h-7 text-xs px-3 bg-[#FFA726] hover:bg-[#FF9800]"
-            >
-              <PlusCircle className="mr-2 h-3 w-3" />
-              Organizar torneo
-            </Button>
-          </div>
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Torneos</h1>
+        <Link to="/tournaments/create">
+          <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
+            Crear torneo
+          </Button>
+        </Link>
+      </div>
 
-          {/* Filtros */}
-          <div className="w-full max-w-3xl space-y-2">
-            <div className="relative">
-              <Search className="absolute left-2 top-1.5 h-3 w-3 text-muted-foreground" />
-              <Input
-                placeholder="Buscar torneos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 h-7 text-xs"
-              />
-            </div>
-            <div className="flex gap-2">
-              <Select value={levelFilter} onValueChange={setLevelFilter}>
-                <SelectTrigger className="h-7 text-xs flex-1">
-                  <SelectValue placeholder="Nivel" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos los niveles</SelectItem>
-                  <SelectItem value="Principiante">Principiante</SelectItem>
-                  <SelectItem value="Intermedio">Intermedio</SelectItem>
-                  <SelectItem value="Avanzado">Avanzado</SelectItem>
-                  <SelectItem value="Pro">Pro</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger className="h-7 text-xs flex-1">
-                  <SelectValue placeholder="Tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos los tipos</SelectItem>
-                  <SelectItem value="team">Equipos</SelectItem>
-                  <SelectItem value="individual">Individual</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Lista de torneos */}
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
-            {filteredTournaments.map((tournament) => (
-              <TournamentCard key={tournament.id} {...tournament} />
-            ))}
-          </div>
-
-          {/* Estado de búsqueda */}
-          <div className="text-xs text-muted-foreground py-2">
-            Mostrando {filteredTournaments.length} torneos
+      {/* Search and Filters */}
+      <div className="flex flex-wrap gap-4 mb-8">
+        <div className="flex-1">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Buscar torneos..."
+              className="w-full pl-10 p-2 rounded-md border bg-background"
+            />
           </div>
         </div>
+        <Button variant="outline" className="flex items-center gap-2">
+          <Filter className="h-4 w-4" />
+          Filtros
+        </Button>
+      </div>
+
+      {/* Tournaments Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tournaments.map((tournament) => (
+          <Card key={tournament.id} className="overflow-hidden">
+            <div className="aspect-video relative">
+              <img
+                src={tournament.image}
+                alt={tournament.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-4">{tournament.name}</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <div className="flex items-center">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <span>{tournament.date}</span>
+                </div>
+                <div className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  <span>{tournament.location}</span>
+                </div>
+                <div className="flex items-center">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>Equipos: {tournament.teams}</span>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold">{tournament.price}</span>
+                  <Button variant="outline">Ver detalles</Button>
+                </div>
+              </div>
+            </div>
+          </Card>
+        ))}
       </div>
     </div>
   )
