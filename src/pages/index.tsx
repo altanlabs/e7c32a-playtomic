@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown, Trophy, Calendar, Shield } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Input } from "@/components/ui/input"
 import { UpcomingGamesSection } from "@/components/blocks/upcoming-games-section"
 import { TestimonialSection } from "@/components/blocks/testimonial-section"
@@ -37,6 +37,16 @@ const stats = [
 ]
 
 export default function IndexPage() {
+  const navigate = useNavigate()
+
+  const handleInviteToPlay = () => {
+    navigate('/invite-to-play')
+  }
+
+  const handleJoinGame = () => {
+    navigate('/join-game')
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section with Dynamic Background */}
@@ -89,22 +99,20 @@ export default function IndexPage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Link to="/join-game" className="flex-1">
-                    <Button 
-                      className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-lg transform transition-all duration-300 hover:scale-105"
-                    >
-                      Unirse a un partido
-                      <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                    </Button>
-                  </Link>
-                  <Link to="/invite-players" className="flex-1">
-                    <Button 
-                      variant="outline" 
-                      className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
-                    >
-                      Invitar jugadores
-                    </Button>
-                  </Link>
+                  <Button 
+                    className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-lg transform transition-all duration-300 hover:scale-105"
+                    onClick={handleJoinGame}
+                  >
+                    Unirse a un partido
+                    <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
+                    onClick={handleInviteToPlay}
+                  >
+                    Invitar a jugar
+                  </Button>
                 </div>
                 <Link to="/teams/create">
                   <Button 
@@ -214,17 +222,20 @@ export default function IndexPage() {
                 Únete a la comunidad de baloncesto 3x3 más grande de España
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link to="/join-game">
-                  <Button className="w-full sm:w-auto bg-white text-[#FFA726] hover:bg-white/90">
-                    Buscar partido
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link to="/invite-players">
-                  <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/20">
-                    Invitar jugadores
-                  </Button>
-                </Link>
+                <Button 
+                  className="w-full sm:w-auto bg-white text-[#FFA726] hover:bg-white/90"
+                  onClick={handleJoinGame}
+                >
+                  Buscar partido
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full sm:w-auto border-white text-white hover:bg-white/20"
+                  onClick={handleInviteToPlay}
+                >
+                  Invitar a jugar
+                </Button>
               </div>
             </motion.div>
           </div>
