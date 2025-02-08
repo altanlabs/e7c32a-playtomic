@@ -4,6 +4,37 @@ import { Card } from "@/components/ui/card"
 import { MapPin, Users, Trophy, Star } from "lucide-react"
 
 export default function IndexPage() {
+  const features = [
+    {
+      icon: <MapPin className="h-12 w-12 text-[#FFA726]" />,
+      title: "Encuentra canchas",
+      description: "Localiza las mejores canchas cerca de ti",
+      color: "text-[#FFA726]",
+      link: "/courts"
+    },
+    {
+      icon: <Users className="h-12 w-12 text-[#66BB6A]" />,
+      title: "Únete a partidos",
+      description: "Encuentra jugadores y equipos",
+      color: "text-[#66BB6A]",
+      link: "/players"
+    },
+    {
+      icon: <Trophy className="h-12 w-12 text-[#42A5F5]" />,
+      title: "Compite en torneos",
+      description: "Participa en torneos oficiales",
+      color: "text-[#42A5F5]",
+      link: "/tournaments"
+    },
+    {
+      icon: <Star className="h-12 w-12 text-[#EC407A]" />,
+      title: "Mejora tu nivel",
+      description: "Sistema de rankings y estadísticas",
+      color: "text-[#EC407A]",
+      link: "/rankings"
+    }
+  ]
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -37,34 +68,19 @@ export default function IndexPage() {
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="p-6">
-              <MapPin className="h-12 w-12 text-[#FFA726] mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Encuentra canchas</h3>
-              <p className="text-muted-foreground">
-                Localiza las mejores canchas cerca de ti
-              </p>
-            </Card>
-            <Card className="p-6">
-              <Users className="h-12 w-12 text-[#66BB6A] mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Únete a partidos</h3>
-              <p className="text-muted-foreground">
-                Encuentra jugadores y equipos
-              </p>
-            </Card>
-            <Card className="p-6">
-              <Trophy className="h-12 w-12 text-[#42A5F5] mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Compite en torneos</h3>
-              <p className="text-muted-foreground">
-                Participa en torneos oficiales
-              </p>
-            </Card>
-            <Card className="p-6">
-              <Star className="h-12 w-12 text-[#EC407A] mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Mejora tu nivel</h3>
-              <p className="text-muted-foreground">
-                Sistema de rankings y estadísticas
-              </p>
-            </Card>
+            {features.map((feature, index) => (
+              <Link to={feature.link} key={index}>
+                <Card className="p-6 h-full hover:border-primary transition-colors">
+                  <div className="mb-4">{feature.icon}</div>
+                  <h3 className={`text-xl font-semibold mb-2 ${feature.color}`}>
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {feature.description}
+                  </p>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
