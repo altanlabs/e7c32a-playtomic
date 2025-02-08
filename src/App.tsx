@@ -12,6 +12,9 @@ import CreateTeamPage from './pages/teams/create'
 import JoinAsPlayerPage from './pages/join-as-player'
 import RankingsPage from './pages/rankings'
 import NotFoundPage from './pages/NotFound'
+import InvitePlayersPage from './pages/invite-players'
+import JoinGameListPage from './pages/join-game'
+import JoinGameDetailPage from './pages/join-game/[id]'
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
             
             {/* Jugadores */}
             <Route path="/join-as-player" element={<JoinAsPlayerPage />} />
+            <Route path="/invite-players" element={<InvitePlayersPage />} />
+            <Route path="/join-game" element={<JoinGameListPage />} />
+            <Route path="/join-game/:id" element={<JoinGameDetailPage />} />
             
             {/* Rankings */}
             <Route path="/rankings" element={<RankingsPage />} />
