@@ -1,79 +1,72 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-
 export default function BookingPage() {
-  const navigate = useNavigate();
-  const [selectedDate, setSelectedDate] = useState<string>("");
-  const [selectedTime, setSelectedTime] = useState<string>("");
-
-  const timeSlots = [
-    "09:00", "10:00", "11:00", "12:00",
-    "13:00", "14:00", "15:00", "16:00",
-    "17:00", "18:00", "19:00", "20:00"
-  ];
-
-  const handleContinue = () => {
-    if (selectedDate && selectedTime) {
-      navigate('/booking/payment');
-    }
-  };
-
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Reserva tu pista</h1>
-
-        <div className="bg-card rounded-lg border p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Selecciona fecha y hora</h2>
-          
-          {/* Selector de fecha simple */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Fecha</label>
+        <h1 className="text-3xl font-bold mb-8">Reserva tu pista</h1>
+        
+        {/* Contenedor principal */}
+        <div className="grid gap-6">
+          {/* Selector de fecha */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Selecciona la fecha</h2>
             <input
               type="date"
-              className="w-full p-2 rounded-md border bg-background"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
+              className="w-full p-3 border rounded-md bg-transparent"
               min={new Date().toISOString().split('T')[0]}
             />
           </div>
 
           {/* Selector de hora */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Hora</label>
-            <div className="grid grid-cols-4 gap-2">
-              {timeSlots.map((time) => (
-                <Button
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Selecciona la hora</h2>
+            <div className="grid grid-cols-4 gap-3">
+              {[
+                "09:00", "10:00", "11:00", "12:00",
+                "13:00", "14:00", "15:00", "16:00",
+                "17:00", "18:00", "19:00", "20:00"
+              ].map((time) => (
+                <button
                   key={time}
-                  variant={selectedTime === time ? "default" : "outline"}
-                  className={selectedTime === time ? "bg-[#FFA726] hover:bg-[#FF9800]" : ""}
-                  onClick={() => setSelectedTime(time)}
+                  className="p-3 border rounded-md hover:bg-orange-100 dark:hover:bg-orange-900 transition-colors"
                 >
                   {time}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Resumen */}
-        <div className="bg-card rounded-lg border p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Resumen de la reserva</h2>
-          <div className="space-y-2 mb-4">
-            <p>Fecha: {selectedDate || "-"}</p>
-            <p>Hora: {selectedTime || "-"}</p>
-            <p>Precio: 30€</p>
+          {/* Resumen */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Resumen de la reserva</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span>Fecha:</span>
+                <span>-</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Hora:</span>
+                <span>-</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Precio:</span>
+                <span>30€</span>
+              </div>
+              <div className="border-t pt-3 mt-3">
+                <div className="flex justify-between font-semibold">
+                  <span>Total:</span>
+                  <span>30€</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <Button
-          className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
-          disabled={!selectedDate || !selectedTime}
-          onClick={handleContinue}
-        >
-          Continuar al pago
-        </Button>
+          {/* Botón de continuar */}
+          <button
+            className="w-full bg-[#FFA726] hover:bg-[#FF9800] text-white py-3 rounded-md font-medium transition-colors"
+          >
+            Continuar al pago
+          </button>
+        </div>
       </div>
     </div>
   )
