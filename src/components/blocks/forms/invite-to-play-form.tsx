@@ -19,9 +19,11 @@ import {
 } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { es } from "date-fns/locale"
-import { CalendarIcon, MapPin, Users, Clock, Search } from "lucide-react"
+import { CalendarIcon, MapPin, Users, Clock, Search, Euro, Trophy } from "lucide-react"
 import { Command, CommandInput, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 // Mock data - en una aplicación real vendría de una API
 const courts = [
@@ -30,14 +32,20 @@ const courts = [
     name: "Pista 3x3 Les Corts",
     location: "Barcelona",
     type: "3x3",
-    price: "15€/h"
+    price: "15€/h",
+    features: ["Iluminación", "Parking"],
+    rating: 4.8,
+    reviews: 124
   },
   {
     id: 2,
     name: "FIBA 3x3 Court Sarrià",
     location: "Barcelona",
     type: "3x3 Pro",
-    price: "20€/h"
+    price: "20€/h",
+    features: ["Pro", "Vestuarios"],
+    rating: 4.9,
+    reviews: 89
   },
   // ... más canchas
 ]
@@ -48,14 +56,20 @@ const registeredPlayers = [
     name: "Alex García",
     level: "Intermedio",
     avatar: "https://i.pravatar.cc/150?u=alex",
-    games: 24
+    games: 24,
+    rating: 4.5,
+    position: "Base",
+    availability: ["Tardes", "Fines de semana"]
   },
   {
     id: 2,
     name: "María López",
     level: "Avanzado",
     avatar: "https://i.pravatar.cc/150?u=maria",
-    games: 45
+    games: 45,
+    rating: 4.8,
+    position: "Alero",
+    availability: ["Mañanas", "Fines de semana"]
   },
   // ... más jugadores
 ]
@@ -71,6 +85,10 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
   const [selectedCourt, setSelectedCourt] = useState<any>(null)
   const [selectedPlayers, setSelectedPlayers] = useState<any[]>([])
   const [searchTerm, setSearchTerm] = useState("")
+  const [gameType, setGameType] = useState<"friendly" | "competitive">("friendly")
+  const [pricePerPlayer, setPricePerPlayer] = useState("")
+  const [maxPlayers, setMaxPlayers] = useState("6")
+  const [levelRequired, setLevelRequired] = useState("all")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -78,12 +96,17 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
       court: selectedCourt,
       date,
       players: selectedPlayers,
+      gameType,
+      pricePerPlayer,
+      maxPlayers,
+      levelRequired,
       // ... otros datos del formulario
     })
   }
 
   const handleSelectPlayer = (player: any) => {
-    if (!selectedPlayers.find(p => p.id === player.id)) {
+    if (!selectedPlayers.find(p => p.id === player.id) && 
+        selectedPlayers.length < parseInt(maxPlayers)) {
       setSelectedPlayers([...selectedPlayers, player])
     }
   }
@@ -107,6 +130,23 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
             className="space-y-6"
           >
             <div className="space-y-4">
+              <Tabs defaultValue="friendly" onValueChange={(value) => setGameType(value as "friendly" | "competitive")}>
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="friendly">Partido amistoso</TabsTrigger>
+                  <TabsTrigger value="competitive">Partido competitivo</TabsTrigger>
+                </TabsList>
+                <TabsContent value="friendly">
+                  <p className="text-sm text-gray-400 mb-4">
+                    Organiza un partido informal para divertirte y conocer nuevos jugadores
+                  </p>
+                </TabsContent>
+                <TabsContent value="competitive">
+                  <p className="text-sm text-gray-400 mb-4">
+                    Organiza un partido competitivo con jugadores de nivel similar
+                  </p>
+                </TabsContent>
+              </Tabs>
+
               <div className="space-y-2">
                 <Label>Seleccionar cancha</Label>
                 <Select onValueChange={(value) => {
@@ -120,8 +160,11 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                     {courts.map((court) => (
                       <SelectItem key={court.id} value={court.id.toString()}>
                         <div className="flex items-center justify-between w-full">
-                          <span>{court.name}</span>
-                          <span className="text-sm text-gray-400">{court.price}</span>
+                          <div>
+                            <span className="font-medium">{court.name}</span>
+                            <div className="text-sm text-gray-400">{court.location}</div>
+                          </div>
+                          <Badge variant="secondary">{court.price}</Badge>
                         </div>
                       </SelectItem>
                     ))}
@@ -130,17 +173,75 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
               </div>
 
               {selectedCourt && (
-                <div className="bg-white/5 p-4 rounded-lg space-y-2">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-[#FFA726]" />
-                    <span>{selectedCourt.location}</span>
+                <div className="bg-white/5 p-4 rounded-lg space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-[#FFA726]" />
+                      <span>{selectedCourt.location}</span>
+                    </div>
+                    <Badge variant="secondary" className="bg-[#FFA726]">
+                      {selectedCourt.type}
+                    </Badge>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-[#FFA726]" />
-                    <span>{selectedCourt.type}</span>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <Trophy className="h-4 w-4 text-[#FFA726]" />
+                      <span>{selectedCourt.rating} ({selectedCourt.reviews} reseñas)</span>
+                    </div>
+                    <div className="flex gap-2">
+                      {selectedCourt.features.map((feature: string) => (
+                        <Badge key={feature} variant="outline">{feature}</Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Número máximo de jugadores</Label>
+                  <Select value={maxPlayers} onValueChange={setMaxPlayers}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccionar" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="4">4 jugadores</SelectItem>
+                      <SelectItem value="6">6 jugadores</SelectItem>
+                      <SelectItem value="8">8 jugadores</SelectItem>
+                      <SelectItem value="10">10 jugadores</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Precio por jugador</Label>
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      placeholder="0"
+                      value={pricePerPlayer}
+                      onChange={(e) => setPricePerPlayer(e.target.value)}
+                      className="pl-8"
+                    />
+                    <Euro className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Nivel requerido</Label>
+                <Select value={levelRequired} onValueChange={setLevelRequired}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar nivel" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todos los niveles</SelectItem>
+                    <SelectItem value="beginner">Principiante</SelectItem>
+                    <SelectItem value="intermediate">Intermedio</SelectItem>
+                    <SelectItem value="advanced">Avanzado</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
               <div className="space-y-2">
                 <Label>Fecha y hora</Label>
@@ -226,7 +327,15 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                           </Avatar>
                           <div className="flex flex-col">
                             <span className="font-medium">{player.name}</span>
-                            <span className="text-sm text-gray-500">{player.level}</span>
+                            <div className="flex items-center gap-2 text-sm text-gray-400">
+                              <span>{player.level}</span>
+                              <span>•</span>
+                              <span>{player.position}</span>
+                            </div>
+                          </div>
+                          <div className="ml-auto flex items-center gap-2">
+                            <Badge variant="secondary">{player.rating} ★</Badge>
+                            <Badge variant="outline">{player.games} partidos</Badge>
                           </div>
                         </CommandItem>
                       ))}
@@ -235,7 +344,12 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
               </div>
 
               <div className="space-y-2">
-                <Label>Jugadores seleccionados</Label>
+                <div className="flex items-center justify-between">
+                  <Label>Jugadores seleccionados</Label>
+                  <span className="text-sm text-gray-400">
+                    {selectedPlayers.length}/{maxPlayers} jugadores
+                  </span>
+                </div>
                 <div className="space-y-2">
                   {selectedPlayers.map((player) => (
                     <div
@@ -249,16 +363,23 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                         </Avatar>
                         <div className="flex flex-col">
                           <span className="font-medium">{player.name}</span>
-                          <span className="text-sm text-gray-400">{player.level}</span>
+                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <span>{player.level}</span>
+                            <span>•</span>
+                            <span>{player.position}</span>
+                          </div>
                         </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRemovePlayer(player.id)}
-                      >
-                        Eliminar
-                      </Button>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary">{player.rating} ★</Badge>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemovePlayer(player.id)}
+                        >
+                          Eliminar
+                        </Button>
+                      </div>
                     </div>
                   ))}
                 </div>
