@@ -14,6 +14,7 @@ export default function InvitePlayersPage() {
     setIsLoading(true)
     try {
       // Aquí iría la llamada a la API para enviar las invitaciones
+      console.log("Invitaciones enviadas:", data)
       await new Promise(resolve => setTimeout(resolve, 1500)) // Simulación de llamada API
       
       const totalInvites = data.selectedPlayers.length + data.emailInvites.length
@@ -25,6 +26,7 @@ export default function InvitePlayersPage() {
       
       navigate("/join-game")
     } catch (error) {
+      console.error("Error al enviar invitaciones:", error)
       toast({
         title: "Error al enviar las invitaciones",
         description: "Por favor, inténtalo de nuevo más tarde.",
