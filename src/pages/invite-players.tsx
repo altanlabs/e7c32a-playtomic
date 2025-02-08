@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { InvitePlayersForm } from "@/components/blocks/invite-players-form"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
+import { Users, Mail } from "lucide-react"
 
 export default function InvitePlayersPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -12,18 +13,20 @@ export default function InvitePlayersPage() {
   const handleSubmit = async (data: any) => {
     setIsLoading(true)
     try {
-      // Aquí iría la llamada a la API para crear el partido
+      // Aquí iría la llamada a la API para enviar las invitaciones
       await new Promise(resolve => setTimeout(resolve, 1500)) // Simulación de llamada API
       
+      const totalInvites = data.selectedPlayers.length + data.emailInvites.length
+      
       toast({
-        title: "¡Partido creado con éxito!",
-        description: "Los jugadores podrán unirse a tu partido.",
+        title: "¡Invitaciones enviadas!",
+        description: `Se han enviado ${totalInvites} invitaciones correctamente.`,
       })
       
       navigate("/join-game")
     } catch (error) {
       toast({
-        title: "Error al crear el partido",
+        title: "Error al enviar las invitaciones",
         description: "Por favor, inténtalo de nuevo más tarde.",
         variant: "destructive",
       })
@@ -44,8 +47,29 @@ export default function InvitePlayersPage() {
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold">Invitar jugadores</h1>
             <p className="text-gray-400">
-              Crea un partido y encuentra jugadores para completar tu equipo
+              Invita a jugadores registrados o comparte con nuevos jugadores
             </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div className="bg-white/5 p-4 rounded-lg">
+              <div className="flex items-center gap-3 mb-2">
+                <Users className="h-5 w-5 text-[#FFA726]" />
+                <h3 className="font-semibold">Jugadores registrados</h3>
+              </div>
+              <p className="text-sm text-gray-400">
+                Selecciona jugadores que ya están en la plataforma
+              </p>
+            </div>
+            <div className="bg-white/5 p-4 rounded-lg">
+              <div className="flex items-center gap-3 mb-2">
+                <Mail className="h-5 w-5 text-[#FFA726]" />
+                <h3 className="font-semibold">Invitar por email</h3>
+              </div>
+              <p className="text-sm text-gray-400">
+                Invita a nuevos jugadores por email o redes sociales
+              </p>
+            </div>
           </div>
 
           <div className="bg-white/5 p-6 rounded-xl">
