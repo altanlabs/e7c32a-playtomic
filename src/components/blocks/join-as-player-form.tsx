@@ -30,8 +30,8 @@ export default function JoinAsPlayerForm() {
     setIsSubmitting(true)
 
     try {
-      // Aquí iría la llamada a la API para registrar al jugador
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulación
+      // Simulación de envío de datos
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
       toast.success("¡Te has registrado correctamente como jugador!")
       navigate("/teams")
@@ -56,7 +56,6 @@ export default function JoinAsPlayerForm() {
           <Card>
             <CardContent className="pt-6">
               <div className="space-y-6">
-                {/* Información básica */}
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Nombre completo</Label>
@@ -74,6 +73,7 @@ export default function JoinAsPlayerForm() {
                     <Select
                       value={playerData.position}
                       onValueChange={(value) => setPlayerData({ ...playerData, position: value })}
+                      required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecciona tu posición" />
@@ -93,6 +93,7 @@ export default function JoinAsPlayerForm() {
                     <Select
                       value={playerData.level}
                       onValueChange={(value) => setPlayerData({ ...playerData, level: value })}
+                      required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecciona tu nivel" />
@@ -122,6 +123,7 @@ export default function JoinAsPlayerForm() {
                     <Select
                       value={playerData.availability}
                       onValueChange={(value) => setPlayerData({ ...playerData, availability: value })}
+                      required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecciona tu disponibilidad" />
@@ -142,7 +144,7 @@ export default function JoinAsPlayerForm() {
             <Button
               type="button"
               variant="outline"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/teams")}
             >
               Cancelar
             </Button>
