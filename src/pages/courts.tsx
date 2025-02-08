@@ -83,9 +83,9 @@ export default function CourtsPage() {
         </div>
 
         {/* Courts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="flex flex-col items-center gap-4 max-w-md mx-auto">
           {courts.map((court) => (
-            <Card key={court.id} className="overflow-hidden bg-[#0A0F1C] border-border">
+            <Card key={court.id} className="w-full overflow-hidden bg-[#0A0F1C] border-border">
               <div className="aspect-video relative">
                 <img
                   src={court.image}
