@@ -145,11 +145,14 @@ export function TournamentCard({
           </p>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex justify-center gap-3">
           {registrationType === "team" ? (
             <Dialog open={isRegisterTeamOpen} onOpenChange={setIsRegisterTeamOpen}>
               <DialogTrigger asChild>
-                <Button className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
+                <Button 
+                  size="sm"
+                  className="bg-[#FFA726] hover:bg-[#FF9800] px-4 py-1 h-8"
+                >
                   Inscribir equipo
                 </Button>
               </DialogTrigger>
@@ -203,18 +206,20 @@ export function TournamentCard({
                       required 
                     />
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex justify-center gap-3">
                     <Button 
                       type="button" 
-                      variant="outline" 
+                      variant="outline"
+                      size="sm"
                       onClick={() => setIsRegisterTeamOpen(false)}
-                      className="flex-1"
+                      className="px-4 py-1 h-8"
                     >
                       Cancelar
                     </Button>
                     <Button 
-                      type="submit" 
-                      className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
+                      type="submit"
+                      size="sm" 
+                      className="bg-[#FFA726] hover:bg-[#FF9800] px-4 py-1 h-8"
                     >
                       Continuar
                     </Button>
@@ -225,14 +230,16 @@ export function TournamentCard({
           ) : (
             <>
               <Button 
-                className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
+                size="sm"
+                className="bg-[#FFA726] hover:bg-[#FF9800] px-4 py-1 h-8"
                 onClick={handleJoinAsPlayer}
               >
                 Unirse como jugador
               </Button>
               <Button 
-                variant="outline" 
-                className="w-full"
+                variant="outline"
+                size="sm"
+                className="px-4 py-1 h-8"
                 onClick={handleViewTeams}
               >
                 Ver equipos
