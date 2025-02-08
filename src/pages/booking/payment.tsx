@@ -1,30 +1,47 @@
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
+import { Elements } from '@stripe/react-stripe-js';
+import stripePromise from '@/lib/stripe';
+import { StripePaymentForm } from '@/components/payment/stripe-payment-form';
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useNavigate } from "react-router-dom"
 import { CalendarIcon, Clock, CreditCard, Euro } from "lucide-react"
+import { notificationService } from '@/lib/notifications';
 
 export default function PaymentPage() {
-  const navigate = useNavigate()
-  const [isProcessing, setIsProcessing] = useState(false)
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handlePayment = async () => {
-    setIsProcessing(true)
-    // Aquí iría la integración con la pasarela de pago
-    setTimeout(() => {
-      setIsProcessing(false)
-      navigate("/booking/confirmation")
-    }, 2000)
-  }
+  const handlePaymentSuccess = async () => {
+    setIsProcessing(true);
+    try {
+      // Simular la creación de la reserva en el backend
+      const bookingId = 'booking-' + Date.now();
+      const courtName = 'Pista Central';
+      const bookingDate = new Date('2024-03-15T18:00:00');
+      const bookingTime = '18:00';
+
+      // Enviar confirmación y programar recordatorios
+      await notificationService.sendBookingConfirmation(
+        bookingId,
+        courtName,
+        bookingDate,
+        bookingTime
+      );
+
+      // Redirigir a la página de confirmación
+      navigate('/booking/confirmation');
+    } catch (error) {
+      console.error('Error processing booking:', error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <div className="container mx-auto py-8">
@@ -58,40 +75,17 @@ export default function PaymentPage() {
               <CardHeader>
                 <CardTitle>Información de pago</CardTitle>
                 <CardDescription>
-                  Introduce los datos de tu tarjeta
+                  Pago seguro con Stripe
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="cardName">Titular de la tarjeta</Label>
-                  <Input id="cardName" placeholder="Nombre completo" />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="cardNumber">Número de tarjeta</Label>
-                  <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="expiryDate">Fecha de caducidad</Label>
-                    <Input id="expiryDate" placeholder="MM/AA" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="cvv">CVV</Label>
-                    <Input id="cvv" placeholder="123" />
-                  </div>
-                </div>
+              <CardContent>
+                <Elements stripe={stripePromise}>
+                  <StripePaymentForm
+                    amount={30}
+                    onSuccess={handlePaymentSuccess}
+                  />
+                </Elements>
               </CardContent>
-              <CardFooter>
-                <Button
-                  className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
-                  onClick={handlePayment}
-                  disabled={isProcessing}
-                >
-                  {isProcessing ? "Procesando..." : "Pagar 30€"}
-                </Button>
-              </CardFooter>
             </Card>
           </div>
 
