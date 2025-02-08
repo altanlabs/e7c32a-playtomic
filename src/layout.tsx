@@ -15,17 +15,15 @@ import { useTheme } from "@/theme/use-theme";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const DefaultNavigation = [
-  { label: "Inicio", href: "/" },
-  { label: "Invitar a jugar", href: "/invite-to-play" },
-  { label: "Unirse a partido", href: "/join-game" },
-  { label: "Rankings", href: "/rankings" },
+const MainNavigation = [
+  { label: "Jugadores", href: "/players" },
+  { label: "Canchas", href: "/courts" },
   { label: "Torneos", href: "/tournaments" },
+  { label: "Rankings", href: "/rankings" },
 ];
 
 const DefaultHeader = {
   title: "Dribla",
-  navigation: DefaultNavigation,
   showNotifications: true,
   showUserMenu: true,
   showThemeToggle: true,
@@ -75,14 +73,14 @@ export default function Layout({
 
   const NavigationLinks = () => (
     <>
-      {header.navigation?.map((item, index) => (
+      {MainNavigation.map((item, index) => (
         <Link
           key={index}
           to={item.href}
-          className={`text-sm font-medium transition-colors hover:text-primary ${
+          className={`text-lg transition-colors hover:text-white ${
             location.pathname === item.href
-              ? "text-primary"
-              : "text-muted-foreground"
+              ? "text-white font-medium"
+              : "text-gray-400"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
@@ -106,72 +104,76 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center justify-between">
-              {/* Mobile Menu Button */}
-              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Button variant="ghost" size="icon">
-                    <Menu className="h-5 w-5" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-                  <nav className="flex flex-col gap-4 mt-6">
+          <header className="sticky top-0 z-50 w-full bg-[#0A0F1C]">
+            <div className="container mx-auto px-4">
+              <div className="flex h-16 items-center justify-between">
+                {/* Logo and Desktop Navigation */}
+                <div className="flex items-center space-x-12">
+                  <Link to="/" className="text-white text-2xl font-bold">
+                    Dribla
+                  </Link>
+                  
+                  {/* Desktop Navigation */}
+                  <nav className="hidden md:flex items-center space-x-8">
                     <NavigationLinks />
                   </nav>
-                </SheetContent>
-              </Sheet>
+                </div>
 
-              {/* Desktop Navigation */}
-              <nav className="hidden lg:flex items-center gap-6 flex-1">
-                <NavigationLinks />
-              </nav>
+                <div className="flex items-center space-x-4">
+                  {/* Theme Toggle */}
+                  {header.showThemeToggle && (
+                    <Toggle
+                      pressed={theme === "dark"}
+                      onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+                      className="px-2 py-2 rounded-md text-gray-400 hover:text-white"
+                    >
+                      {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
+                    </Toggle>
+                  )}
 
-              <div className="flex items-center gap-2">
-                {/* Theme Toggle */}
-                {header.showThemeToggle && (
-                  <Toggle
-                    pressed={theme === "dark"}
-                    onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                    className={`px-2 py-2 rounded-md flex items-center gap-2 transition-colors
-                      ${
-                        theme === "dark"
-                          ? "bg-accent text-accent-foreground"
-                          : "bg-muted text-muted-foreground"
-                      }`}
-                  >
-                    {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-                  </Toggle>
-                )}
+                  {/* Notifications */}
+                  {header.showNotifications && (
+                    <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                      <Bell className="h-5 w-5" />
+                    </Button>
+                  )}
 
-                {/* Notifications */}
-                {header.showNotifications && (
-                  <Button variant="ghost" size="icon" className="relative">
-                    <Bell className="h-5 w-5" />
-                  </Button>
-                )}
+                  {/* User Menu */}
+                  {header.showUserMenu && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 rounded-full">
+                          <Avatar>
+                            <AvatarImage src={header.avatarSrc} alt="User" />
+                            <AvatarFallback>{header.avatarFallback}</AvatarFallback>
+                          </Avatar>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        {header.userMenuItems?.map((item, index) => (
+                          <DropdownMenuItem key={index} onClick={item.onClick}>
+                            {item.icon}
+                            {item.label}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
 
-                {/* User Menu */}
-                {header.showUserMenu && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 rounded-full">
-                        <Avatar>
-                          <AvatarImage src={header.avatarSrc} alt="User" />
-                          <AvatarFallback>{header.avatarFallback}</AvatarFallback>
-                        </Avatar>
+                  {/* Mobile Menu Button */}
+                  <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                    <SheetTrigger asChild className="md:hidden">
+                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                        <Menu className="h-6 w-6" />
                       </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      {header.userMenuItems?.map((item, index) => (
-                        <DropdownMenuItem key={index} onClick={item.onClick}>
-                          {item.icon}
-                          {item.label}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-[240px] bg-[#0A0F1C]">
+                      <nav className="flex flex-col space-y-6 mt-6">
+                        <NavigationLinks />
+                      </nav>
+                    </SheetContent>
+                  </Sheet>
+                </div>
               </div>
             </div>
           </header>
