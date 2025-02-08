@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown, Trophy, Calendar, Shield } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Input } from "@/components/ui/input"
+import { UpcomingGamesSection } from "@/components/blocks/upcoming-games-section"
+import { TestimonialSection } from "@/components/blocks/testimonial-section"
 
 const features = [
   {
@@ -159,6 +161,12 @@ export default function IndexPage() {
         </div>
       </section>
 
+      {/* Upcoming Games Section */}
+      <UpcomingGamesSection />
+
+      {/* Testimonials Section */}
+      <TestimonialSection />
+
       {/* Stats Section */}
       <section className="py-16 sm:py-24 bg-black">
         <div className="container mx-auto px-3">
@@ -183,6 +191,41 @@ export default function IndexPage() {
                   <div className="text-sm text-gray-400">{stat.label}</div>
                 </motion.div>
               ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 sm:py-24 bg-[#FFA726]">
+        <div className="container mx-auto px-3">
+          <div className="max-w-[90rem] mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-6"
+            >
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                ¿Listo para jugar?
+              </h2>
+              <p className="text-xl text-white/80 max-w-2xl mx-auto">
+                Únete a la comunidad de baloncesto 3x3 más grande de España
+              </p>
+              <div className="flex justify-center gap-4">
+                <Link to="/join-as-player">
+                  <Button className="bg-white text-[#FFA726] hover:bg-white/90">
+                    Empezar ahora
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/courts">
+                  <Button variant="outline" className="border-white text-white hover:bg-white/20">
+                    Ver canchas disponibles
+                  </Button>
+                </Link>
+              </div>
             </motion.div>
           </div>
         </div>
