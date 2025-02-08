@@ -7,7 +7,7 @@ export default function CourtsPage() {
   const courts = [
     {
       id: 1,
-      name: "Cancha Central Barcelona",
+      name: "Aro Central Barcelona",
       location: "Av. Diagonal 123, Barcelona",
       price: "30€/hora",
       availability: "9:00 - 22:00",
@@ -17,7 +17,7 @@ export default function CourtsPage() {
     },
     {
       id: 2,
-      name: "Urban Court Madrid",
+      name: "Aro Urban Madrid",
       location: "Calle Gran Vía 45, Madrid",
       price: "25€/hora",
       availability: "8:00 - 23:00",
@@ -25,17 +25,17 @@ export default function CourtsPage() {
       surface: "Sintético",
       image: "/sports/basketball-3x3.svg"
     },
-    // Más canchas aquí
+    // Más aros aquí
   ]
 
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Canchas</h1>
+        <h1 className="text-3xl font-bold">Reserva tu aro</h1>
         <Link to="/clubs/publish">
           <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
-            Publicar pista
+            Publicar aro
           </Button>
         </Link>
       </div>
@@ -47,7 +47,7 @@ export default function CourtsPage() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Buscar canchas..."
+              placeholder="Buscar aros disponibles..."
               className="w-full pl-10 p-2 rounded-md border bg-background"
             />
           </div>
@@ -66,12 +66,11 @@ export default function CourtsPage() {
 
       {/* Quick Filters */}
       <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-        <Button variant="outline" size="sm">Todos</Button>
-        <Button variant="outline" size="sm">3x3</Button>
-        <Button variant="outline" size="sm">5x5</Button>
-        <Button variant="outline" size="sm">Cubierta</Button>
+        <Button variant="outline" size="sm">Todos los aros</Button>
+        <Button variant="outline" size="sm">Cubierto</Button>
         <Button variant="outline" size="sm">Exterior</Button>
         <Button variant="outline" size="sm">Disponible ahora</Button>
+        <Button variant="outline" size="sm">Con iluminación</Button>
       </div>
 
       {/* Courts Grid */}
@@ -111,7 +110,7 @@ export default function CourtsPage() {
                   <span className="text-sm">Superficie: {court.surface}</span>
                   <Link to={`/booking?court=${court.id}`}>
                     <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
-                      Reservar
+                      Reservar aro
                     </Button>
                   </Link>
                 </div>
