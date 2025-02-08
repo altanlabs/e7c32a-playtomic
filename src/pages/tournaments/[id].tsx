@@ -2,66 +2,105 @@ import { TournamentRegistration } from "@/components/blocks/tournament-registrat
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Calendar, MapPin, Trophy, Users } from "lucide-react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 // Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_TOURNAMENT = {
-  id: "1",
-  name: "Torneo Verano 3x3",
-  description: "Gran torneo de baloncesto 3x3 con los mejores equipos de la ciudad. Ven y demuestra tu nivel en la cancha.",
-  clubName: "Club Deportivo Central",
-  location: "Pista Central - Madrid",
-  date: "15 de Julio, 2024",
-  price: 60,
-  prizePool: "1000€ + Trofeos",
-  maxTeams: 16,
-  registeredTeams: [
-    {
-      name: "Los Invencibles",
-      players: [
-        {
-          name: "Juan Pérez",
-          avatar: "https://i.pravatar.cc/150?u=juan",
-          position: "Base"
-        },
-        {
-          name: "Ana García",
-          avatar: "https://i.pravatar.cc/150?u=ana",
-          position: "Alero"
-        },
-        {
-          name: "Carlos López",
-          avatar: "https://i.pravatar.cc/150?u=carlos",
-          position: "Pívot"
-        }
-      ]
-    },
-    {
-      name: "Street Warriors",
-      players: [
-        {
-          name: "María Rodríguez",
-          avatar: "https://i.pravatar.cc/150?u=maria",
-          position: "Base"
-        },
-        {
-          name: "Pedro Sánchez",
-          avatar: "https://i.pravatar.cc/150?u=pedro",
-          position: "Alero"
-        }
-      ]
-    }
-  ],
-  level: "Avanzado",
-  image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
+const MOCK_TOURNAMENTS = {
+  "1": {
+    id: "1",
+    name: "Torneo Verano 3x3",
+    description: "Gran torneo de baloncesto 3x3 con los mejores equipos de la ciudad. Ven y demuestra tu nivel en la cancha.",
+    clubName: "Club Deportivo Central",
+    location: "Pista Central - Madrid",
+    date: "15 de Julio, 2024",
+    price: 60,
+    prizePool: "1000€ + Trofeos",
+    maxTeams: 16,
+    registeredTeams: [
+      {
+        name: "Los Invencibles",
+        players: [
+          {
+            name: "Juan Pérez",
+            avatar: "https://i.pravatar.cc/150?u=juan",
+            position: "Base"
+          },
+          {
+            name: "Ana García",
+            avatar: "https://i.pravatar.cc/150?u=ana",
+            position: "Alero"
+          },
+          {
+            name: "Carlos López",
+            avatar: "https://i.pravatar.cc/150?u=carlos",
+            position: "Pívot"
+          }
+        ]
+      },
+      {
+        name: "Street Warriors",
+        players: [
+          {
+            name: "María Rodríguez",
+            avatar: "https://i.pravatar.cc/150?u=maria",
+            position: "Base"
+          },
+          {
+            name: "Pedro Sánchez",
+            avatar: "https://i.pravatar.cc/150?u=pedro",
+            position: "Alero"
+          }
+        ]
+      }
+    ],
+    level: "Avanzado",
+    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
+  },
+  "2": {
+    id: "2",
+    name: "Liga Amateur 3x3",
+    description: "Liga amateur de baloncesto 3x3 perfecta para iniciarse en la competición. Partidos todos los sábados.",
+    clubName: "Urban Court Downtown",
+    location: "Plaza del Deporte - Barcelona",
+    date: "Todos los Sábados",
+    price: 40,
+    prizePool: "500€ por jornada",
+    maxTeams: 24,
+    registeredTeams: [
+      {
+        name: "Rookies",
+        players: [
+          {
+            name: "Luis Torres",
+            avatar: "https://i.pravatar.cc/150?u=luis",
+            position: "Base"
+          },
+          {
+            name: "Sara Martín",
+            avatar: "https://i.pravatar.cc/150?u=sara",
+            position: "Alero"
+          }
+        ]
+      }
+    ],
+    level: "Intermedio",
+    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
+  }
 }
 
 export default function TournamentDetailPage() {
   const { id } = useParams()
+  const navigate = useNavigate()
+  
   // En una implementación real, aquí se haría una llamada a la API
-  const tournament = MOCK_TOURNAMENT
+  const tournament = id ? MOCK_TOURNAMENTS[id] : null
 
   if (!tournament) return <div>Torneo no encontrado</div>
+
+  const handleViewOrganizer = () => {
+    // Aquí iría la navegación al perfil del organizador
+    navigate(`/club/${tournament.clubName}`)
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -113,7 +152,11 @@ export default function TournamentDetailPage() {
                 <h3 className="font-semibold">{tournament.clubName}</h3>
                 <p className="text-sm text-muted-foreground">{tournament.location}</p>
               </div>
-              <Button className="ml-auto" variant="outline">
+              <Button 
+                className="ml-auto" 
+                variant="outline"
+                onClick={handleViewOrganizer}
+              >
                 Ver perfil
               </Button>
             </div>
