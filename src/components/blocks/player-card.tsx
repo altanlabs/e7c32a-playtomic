@@ -22,16 +22,16 @@ export default function PlayerCard({
   avatar
 }: PlayerCardProps) {
   return (
-    <Card className="overflow-hidden bg-[#0A0F1C] border-border">
+    <Card className="overflow-hidden bg-[#0A0F1C] border-border w-full">
       <div className="p-4">
-        <div className="flex items-center gap-3 mb-3">
-          <Avatar className="w-12 h-12">
+        <div className="flex items-center gap-4 mb-4">
+          <Avatar className="h-14 w-14">
             <AvatarImage src={avatar} alt={name} />
             <AvatarFallback>{name.charAt(0)}</AvatarFallback>
           </Avatar>
-          <div>
-            <h3 className="text-base font-bold">{name}</h3>
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-base font-bold truncate">{name}</h3>
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
               <span>{position}</span>
               <span>•</span>
               <span>{level}</span>
@@ -40,13 +40,14 @@ export default function PlayerCard({
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            <Star className="h-4 w-4 text-[#FFA726] fill-[#FFA726]" />
-            <span className="text-base font-bold">{rating}</span>
+          <div className="flex items-center gap-1.5">
+            <Star className="h-5 w-5 text-[#FFA726] fill-[#FFA726]" />
+            <span className="text-lg font-semibold">{rating}</span>
           </div>
           <Link to={`/perfil/${id}`}>
             <Button 
-              className="bg-[#FFA726] hover:bg-[#FF9800] text-white font-medium text-sm px-4"
+              size="sm"
+              className="bg-[#FFA726] hover:bg-[#FF9800] text-white px-6"
             >
               Ver perfil
             </Button>
