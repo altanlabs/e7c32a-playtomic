@@ -93,7 +93,7 @@ export default function TournamentsPage() {
                   </Button>
                 </Link>
                 <Link to={`/tournaments/join?id=${tournament.id}`}>
-                  <Button className="w-full bg-[#66BB6A] hover:bg-[#4CAF50]">
+                  <Button className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
                     Me apunto
                   </Button>
                 </Link>
