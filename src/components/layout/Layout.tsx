@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Button variant="ghost">Jugadores</Button>
               </Link>
               <Link to="/courts">
-                <Button variant="ghost">Canchas</Button>
+                <Button variant="ghost">Aros</Button>
               </Link>
               
               {/* Clubs Menu */}
@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     Ver todos
                   </Link>
                   <Link to="/clubs/publish" className="block px-4 py-2 hover:bg-accent">
-                    Publicar pista
+                    Publicar aro
                   </Link>
                 </div>
               </div>
@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </Link>
               <Link to="/booking">
                 <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
-                  Reservar
+                  Reserva tu aro
                 </Button>
               </Link>
             </div>
@@ -67,7 +67,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="font-semibold mb-4">Enlaces</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/courts">Canchas</Link></li>
+                <li><Link to="/courts">Aros</Link></li>
                 <li><Link to="/players">Jugadores</Link></li>
                 <li><Link to="/tournaments">Torneos</Link></li>
                 <li><Link to="/rankings">Rankings</Link></li>
