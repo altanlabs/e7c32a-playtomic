@@ -3,10 +3,12 @@ import { TournamentFilters } from "@/components/blocks/tournament-filters"
 import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 // Datos de ejemplo - En una implementación real, esto vendría de una API
 const MOCK_TOURNAMENTS = [
   {
+    id: "1",
     name: "Torneo Verano 3x3",
     clubName: "Club Deportivo Central",
     location: "Pista Central - Madrid",
@@ -20,6 +22,7 @@ const MOCK_TOURNAMENTS = [
     image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
   },
   {
+    id: "2",
     name: "Liga Amateur 3x3",
     clubName: "Urban Court Downtown",
     location: "Plaza del Deporte - Barcelona",
@@ -33,6 +36,7 @@ const MOCK_TOURNAMENTS = [
     image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop"
   },
   {
+    id: "3",
     name: "Torneo Nocturno",
     clubName: "The Cage",
     location: "Complejo Deportivo Sur - Valencia",
@@ -48,6 +52,7 @@ const MOCK_TOURNAMENTS = [
 ] as const
 
 export default function TournamentsPage() {
+  const navigate = useNavigate()
   const [filters, setFilters] = useState({})
   const [tournaments] = useState(MOCK_TOURNAMENTS)
 
@@ -55,6 +60,10 @@ export default function TournamentsPage() {
     setFilters(newFilters)
     // Aquí iría la lógica de filtrado real
     console.log("Aplicando filtros:", newFilters)
+  }
+
+  const handleCreateTournament = () => {
+    navigate("/publicar-evento")
   }
 
   return (
@@ -68,7 +77,7 @@ export default function TournamentsPage() {
               Encuentra y participa en torneos 3x3 cerca de ti
             </p>
           </div>
-          <Button>
+          <Button onClick={handleCreateTournament}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Organizar torneo
           </Button>
@@ -80,7 +89,10 @@ export default function TournamentsPage() {
         {/* Lista de torneos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tournaments.map((tournament) => (
-            <TournamentCard key={tournament.name} {...tournament} />
+            <TournamentCard 
+              key={tournament.id} 
+              {...tournament} 
+            />
           ))}
         </div>
 
