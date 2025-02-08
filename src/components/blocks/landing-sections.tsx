@@ -1,67 +1,63 @@
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Calendar, Users, Trophy, Shield } from "lucide-react"
+import { 
+  Calendar, 
+  Users, 
+  Trophy,
+  Search,
+  Clock,
+  Star
+} from "lucide-react"
 
 export function LandingSections() {
-  const sections = [
+  const features = [
     {
-      icon: <Calendar className="h-8 w-8 text-[#FFA726]" />,
-      title: "Reserva instantanea",
-      description: "Encuentra y reserva canchas en tiempo real",
-      href: "/courts",
-      color: "bg-[#FFA726]",
+      icon: <Calendar className="h-12 w-12 text-[#FFA726]" />,
+      title: "Reserva fácil",
+      description: "Encuentra y reserva canchas en segundos"
     },
     {
-      icon: <Users className="h-8 w-8 text-[#66BB6A]" />,
-      title: "Encuentra equipo",
-      description: "Únete a equipos o encuentra jugadores para tu partido",
-      href: "/teams",
-      color: "bg-[#66BB6A]",
+      icon: <Users className="h-12 w-12 text-[#66BB6A]" />,
+      title: "Encuentra jugadores",
+      description: "Únete a partidos o invita a otros jugadores"
     },
     {
-      icon: <Trophy className="h-8 w-8 text-[#42A5F5]" />,
-      title: "Torneos",
-      description: "Participa en torneos y compite con los mejores",
-      href: "/tournaments",
-      color: "bg-[#42A5F5]",
+      icon: <Trophy className="h-12 w-12 text-[#42A5F5]" />,
+      title: "Compite en torneos",
+      description: "Participa en torneos y mejora tu ranking"
     },
     {
-      icon: <Shield className="h-8 w-8 text-[#EC407A]" />,
-      title: "Comunidad segura",
-      description: "Jugadores verificados y sistema de valoraciones",
-      href: "/verification",
-      color: "bg-[#EC407A]",
+      icon: <Search className="h-12 w-12 text-[#EC407A]" />,
+      title: "Busca canchas",
+      description: "Encuentra las mejores canchas cerca de ti"
     },
+    {
+      icon: <Clock className="h-12 w-12 text-[#AB47BC]" />,
+      title: "Disponibilidad real",
+      description: "Consulta horarios y disponibilidad en tiempo real"
+    },
+    {
+      icon: <Star className="h-12 w-12 text-[#26A69A]" />,
+      title: "Mejora tu nivel",
+      description: "Sistema de rankings y estadísticas personales"
+    }
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto px-4">
-      {sections.map((section, index) => (
-        <Link
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div 
           key={index}
-          to={section.href}
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-background/50 to-background/80 p-6 shadow-lg transition-all hover:shadow-xl"
+          className="flex flex-col items-center text-center p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40" />
-          <div className="relative z-10">
-            <div className={`inline-flex rounded-xl ${section.color} bg-opacity-10 p-3`}>
-              {section.icon}
-            </div>
-            <h3 className="mt-4 text-xl font-semibold text-foreground">
-              {section.title}
-            </h3>
-            <p className="mt-2 text-muted-foreground">
-              {section.description}
-            </p>
-            <Button
-              variant="ghost"
-              className="mt-4 group-hover:translate-x-2 transition-transform"
-            >
-              Empezar ahora
-              <span className="ml-2">→</span>
-            </Button>
+          <div className="mb-4">
+            {feature.icon}
           </div>
-        </Link>
+          <h3 className="text-xl font-semibold mb-2">
+            {feature.title}
+          </h3>
+          <p className="text-muted-foreground">
+            {feature.description}
+          </p>
+        </div>
       ))}
     </div>
   )
