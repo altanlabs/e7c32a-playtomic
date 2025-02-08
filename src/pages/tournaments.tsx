@@ -68,39 +68,40 @@ export default function TournamentsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <div className="flex flex-col items-center space-y-8">
+      <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
+        <div className="flex flex-col items-center space-y-6">
           {/* Encabezado */}
-          <div className="w-full text-center max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold mb-3">Torneos</h1>
-            <p className="text-muted-foreground mb-4">
+          <div className="w-full text-center max-w-xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2">Torneos</h1>
+            <p className="text-sm sm:text-base text-muted-foreground mb-4">
               Encuentra y participa en torneos 3x3 cerca de ti
             </p>
             <Button 
               onClick={handleCreateTournament}
-              className="w-full sm:w-auto"
+              size="sm"
+              className="h-8 text-xs sm:text-sm px-3"
             >
-              <PlusCircle className="mr-2 h-4 w-4" />
+              <PlusCircle className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
               Organizar torneo
             </Button>
           </div>
 
           {/* Filtros */}
-          <div className="w-full max-w-3xl mx-auto">
+          <div className="w-full max-w-2xl mx-auto px-2 sm:px-0">
             <TournamentFilters onFilterChange={handleFilterChange} />
           </div>
 
           {/* Lista de torneos */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 place-items-center">
             {tournaments.map((tournament) => (
-              <div key={tournament.id} className="w-full max-w-sm">
+              <div key={tournament.id} className="w-full">
                 <TournamentCard {...tournament} />
               </div>
             ))}
           </div>
 
           {/* Estado de búsqueda */}
-          <div className="text-center text-muted-foreground py-4">
+          <div className="text-center text-xs sm:text-sm text-muted-foreground py-2 sm:py-4">
             Mostrando {tournaments.length} torneos disponibles
           </div>
         </div>
