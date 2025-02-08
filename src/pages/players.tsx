@@ -107,8 +107,8 @@ export default function PlayersPage() {
       </div>
 
       {/* Players List */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="max-w-sm mx-auto space-y-3">
+      <div className="container mx-auto py-6">
+        <div className="max-w-sm mx-auto space-y-3 px-8">
           {players.map((player) => (
             <div key={player.id} className="w-full">
               <PlayerCard {...player} />
