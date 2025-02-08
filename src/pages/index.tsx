@@ -1,111 +1,75 @@
-import { LandingSections } from "@/components/blocks/landing-sections"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { useNavigate } from "react-router-dom"
 
 export default function IndexPage() {
-  const navigate = useNavigate();
-
-  const handleBookNow = () => {
-    navigate('/booking');
-  };
-
-  const handleViewCourts = () => {
-    navigate('/courts');
-  };
-
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=1476&auto=format&fit=crop')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-gradient-to-r from-background to-background/60" />
-        </div>
-        
-        <div className="relative container mx-auto px-4">
+      <section className="py-20">
+        <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-7xl font-bold mb-6">
-              Dribla, reserva y juega
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Bienvenido a 3x3 League
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Encuentra canchas, jugadores y torneos. Todo en un solo lugar.
+            <p className="text-xl text-muted-foreground mb-8">
+              La mejor plataforma para jugar baloncesto 3x3
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button 
-                size="lg" 
-                className="bg-[#FFA726] hover:bg-[#FF9800]"
-                onClick={handleBookNow}
-              >
-                Reservar ahora
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                onClick={handleViewCourts}
-              >
-                Ver canchas disponibles
-              </Button>
+            <div className="flex gap-4">
+              <Link to="/booking">
+                <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
+                  Reservar ahora
+                </Button>
+              </Link>
+              <Link to="/courts">
+                <Button variant="outline">
+                  Ver canchas
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Features */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-background to-background/50" />
-        <div className="relative container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
-              Todo lo que necesitas para jugar 3x3
-            </h2>
-            <p className="text-muted-foreground">
-              Gestiona tus partidos y encuentra jugadores de forma fácil y rápida
-            </p>
-          </div>
-          
-          <LandingSections />
-        </div>
-      </section>
-
-      {/* Stats Section */}
+      {/* Features */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-[#FFA726] mb-2">150+</div>
-              <div className="text-muted-foreground">Canchas disponibles</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-semibold mb-4">Reserva fácil</h3>
+              <p className="text-muted-foreground">
+                Encuentra y reserva canchas en segundos
+              </p>
             </div>
-            <div>
-              <div className="text-4xl font-bold text-[#66BB6A] mb-2">2,500+</div>
-              <div className="text-muted-foreground">Jugadores activos</div>
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-semibold mb-4">Juega más</h3>
+              <p className="text-muted-foreground">
+                Únete a partidos y conoce nuevos jugadores
+              </p>
             </div>
-            <div>
-              <div className="text-4xl font-bold text-[#42A5F5] mb-2">50+</div>
-              <div className="text-muted-foreground">Torneos organizados</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-[#EC407A] mb-2">98%</div>
-              <div className="text-muted-foreground">Usuarios satisfechos</div>
+            <div className="p-6 bg-background rounded-lg border">
+              <h3 className="text-xl font-semibold mb-4">Compite</h3>
+              <p className="text-muted-foreground">
+                Participa en torneos y mejora tu ranking
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-[#0A0F1C]">
+      {/* CTA */}
+      <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
             ¿Listo para empezar a jugar?
           </h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Únete a la comunidad de baloncesto 3x3 más grande de España y empieza a disfrutar del mejor baloncesto urbano.
+          <p className="text-muted-foreground mb-8">
+            Únete a la comunidad de baloncesto 3x3 más grande de España
           </p>
-          <Button 
-            size="lg" 
-            className="bg-[#FFA726] hover:bg-[#FF9800]"
-            onClick={handleBookNow}
-          >
-            Reservar ahora
-          </Button>
+          <Link to="/booking">
+            <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
+              Reservar ahora
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
