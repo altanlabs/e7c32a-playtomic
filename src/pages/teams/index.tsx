@@ -90,73 +90,77 @@ export default function TeamsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Equipos del torneo</h1>
-          <p className="text-muted-foreground">
-            {teams.length} equipos participantes
-          </p>
-        </div>
-        <Button 
-          onClick={handleCreateTeam}
-          className="bg-[#FFA726] hover:bg-[#FF9800]"
-        >
-          <Users className="mr-2 h-4 w-4" />
-          Crear equipo
-        </Button>
-      </div>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
+        <div className="flex flex-col items-center space-y-6">
+          {/* Encabezado */}
+          <div className="w-full text-center max-w-xl mx-auto">
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">Equipos del torneo</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
+              {teams.length} equipos participantes
+            </p>
+            <Button 
+              onClick={handleCreateTeam}
+              className="h-7 text-xs px-3 bg-[#FFA726] hover:bg-[#FF9800]"
+            >
+              <Users className="mr-2 h-3 w-3" />
+              Crear equipo
+            </Button>
+          </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {teams.map((team) => (
-          <Card key={team.id} className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h2 className="text-xl font-semibold">{team.name}</h2>
-                <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="secondary">{team.level}</Badge>
-                  <span className="text-sm text-muted-foreground">
-                    {team.wins}W - {team.losses}L
-                  </span>
-                </div>
-              </div>
-              {team.wins > 10 && (
-                <Badge variant="default" className="bg-yellow-500">
-                  <Star className="h-4 w-4 mr-1" />
-                  Top Team
-                </Badge>
-              )}
-            </div>
-
-            <div className="space-y-4">
-              <div className="space-y-2">
-                {team.players.map((player, index) => (
-                  <div key={index} className="flex items-center gap-3 p-2 rounded-lg bg-secondary">
-                    <Avatar>
-                      <AvatarImage src={player.avatar} />
-                      <AvatarFallback>{player.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium">{player.name}</p>
-                      <p className="text-sm text-muted-foreground">{player.position}</p>
+          {/* Lista de equipos */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {teams.map((team) => (
+              <Card key={team.id} className="w-full max-w-sm mx-auto p-4">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h2 className="text-base sm:text-lg font-semibold">{team.name}</h2>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge variant="secondary" className="text-xs">{team.level}</Badge>
+                      <span className="text-xs text-muted-foreground">
+                        {team.wins}W - {team.losses}L
+                      </span>
                     </div>
                   </div>
-                ))}
-              </div>
+                  {team.wins > 10 && (
+                    <Badge variant="default" className="bg-yellow-500 text-xs">
+                      <Star className="h-3 w-3 mr-1" />
+                      Top Team
+                    </Badge>
+                  )}
+                </div>
 
-              {team.players.length < 3 && (
-                <Button 
-                  className="w-full"
-                  variant="outline"
-                  onClick={() => handleJoinTeam(team.id)}
-                >
-                  <Users className="mr-2 h-4 w-4" />
-                  Unirse al equipo
-                </Button>
-              )}
-            </div>
-          </Card>
-        ))}
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    {team.players.map((player, index) => (
+                      <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-secondary">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src={player.avatar} />
+                          <AvatarFallback className="text-xs">{player.name[0]}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="text-sm font-medium">{player.name}</p>
+                          <p className="text-xs text-muted-foreground">{player.position}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {team.players.length < 3 && (
+                    <Button 
+                      variant="outline"
+                      onClick={() => handleJoinTeam(team.id)}
+                      className="w-full h-7 text-xs"
+                    >
+                      <Users className="mr-2 h-3 w-3" />
+                      Unirse al equipo
+                    </Button>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
