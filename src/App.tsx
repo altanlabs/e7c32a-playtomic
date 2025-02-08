@@ -8,7 +8,7 @@ import IndexPage from './pages'
 import PlayersPage from './pages/players'
 import ArosPage from './pages/courts' // Mantenemos el archivo como courts.tsx por ahora
 import ClubsPage from './pages/clubs'
-import TournamentsPage from './pages/tournaments'
+import TournamentsPage from './pages/tournaments/index'
 import RankingsPage from './pages/rankings'
 
 // Páginas de funcionalidad
