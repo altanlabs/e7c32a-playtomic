@@ -7,8 +7,8 @@ export default function IndexPage() {
   const features = [
     {
       icon: <MapPin className="h-12 w-12 text-[#FFA726]" />,
-      title: "Encuentra canchas",
-      description: "Localiza las mejores canchas cerca de ti",
+      title: "Encuentra tu aro",
+      description: "Localiza los mejores aros cerca de ti",
       color: "text-[#FFA726]",
       link: "/courts"
     },
@@ -46,17 +46,17 @@ export default function IndexPage() {
               DRIBLA
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Encuentra canchas, jugadores y torneos. Todo en un solo lugar.
+              Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/booking">
                 <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
-                  Reservar ahora
+                  Reserva tu aro
                 </Button>
               </Link>
               <Link to="/courts">
                 <Button size="lg" variant="outline">
-                  Ver canchas
+                  Ver aros disponibles
                 </Button>
               </Link>
             </div>
@@ -91,7 +91,7 @@ export default function IndexPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-[#FFA726] mb-2">150+</div>
-              <div className="text-muted-foreground">Canchas disponibles</div>
+              <div className="text-muted-foreground">Aros disponibles</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-[#66BB6A] mb-2">2,500+</div>
@@ -120,7 +120,7 @@ export default function IndexPage() {
           </p>
           <Link to="/booking">
             <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
-              Reservar ahora
+              Reserva tu aro
             </Button>
           </Link>
         </div>
