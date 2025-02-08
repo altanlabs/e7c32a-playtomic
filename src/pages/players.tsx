@@ -47,22 +47,24 @@ export default function PlayersPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-[#0A0F1C] py-8">
-        <div className="max-w-xl mx-auto px-4 text-center">
-          <h1 className="text-2xl sm:text-4xl font-bold mb-3">
-            Jugadores
-          </h1>
-          <p className="text-muted-foreground text-base sm:text-lg">
-            Encuentra jugadores para tus partidos
-          </p>
+      <div className="relative bg-[#0A0F1C] py-8">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl sm:text-4xl font-bold mb-3">
+              Jugadores
+            </h1>
+            <p className="text-muted-foreground text-base sm:text-lg mb-4">
+              Encuentra jugadores para tus partidos
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Search and Filters Section - Fixed below hero */}
       <div className="sticky top-0 z-10 bg-[#0A0F1C] shadow-lg">
-        <div className="max-w-xl mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4">
           {/* Search Bar */}
           <div className="relative mb-4">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
@@ -105,10 +107,20 @@ export default function PlayersPage() {
       </div>
 
       {/* Players List */}
-      <div className="flex-1 bg-background py-6">
-        <div className="max-w-sm mx-auto px-4 space-y-3">
+      <div className="container mx-auto py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Mobile view (1 column, centered) */}
+          <div className="md:hidden w-[calc(100%-2rem)] max-w-[320px] mx-auto space-y-3">
+            {players.map((player) => (
+              <div key={player.id}>
+                <PlayerCard {...player} />
+              </div>
+            ))}
+          </div>
+          
+          {/* Desktop view (2-3 columns) */}
           {players.map((player) => (
-            <div key={player.id} className="w-full">
+            <div key={player.id} className="hidden md:block">
               <PlayerCard {...player} />
             </div>
           ))}
