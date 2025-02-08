@@ -108,19 +108,21 @@ export default function PlayersPage() {
 
       {/* Players List */}
       <div className="container mx-auto py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Mobile view (1 column, centered) */}
-          <div className="md:hidden w-[calc(100%-2rem)] max-w-[320px] mx-auto space-y-3">
+        {/* Mobile view (1 column, centered) */}
+        <div className="md:hidden flex flex-col items-center">
+          <div className="w-[90%] max-w-[300px] space-y-3">
             {players.map((player) => (
               <div key={player.id}>
                 <PlayerCard {...player} />
               </div>
             ))}
           </div>
-          
-          {/* Desktop view (2-3 columns) */}
+        </div>
+        
+        {/* Desktop view (2-3 columns) */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {players.map((player) => (
-            <div key={player.id} className="hidden md:block">
+            <div key={player.id}>
               <PlayerCard {...player} />
             </div>
           ))}
