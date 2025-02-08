@@ -84,7 +84,7 @@ export function TournamentCard({
   }
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all w-full">
+    <Card className="w-full overflow-hidden hover:shadow-lg transition-all">
       <div 
         className="relative h-48 cursor-pointer" 
         onClick={handleViewTournament}
@@ -102,36 +102,34 @@ export function TournamentCard({
         </div>
       </div>
       
-      <CardHeader className="p-4 sm:p-6">
-        <div className="flex justify-between items-start gap-2">
-          <div>
-            <CardTitle 
-              className="text-lg sm:text-xl mb-1 cursor-pointer hover:text-primary line-clamp-2"
-              onClick={handleViewTournament}
-            >
-              {name}
-            </CardTitle>
-            <p className="text-sm text-muted-foreground line-clamp-1">{clubName}</p>
-          </div>
-          <Badge variant="destructive" className="text-base sm:text-lg py-1 whitespace-nowrap">
+      <CardHeader className="text-center p-4">
+        <div className="flex flex-col items-center gap-2">
+          <CardTitle 
+            className="text-xl cursor-pointer hover:text-primary text-center"
+            onClick={handleViewTournament}
+          >
+            {name}
+          </CardTitle>
+          <p className="text-sm text-muted-foreground">{clubName}</p>
+          <Badge variant="destructive" className="text-lg py-1">
             {price}€
           </Badge>
         </div>
       </CardHeader>
 
-      <CardContent className="p-4 sm:p-6 space-y-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-muted-foreground">
+      <CardContent className="p-4 space-y-6">
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <MapPin className="w-4 h-4 flex-shrink-0" />
-            <span className="text-sm line-clamp-1">{location}</span>
+            <span className="text-sm text-center">{location}</span>
           </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Calendar className="w-4 h-4 flex-shrink-0" />
-            <span className="text-sm line-clamp-1">{date}</span>
+            <span className="text-sm text-center">{date}</span>
           </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Trophy className="w-4 h-4 flex-shrink-0" />
-            <span className="text-sm line-clamp-1">Premio: {prizePool}</span>
+            <span className="text-sm text-center">Premio: {prizePool}</span>
           </div>
         </div>
 
@@ -141,13 +139,13 @@ export function TournamentCard({
             <span className="font-medium">{registeredTeamsCount}/{maxTeams}</span>
           </div>
           <Progress value={registrationProgress} />
-          <p className="text-sm text-muted-foreground flex items-center gap-1">
+          <p className="text-sm text-muted-foreground flex items-center justify-center gap-1">
             <Users className="w-4 h-4 flex-shrink-0" />
             {spotsLeft} {registrationType === "team" ? "equipos" : "plazas"} disponibles
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col gap-2">
           {registrationType === "team" ? (
             <Dialog open={isRegisterTeamOpen} onOpenChange={setIsRegisterTeamOpen}>
               <DialogTrigger asChild>
@@ -157,8 +155,8 @@ export function TournamentCard({
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                  <DialogTitle>Inscribir equipo en {name}</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle className="text-center">Inscribir equipo en {name}</DialogTitle>
+                  <DialogDescription className="text-center">
                     Completa la información de tu equipo para participar en el torneo
                   </DialogDescription>
                 </DialogHeader>
@@ -205,7 +203,7 @@ export function TournamentCard({
                       required 
                     />
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-2">
                     <Button 
                       type="button" 
                       variant="outline" 
@@ -218,7 +216,7 @@ export function TournamentCard({
                       type="submit" 
                       className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
                     >
-                      Continuar registro
+                      Continuar
                     </Button>
                   </div>
                 </form>
