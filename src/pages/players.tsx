@@ -109,8 +109,8 @@ export default function PlayersPage() {
       {/* Players List */}
       <div className="container mx-auto py-6">
         {/* Mobile view (1 column, centered) */}
-        <div className="md:hidden">
-          <div className="px-6">
+        <div className="md:hidden flex justify-center">
+          <div className="w-[calc(100%-48px)] max-w-[360px]">
             <div className="space-y-3">
               {players.map((player) => (
                 <div key={player.id}>
