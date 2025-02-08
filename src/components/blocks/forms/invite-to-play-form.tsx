@@ -47,7 +47,6 @@ const courts = [
     rating: 4.9,
     reviews: 89
   },
-  // ... más canchas
 ]
 
 const registeredPlayers = [
@@ -71,7 +70,6 @@ const registeredPlayers = [
     position: "Alero",
     availability: ["Mañanas", "Fines de semana"]
   },
-  // ... más jugadores
 ]
 
 interface InviteToPlayFormProps {
@@ -89,18 +87,28 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
   const [pricePerPlayer, setPricePerPlayer] = useState("")
   const [maxPlayers, setMaxPlayers] = useState("6")
   const [levelRequired, setLevelRequired] = useState("all")
+  const [message, setMessage] = useState("")
+  const [selectedTime, setSelectedTime] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!selectedCourt || !date || !selectedTime) {
+      return
+    }
+    
+    const gameDateTime = new Date(date)
+    const [hours] = selectedTime.split(":").map(Number)
+    gameDateTime.setHours(hours, 0, 0, 0)
+
     onSubmit({
       court: selectedCourt,
-      date,
+      date: gameDateTime,
       players: selectedPlayers,
       gameType,
       pricePerPlayer,
       maxPlayers,
       levelRequired,
-      // ... otros datos del formulario
+      message
     })
   }
 
@@ -136,12 +144,12 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                   <TabsTrigger value="competitive">Partido competitivo</TabsTrigger>
                 </TabsList>
                 <TabsContent value="friendly">
-                  <p className="text-sm text-gray-400 mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     Organiza un partido informal para divertirte y conocer nuevos jugadores
                   </p>
                 </TabsContent>
                 <TabsContent value="competitive">
-                  <p className="text-sm text-gray-400 mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     Organiza un partido competitivo con jugadores de nivel similar
                   </p>
                 </TabsContent>
@@ -162,7 +170,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                         <div className="flex items-center justify-between w-full">
                           <div>
                             <span className="font-medium">{court.name}</span>
-                            <div className="text-sm text-gray-400">{court.location}</div>
+                            <div className="text-sm text-muted-foreground">{court.location}</div>
                           </div>
                           <Badge variant="secondary">{court.price}</Badge>
                         </div>
@@ -173,19 +181,19 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
               </div>
 
               {selectedCourt && (
-                <div className="bg-white/5 p-4 rounded-lg space-y-3">
+                <div className="bg-muted p-4 rounded-lg space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-[#FFA726]" />
+                      <MapPin className="h-4 w-4 text-primary" />
                       <span>{selectedCourt.location}</span>
                     </div>
-                    <Badge variant="secondary" className="bg-[#FFA726]">
+                    <Badge variant="secondary">
                       {selectedCourt.type}
                     </Badge>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
-                      <Trophy className="h-4 w-4 text-[#FFA726]" />
+                      <Trophy className="h-4 w-4 text-primary" />
                       <span>{selectedCourt.rating} ({selectedCourt.reviews} reseñas)</span>
                     </div>
                     <div className="flex gap-2">
@@ -223,7 +231,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                       onChange={(e) => setPricePerPlayer(e.target.value)}
                       className="pl-8"
                     />
-                    <Euro className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Euro className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   </div>
                 </div>
               </div>
@@ -266,13 +274,13 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                     </PopoverContent>
                   </Popover>
 
-                  <Select>
+                  <Select value={selectedTime} onValueChange={setSelectedTime}>
                     <SelectTrigger>
                       <SelectValue placeholder="Hora" />
                     </SelectTrigger>
                     <SelectContent>
                       {Array.from({ length: 14 }, (_, i) => i + 8).map((hour) => (
-                        <SelectItem key={hour} value={hour.toString()}>
+                        <SelectItem key={hour} value={`${hour}:00`}>
                           {`${hour}:00`}
                         </SelectItem>
                       ))}
@@ -284,9 +292,9 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
 
             <Button 
               type="button" 
-              className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
+              className="w-full"
               onClick={() => setStep(2)}
-              disabled={!selectedCourt || !date}
+              disabled={!selectedCourt || !date || !selectedTime}
             >
               Siguiente
             </Button>
@@ -327,7 +335,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                           </Avatar>
                           <div className="flex flex-col">
                             <span className="font-medium">{player.name}</span>
-                            <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
                               <span>{player.level}</span>
                               <span>•</span>
                               <span>{player.position}</span>
@@ -346,7 +354,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label>Jugadores seleccionados</Label>
-                  <span className="text-sm text-gray-400">
+                  <span className="text-sm text-muted-foreground">
                     {selectedPlayers.length}/{maxPlayers} jugadores
                   </span>
                 </div>
@@ -354,7 +362,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                   {selectedPlayers.map((player) => (
                     <div
                       key={player.id}
-                      className="flex items-center justify-between p-2 bg-white/5 rounded-lg"
+                      className="flex items-center justify-between p-2 bg-muted rounded-lg"
                     >
                       <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8">
@@ -363,7 +371,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                         </Avatar>
                         <div className="flex flex-col">
                           <span className="font-medium">{player.name}</span>
-                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <span>{player.level}</span>
                             <span>•</span>
                             <span>{player.position}</span>
@@ -390,6 +398,8 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
                 <Textarea 
                   placeholder="Escribe un mensaje para los jugadores invitados..."
                   className="min-h-[100px]"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                 />
               </div>
             </div>
@@ -405,7 +415,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
               </Button>
               <Button 
                 type="submit"
-                className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
+                className="flex-1"
                 disabled={isLoading || selectedPlayers.length === 0}
               >
                 {isLoading ? "Enviando invitaciones..." : "Enviar invitaciones"}
@@ -421,7 +431,7 @@ export function InviteToPlayForm({ onSubmit, isLoading = false }: InviteToPlayFo
           <div
             key={i}
             className={`h-2 w-2 rounded-full transition-colors ${
-              i === step ? "bg-[#FFA726]" : "bg-gray-600"
+              i === step ? "bg-primary" : "bg-muted"
             }`}
           />
         ))}
