@@ -9,6 +9,7 @@ import { Basketball, ArrowRight, Clock, Phone, User } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
+import { PaymentDialog } from "./payment-form"
 
 interface TimeSlot {
   time: string
@@ -55,6 +56,7 @@ export function BasketballCourtBooking({
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot>()
   const [courtType, setCourtType] = useState<'half' | 'full'>()
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false)
   const [playerName, setPlayerName] = useState("")
   const [playerPhone, setPlayerPhone] = useState("")
 
@@ -71,20 +73,36 @@ export function BasketballCourtBooking({
       return
     }
 
+    // Mostrar diálogo de pago
+    setShowConfirmDialog(false)
+    setShowPaymentDialog(true)
+  }
+
+  const handlePaymentSuccess = () => {
+    // Procesar la reserva después del pago exitoso
     onBookingRequest({
       courtId,
       courtName,
       clubId,
       clubName,
-      date: selectedDate,
-      slot: selectedSlot,
-      courtType,
+      date: selectedDate!,
+      slot: selectedSlot!,
+      courtType: courtType!,
       playerName,
       playerPhone
     })
 
-    setShowConfirmDialog(false)
-    toast.success("Solicitud de reserva enviada correctamente")
+    setShowPaymentDialog(false)
+    toast.success("Pago completado y solicitud de reserva enviada correctamente")
+  }
+
+  const handlePaymentError = (error: string) => {
+    toast.error(`Error en el pago: ${error}`)
+  }
+
+  const getCurrentPrice = () => {
+    if (!selectedSlot || !courtType) return 0
+    return selectedSlot.price[courtType === 'half' ? 'halfCourt' : 'fullCourt']
   }
 
   return (
@@ -212,12 +230,13 @@ export function BasketballCourtBooking({
         </Card>
       </div>
 
+      {/* Diálogo de confirmación */}
       <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Confirmar solicitud de reserva</DialogTitle>
             <DialogDescription>
-              El club recibirá tu solicitud y te confirmará la reserva. Por favor, introduce tus datos de contacto.
+              Por favor, introduce tus datos de contacto para proceder con el pago.
             </DialogDescription>
           </DialogHeader>
 
@@ -267,7 +286,7 @@ export function BasketballCourtBooking({
               {selectedSlot && (
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold">
-                    Precio: {selectedSlot.price[courtType === 'half' ? 'halfCourt' : 'fullCourt']}€
+                    Precio: {getCurrentPrice()}€
                   </span>
                 </div>
               )}
@@ -285,11 +304,21 @@ export function BasketballCourtBooking({
               className="bg-[#FFA726] hover:bg-[#FF9800]"
               onClick={handleBookingRequest}
             >
-              Confirmar solicitud
+              Proceder al pago
             </Button>
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Diálogo de pago */}
+      <PaymentDialog
+        open={showPaymentDialog}
+        onOpenChange={setShowPaymentDialog}
+        amount={getCurrentPrice()}
+        description={`Reserva de ${courtName} - ${courtType === 'half' ? 'Medio campo' : 'Campo completo'} - ${selectedDate?.toLocaleDateString()} ${selectedSlot?.time}`}
+        onSuccess={handlePaymentSuccess}
+        onError={handlePaymentError}
+      />
     </>
   )
 }
