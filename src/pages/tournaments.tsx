@@ -67,44 +67,42 @@ export default function TournamentsPage() {
   }
 
   return (
-    <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <div className="space-y-6 sm:space-y-8">
-        {/* Encabezado */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="text-center sm:text-left">
-            <h1 className="text-2xl sm:text-3xl font-bold mb-2">Torneos</h1>
-            <p className="text-muted-foreground">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="flex flex-col items-center space-y-8">
+          {/* Encabezado */}
+          <div className="w-full text-center max-w-2xl mx-auto">
+            <h1 className="text-3xl font-bold mb-3">Torneos</h1>
+            <p className="text-muted-foreground mb-4">
               Encuentra y participa en torneos 3x3 cerca de ti
             </p>
+            <Button 
+              onClick={handleCreateTournament}
+              className="w-full sm:w-auto"
+            >
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Organizar torneo
+            </Button>
           </div>
-          <Button 
-            onClick={handleCreateTournament}
-            className="w-full sm:w-auto"
-          >
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Organizar torneo
-          </Button>
-        </div>
 
-        {/* Filtros */}
-        <div className="w-full max-w-3xl mx-auto">
-          <TournamentFilters onFilterChange={handleFilterChange} />
-        </div>
+          {/* Filtros */}
+          <div className="w-full max-w-3xl mx-auto">
+            <TournamentFilters onFilterChange={handleFilterChange} />
+          </div>
 
-        {/* Lista de torneos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {tournaments.map((tournament) => (
-            <div key={tournament.id} className="flex justify-center">
-              <div className="w-full max-w-md">
+          {/* Lista de torneos */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
+            {tournaments.map((tournament) => (
+              <div key={tournament.id} className="w-full max-w-sm">
                 <TournamentCard {...tournament} />
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Estado de búsqueda */}
-        <div className="text-center text-muted-foreground py-4">
-          Mostrando {tournaments.length} torneos disponibles
+          {/* Estado de búsqueda */}
+          <div className="text-center text-muted-foreground py-4">
+            Mostrando {tournaments.length} torneos disponibles
+          </div>
         </div>
       </div>
     </div>
