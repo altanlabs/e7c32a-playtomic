@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppSidebar } from "@/components/blocks/app-sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -50,6 +50,7 @@ export default function Layout({
   sidebarConfig,
   header = DefaultHeader,
   footer = DefaultFooter,
+  children
 }) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
@@ -181,7 +182,7 @@ export default function Layout({
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-auto bg-background">
-          <Outlet />
+          {children}
         </main>
 
         {/* Footer */}
