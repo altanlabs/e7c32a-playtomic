@@ -1,8 +1,38 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown } from "lucide-react"
+import { ArrowRight, Search, Star, MapPin, Users, Clock, ChevronDown, Trophy, Calendar, Shield } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Input } from "@/components/ui/input"
+
+const features = [
+  {
+    icon: <Calendar className="h-6 w-6 text-[#FFA726]" />,
+    title: "Reserva instantánea",
+    description: "Encuentra y reserva canchas en tiempo real"
+  },
+  {
+    icon: <Users className="h-6 w-6 text-[#FFA726]" />,
+    title: "Encuentra equipo",
+    description: "Únete a equipos o encuentra jugadores para tu partido"
+  },
+  {
+    icon: <Trophy className="h-6 w-6 text-[#FFA726]" />,
+    title: "Torneos",
+    description: "Participa en torneos y compite con los mejores"
+  },
+  {
+    icon: <Shield className="h-6 w-6 text-[#FFA726]" />,
+    title: "Comunidad segura",
+    description: "Jugadores verificados y sistema de valoraciones"
+  }
+]
+
+const stats = [
+  { number: "500+", label: "Partidos organizados" },
+  { number: "1000+", label: "Jugadores activos" },
+  { number: "50+", label: "Torneos realizados" },
+  { number: "100+", label: "Canchas disponibles" }
+]
 
 export default function IndexPage() {
   return (
@@ -97,6 +127,65 @@ export default function IndexPage() {
           <span className="text-xs sm:text-sm text-gray-400">Explora más</span>
           <ChevronDown className="h-4 w-4 sm:h-6 sm:w-6 text-[#FFA726]" />
         </motion.div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 sm:py-24 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-3">
+          <div className="max-w-[90rem] mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            >
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="p-6 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                >
+                  <div className="mb-4">{feature.icon}</div>
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-gray-400 text-sm">{feature.description}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 sm:py-24 bg-black">
+        <div className="container mx-auto px-3">
+          <div className="max-w-[90rem] mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-8"
+            >
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="text-3xl sm:text-4xl font-bold text-[#FFA726] mb-2">{stat.number}</div>
+                  <div className="text-sm text-gray-400">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
