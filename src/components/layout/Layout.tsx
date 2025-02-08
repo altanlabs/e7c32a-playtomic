@@ -1,210 +1,85 @@
-import { Link, useLocation } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { Bell, Settings, LogOut, Menu, Plus } from "lucide-react";
-import { Toggle } from "@radix-ui/react-toggle";
-import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
-import { useTheme } from "@/theme/use-theme";
-import { useEffect, useRef, useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
 
-const MainNavigation = [
-  { label: "Jugadores", href: "/players" },
-  { label: "Canchas", href: "/courts" },
-  { label: "Clubs", href: "/clubs", 
-    dropdownItems: [
-      { label: "Ver todos", href: "/clubs" },
-      { label: "Publicar pista", href: "/clubs/publish", icon: <Plus className="h-4 w-4 mr-2" /> }
-    ]
-  },
-  { label: "Torneos", href: "/tournaments" },
-  { label: "Rankings", href: "/rankings" },
-];
-
-interface LayoutProps {
-  children: React.ReactNode
-}
-
-export default function Layout({ children }: LayoutProps) {
-  const location = useLocation();
-  const { theme, setTheme } = useTheme();
-  const initialThemeSet = useRef(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (initialThemeSet.current) return;
-    
-    const queryParams = new URLSearchParams(location.search);
-    const themeParam = queryParams.get('theme');
-    if (themeParam === 'light' || themeParam === 'dark') {
-      setTheme(themeParam);
-      queryParams.delete('theme');
-      const newSearch = queryParams.toString();
-      const newUrl = `${location.pathname}${newSearch ? `?${newSearch}` : ''}${location.hash}`;
-      window.history.replaceState({}, '', newUrl);
-      initialThemeSet.current = true;
-    }
-  }, [location.hash, location.pathname, location.search, setTheme]);
-
-  const NavigationLinks = () => (
-    <>
-      {MainNavigation.map((item, index) => {
-        if (item.dropdownItems) {
-          return (
-            <DropdownMenu key={index}>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className={`text-lg transition-colors hover:text-white ${
-                    location.pathname.startsWith(item.href)
-                      ? "text-white font-medium"
-                      : "text-gray-400"
-                  }`}
-                >
-                  {item.label}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                {item.dropdownItems.map((dropdownItem, dropdownIndex) => (
-                  <DropdownMenuItem key={dropdownIndex} asChild>
-                    <Link 
-                      to={dropdownItem.href}
-                      className="flex items-center"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {dropdownItem.icon}
-                      {dropdownItem.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          );
-        }
-
-        return (
-          <Link
-            key={index}
-            to={item.href}
-            className={`text-lg transition-colors hover:text-white ${
-              location.pathname === item.href
-                ? "text-white font-medium"
-                : "text-gray-400"
-            }`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {item.label}
-          </Link>
-        );
-      })}
-    </>
-  );
-
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-[#0A0F1C]">
+    <div className="min-h-screen bg-background">
+      {/* Navigation */}
+      <header className="border-b">
         <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo and Desktop Navigation */}
-            <div className="flex items-center space-x-12">
-              <Link to="/" className="text-white text-2xl font-bold">
-                Dribla
-              </Link>
-              
-              {/* Desktop Navigation */}
-              <nav className="hidden md:flex items-center space-x-8">
-                <NavigationLinks />
-              </nav>
-            </div>
-
+          <nav className="flex items-center justify-between h-16">
+            <Link to="/" className="font-bold text-xl">
+              3x3 League
+            </Link>
+            
             <div className="flex items-center space-x-4">
-              {/* Theme Toggle */}
-              <Toggle
-                pressed={theme === "dark"}
-                onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="px-2 py-2 rounded-md text-gray-400 hover:text-white"
-              >
-                {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
-              </Toggle>
-
-              {/* Notifications */}
-              <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                <Bell className="h-5 w-5" />
-              </Button>
-
-              {/* User Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 rounded-full">
-                    <Avatar>
-                      <AvatarImage src="" alt="User" />
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
-                    <Settings className="mr-2 h-4 w-4" />
-                    Ajustes
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Cerrar sesión
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Mobile Menu Button */}
-              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                <SheetTrigger asChild className="md:hidden">
-                  <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                    <Menu className="h-6 w-6" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[240px] bg-[#0A0F1C]">
-                  <nav className="flex flex-col space-y-6 mt-6">
-                    <NavigationLinks />
-                  </nav>
-                </SheetContent>
-              </Sheet>
+              <Link to="/courts">
+                <Button variant="ghost">Canchas</Button>
+              </Link>
+              <Link to="/players">
+                <Button variant="ghost">Jugadores</Button>
+              </Link>
+              <Link to="/tournaments">
+                <Button variant="ghost">Torneos</Button>
+              </Link>
+              <Link to="/rankings">
+                <Button variant="ghost">Rankings</Button>
+              </Link>
+              <Link to="/booking">
+                <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
+                  Reservar
+                </Button>
+              </Link>
             </div>
-          </div>
+          </nav>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
+      <main>
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border">
-        <div className="container flex h-14 items-center justify-between">
-          <span className="text-sm text-muted-foreground">
-            © 2024 Dribla. Todos los derechos reservados.
-          </span>
-          <nav className="flex items-center gap-4">
-            <Link to="/rules" className="text-sm text-muted-foreground hover:text-foreground">
-              Reglas 3x3
-            </Link>
-            <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground">
-              Términos
-            </Link>
-            <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground">
-              Contacto
-            </Link>
-          </nav>
+      <footer className="border-t mt-20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="font-bold mb-4">3x3 League</h3>
+              <p className="text-sm text-muted-foreground">
+                La mejor plataforma para jugar baloncesto 3x3
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Enlaces</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/courts">Canchas</Link></li>
+                <li><Link to="/players">Jugadores</Link></li>
+                <li><Link to="/tournaments">Torneos</Link></li>
+                <li><Link to="/rankings">Rankings</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/privacy">Privacidad</Link></li>
+                <li><Link to="/terms">Términos</Link></li>
+                <li><Link to="/cookies">Cookies</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Contacto</h4>
+              <ul className="space-y-2 text-sm">
+                <li>Email: info@3x3league.com</li>
+                <li>Tel: +34 900 123 456</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+            © 2024 3x3 League. Todos los derechos reservados.
+          </div>
         </div>
       </footer>
     </div>
-  );
+  )
 }
