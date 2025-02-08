@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { CourtCard } from "@/components/blocks/court-card"
+import { AuthDialog } from "@/components/blocks/auth-dialog"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, MapPin, Filter } from "lucide-react"
@@ -94,6 +96,14 @@ const courts = [
 ]
 
 export default function CourtsPage() {
+  const [showAuthDialog, setShowAuthDialog] = useState(false)
+  const [authType, setAuthType] = useState<"player" | "club">("player")
+
+  const handleCourtClick = (isClubAction: boolean = false) => {
+    setAuthType(isClubAction ? "club" : "player")
+    setShowAuthDialog(true)
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <motion.div
@@ -118,6 +128,12 @@ export default function CourtsPage() {
               <p className="text-xl text-gray-300">
                 Las mejores pistas de baloncesto 3x3 cerca de ti
               </p>
+              <Button 
+                className="bg-[#FFA726] hover:bg-[#FF9800] text-white px-8 py-6 rounded-xl mt-4"
+                onClick={() => handleCourtClick(true)}
+              >
+                ¿Eres un club? Publica tu pista
+              </Button>
             </div>
           </div>
         </div>
@@ -152,9 +168,19 @@ export default function CourtsPage() {
         {/* Courts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courts.map((court, index) => (
-            <CourtCard key={court.id} {...court} index={index} />
+            <div key={court.id} onClick={() => handleCourtClick()}>
+              <CourtCard {...court} index={index} />
+            </div>
           ))}
         </div>
+
+        {/* Auth Dialog */}
+        <AuthDialog
+          isOpen={showAuthDialog}
+          onClose={() => setShowAuthDialog(false)}
+          defaultTab={authType}
+          defaultView="login"
+        />
       </motion.div>
     </div>
   )
