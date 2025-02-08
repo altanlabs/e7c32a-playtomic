@@ -1,7 +1,18 @@
 import { LandingSections } from "@/components/blocks/landing-sections"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 
 export default function IndexPage() {
+  const navigate = useNavigate();
+
+  const handleBookNow = () => {
+    navigate('/booking');
+  };
+
+  const handleViewCourts = () => {
+    navigate('/courts');
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -19,10 +30,18 @@ export default function IndexPage() {
               Encuentra canchas, jugadores y torneos. Todo en un solo lugar.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
-                Empezar ahora
+              <Button 
+                size="lg" 
+                className="bg-[#FFA726] hover:bg-[#FF9800]"
+                onClick={handleBookNow}
+              >
+                Reservar ahora
               </Button>
-              <Button size="lg" variant="outline">
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={handleViewCourts}
+              >
                 Ver canchas disponibles
               </Button>
             </div>
@@ -80,8 +99,12 @@ export default function IndexPage() {
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
             Únete a la comunidad de baloncesto 3x3 más grande de España y empieza a disfrutar del mejor baloncesto urbano.
           </p>
-          <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
-            Crear cuenta gratis
+          <Button 
+            size="lg" 
+            className="bg-[#FFA726] hover:bg-[#FF9800]"
+            onClick={handleBookNow}
+          >
+            Reservar ahora
           </Button>
         </div>
       </section>
