@@ -1,29 +1,35 @@
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Link } from "react-router-dom"
-import { Search, Filter, MapPin, Star } from "lucide-react"
+import { Search, Filter } from "lucide-react"
+import PlayerCard from "@/components/blocks/player-card"
 
 export default function PlayersPage() {
+  // Datos de ejemplo - esto vendría de tu API/backend
   const players = [
     {
       id: 1,
-      name: "Carlos García",
+      name: "David García",
       position: "Base",
       level: "Avanzado",
-      location: "Barcelona",
       rating: 4.8,
-      image: "https://i.pravatar.cc/150?img=1"
+      avatar: "/avatars/player1.jpg"
     },
     {
       id: 2,
-      name: "Laura Martínez",
+      name: "Ana Martínez",
       position: "Escolta",
       level: "Intermedio",
-      location: "Madrid",
       rating: 4.5,
-      image: "https://i.pravatar.cc/150?img=2"
+      avatar: "/avatars/player2.jpg"
     },
-    // Añade más jugadores aquí
+    {
+      id: 3,
+      name: "Carlos Ruiz",
+      position: "Alero",
+      level: "Avanzado",
+      rating: 4.9,
+      avatar: "/avatars/player3.jpg"
+    },
+    // Más jugadores aquí
   ]
 
   return (
@@ -31,11 +37,6 @@ export default function PlayersPage() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Jugadores</h1>
-        <Link to="/join-as-player">
-          <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
-            Unirse como jugador
-          </Button>
-        </Link>
       </div>
 
       {/* Search and Filters */}
@@ -56,42 +57,23 @@ export default function PlayersPage() {
         </Button>
       </div>
 
+      {/* Quick Filters */}
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <Button variant="outline" size="sm">Todos</Button>
+        <Button variant="outline" size="sm">Base</Button>
+        <Button variant="outline" size="sm">Escolta</Button>
+        <Button variant="outline" size="sm">Alero</Button>
+        <Button variant="outline" size="sm">Ala-Pívot</Button>
+        <Button variant="outline" size="sm">Pívot</Button>
+      </div>
+
       {/* Players Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {players.map((player) => (
-          <Card key={player.id} className="overflow-hidden">
-            <div className="flex items-center p-4">
-              <img
-                src={player.image}
-                alt={player.name}
-                className="w-16 h-16 rounded-full object-cover mr-4"
-              />
-              <div>
-                <h3 className="font-semibold">{player.name}</h3>
-                <div className="text-sm text-muted-foreground">{player.position}</div>
-              </div>
-            </div>
-            <div className="px-4 pb-4">
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <div className="flex items-center justify-between">
-                  <span>{player.level}</span>
-                  <span className="flex items-center">
-                    <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                    {player.rating}
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  {player.location}
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t">
-                <Button variant="outline" className="w-full">
-                  Ver perfil
-                </Button>
-              </div>
-            </div>
-          </Card>
+          <PlayerCard
+            key={player.id}
+            {...player}
+          />
         ))}
       </div>
     </div>
