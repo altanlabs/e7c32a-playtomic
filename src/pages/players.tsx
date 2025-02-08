@@ -52,9 +52,9 @@ export default function PlayersPage() {
       <div className="relative bg-[#0A0F1C] py-16">
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/headers/basketball-players.jpg"
-            alt="Basketball Players"
-            className="w-full h-full object-cover opacity-20"
+            src="/headers/basketball-hoop.jpg"
+            alt="Basketball Hoop"
+            className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1C]/80 to-[#0A0F1C]" />
         </div>
