@@ -3,7 +3,6 @@ import { Search, Filter } from "lucide-react"
 import PlayerCard from "@/components/blocks/player-card"
 
 export default function PlayersPage() {
-  // Datos de ejemplo - esto vendría de tu API/backend
   const players = [
     {
       id: 1,
@@ -29,52 +28,73 @@ export default function PlayersPage() {
       rating: 4.9,
       avatar: "/avatars/player3.jpg"
     },
-    // Más jugadores aquí
   ]
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Jugadores</h1>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <div className="relative bg-[#0A0F1C] py-12 mb-6">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+              Jugadores
+            </h1>
+            <p className="text-muted-foreground text-lg mb-6">
+              Encuentra jugadores para tus partidos
+            </p>
+          </div>
 
-      {/* Search and Filters */}
-      <div className="flex flex-wrap gap-4 mb-8">
-        <div className="flex-1">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Buscar jugadores..."
-              className="w-full pl-10 p-2 rounded-md border bg-background"
-            />
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+              <input
+                type="text"
+                placeholder="Buscar jugadores..."
+                className="w-full pl-12 pr-4 py-3 rounded-full border bg-background/95 text-base"
+              />
+            </div>
           </div>
         </div>
-        <Button variant="outline" className="flex items-center gap-2">
-          <Filter className="h-4 w-4" />
-          Filtros
-        </Button>
       </div>
 
-      {/* Quick Filters */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-        <Button variant="outline" size="sm">Todos</Button>
-        <Button variant="outline" size="sm">Base</Button>
-        <Button variant="outline" size="sm">Escolta</Button>
-        <Button variant="outline" size="sm">Alero</Button>
-        <Button variant="outline" size="sm">Ala-Pívot</Button>
-        <Button variant="outline" size="sm">Pívot</Button>
-      </div>
+      <div className="container mx-auto px-4">
+        {/* Filters */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 no-scrollbar">
+            <Button variant="outline" size="sm" className="whitespace-nowrap rounded-full">
+              Todos
+            </Button>
+            <Button variant="outline" size="sm" className="whitespace-nowrap rounded-full">
+              Base
+            </Button>
+            <Button variant="outline" size="sm" className="whitespace-nowrap rounded-full">
+              Escolta
+            </Button>
+            <Button variant="outline" size="sm" className="whitespace-nowrap rounded-full">
+              Alero
+            </Button>
+            <Button variant="outline" size="sm" className="whitespace-nowrap rounded-full">
+              Ala-Pívot
+            </Button>
+            <Button variant="outline" size="sm" className="whitespace-nowrap rounded-full">
+              Pívot
+            </Button>
+          </div>
+          <Button variant="outline" size="icon" className="ml-2 flex-shrink-0">
+            <Filter className="h-4 w-4" />
+          </Button>
+        </div>
 
-      {/* Players Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {players.map((player) => (
-          <PlayerCard
-            key={player.id}
-            {...player}
-          />
-        ))}
+        {/* Players Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {players.map((player) => (
+            <PlayerCard
+              key={player.id}
+              {...player}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
