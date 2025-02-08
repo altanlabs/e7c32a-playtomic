@@ -19,6 +19,10 @@ import ManageCourt from "./pages/courts/manage";
 import Notifications from "./pages/notifications";
 import NotFound from "./pages/NotFound";
 import { useTheme } from "./theme/use-theme";
+import Teams from "./pages/teams";
+import CreateTeam from "./pages/teams/create";
+import TeamDetail from "./pages/teams/[id]";
+import JoinAsPlayer from "./pages/join-as-player";
 
 const App = () => {
   const { theme } = useTheme();
@@ -35,6 +39,7 @@ const App = () => {
             title: "Dribla",
             navigation: [
               { label: "Jugadores", href: "/players" },
+              { label: "Equipos", href: "/teams" },
               { label: "Canchas", href: "/courts" },
               { label: "Torneos", href: "/tournaments" },
               { label: "Rankings", href: "/rankings" },
@@ -90,6 +95,22 @@ const App = () => {
         {
           path: "/tournaments/:id",
           element: <TournamentDetail />,
+        },
+        {
+          path: "/teams",
+          element: <Teams />,
+        },
+        {
+          path: "/teams/create",
+          element: <CreateTeam />,
+        },
+        {
+          path: "/teams/:id",
+          element: <TeamDetail />,
+        },
+        {
+          path: "/join-as-player",
+          element: <JoinAsPlayer />,
         },
         {
           path: "/notifications",
