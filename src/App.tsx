@@ -9,6 +9,7 @@ import PlayersPage from './pages/players'
 import ArosPage from './pages/courts' // Mantenemos el archivo como courts.tsx por ahora
 import ClubsPage from './pages/clubs'
 import TournamentsPage from './pages/tournaments/index'
+import JoinTournamentPage from './pages/tournaments/join'
 import RankingsPage from './pages/rankings'
 
 // Páginas de funcionalidad
@@ -37,6 +38,7 @@ function App() {
             <Route path="/aros" element={<ArosPage />} />
             <Route path="/clubs" element={<ClubsPage />} />
             <Route path="/tournaments" element={<TournamentsPage />} />
+            <Route path="/tournaments/join" element={<JoinTournamentPage />} />
             <Route path="/rankings" element={<RankingsPage />} />
             
             {/* Flujo de reserva */}
