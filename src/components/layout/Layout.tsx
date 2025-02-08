@@ -6,8 +6,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Bell, Settings, LogOut, Menu } from "lucide-react";
+import { Bell, Settings, LogOut, Menu, Plus } from "lucide-react";
 import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/theme/use-theme";
@@ -17,6 +18,12 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 const MainNavigation = [
   { label: "Jugadores", href: "/players" },
   { label: "Canchas", href: "/courts" },
+  { label: "Clubs", href: "/clubs", 
+    dropdownItems: [
+      { label: "Ver todos", href: "/clubs" },
+      { label: "Publicar pista", href: "/clubs/publish", icon: <Plus className="h-4 w-4 mr-2" /> }
+    ]
+  },
   { label: "Torneos", href: "/tournaments" },
   { label: "Rankings", href: "/rankings" },
 ];
@@ -48,20 +55,55 @@ export default function Layout({ children }: LayoutProps) {
 
   const NavigationLinks = () => (
     <>
-      {MainNavigation.map((item, index) => (
-        <Link
-          key={index}
-          to={item.href}
-          className={`text-lg transition-colors hover:text-white ${
-            location.pathname === item.href
-              ? "text-white font-medium"
-              : "text-gray-400"
-          }`}
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          {item.label}
-        </Link>
-      ))}
+      {MainNavigation.map((item, index) => {
+        if (item.dropdownItems) {
+          return (
+            <DropdownMenu key={index}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className={`text-lg transition-colors hover:text-white ${
+                    location.pathname.startsWith(item.href)
+                      ? "text-white font-medium"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {item.label}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                {item.dropdownItems.map((dropdownItem, dropdownIndex) => (
+                  <DropdownMenuItem key={dropdownIndex} asChild>
+                    <Link 
+                      to={dropdownItem.href}
+                      className="flex items-center"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {dropdownItem.icon}
+                      {dropdownItem.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        }
+
+        return (
+          <Link
+            key={index}
+            to={item.href}
+            className={`text-lg transition-colors hover:text-white ${
+              location.pathname === item.href
+                ? "text-white font-medium"
+                : "text-gray-400"
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            {item.label}
+          </Link>
+        );
+      })}
     </>
   );
 
@@ -113,6 +155,7 @@ export default function Layout({ children }: LayoutProps) {
                     <Settings className="mr-2 h-4 w-4" />
                     Ajustes
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <LogOut className="mr-2 h-4 w-4" />
                     Cerrar sesión
