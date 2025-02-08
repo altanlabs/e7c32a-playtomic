@@ -50,7 +50,140 @@ const MOCK_TEAMS: Team[] = [
     createdAt: new Date("2023-01-01"),
     updatedAt: new Date("2024-01-15")
   },
-  // Añade más equipos aquí...
+  {
+    id: "2",
+    name: "Hoops Elite",
+    logo: "https://api.dicebear.com/7.x/shapes/svg?seed=hoops-elite",
+    description: "Equipo de 5x5 con experiencia en ligas locales",
+    level: "intermediate",
+    players: [
+      {
+        id: "3",
+        name: "Miguel Ángel",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=miguel",
+        position: "Base",
+        level: "intermediate"
+      },
+      {
+        id: "4",
+        name: "Laura García",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=laura",
+        position: "Alero",
+        level: "intermediate"
+      },
+      {
+        id: "5",
+        name: "Pablo Sánchez",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=pablo",
+        position: "Pívot",
+        level: "intermediate"
+      }
+    ],
+    captain: {
+      id: "3",
+      name: "Miguel Ángel",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=miguel",
+      position: "Base",
+      level: "intermediate"
+    },
+    stats: {
+      wins: 15,
+      losses: 10,
+      tournamentsPlayed: 4,
+      tournamentsWon: 1
+    },
+    maxPlayers: 5,
+    status: "looking_for_players",
+    createdAt: new Date("2023-06-15"),
+    updatedAt: new Date("2024-01-20")
+  },
+  {
+    id: "3",
+    name: "Rookies United",
+    logo: "https://api.dicebear.com/7.x/shapes/svg?seed=rookies-united",
+    description: "Equipo principiante buscando mejorar y divertirse",
+    level: "beginner",
+    players: [
+      {
+        id: "6",
+        name: "David López",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=david",
+        position: "Escolta",
+        level: "beginner"
+      },
+      {
+        id: "7",
+        name: "Sara Ruiz",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sara",
+        position: "Base",
+        level: "beginner"
+      }
+    ],
+    captain: {
+      id: "6",
+      name: "David López",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=david",
+      position: "Escolta",
+      level: "beginner"
+    },
+    stats: {
+      wins: 5,
+      losses: 8,
+      tournamentsPlayed: 2,
+      tournamentsWon: 0
+    },
+    maxPlayers: 3,
+    status: "looking_for_players",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-22")
+  },
+  {
+    id: "4",
+    name: "Pro Ballers",
+    logo: "https://api.dicebear.com/7.x/shapes/svg?seed=pro-ballers",
+    description: "Equipo profesional con experiencia en competiciones nacionales",
+    level: "pro",
+    players: [
+      {
+        id: "8",
+        name: "Javier Martín",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=javier",
+        position: "Base",
+        level: "pro"
+      },
+      {
+        id: "9",
+        name: "Carmen Vega",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=carmen",
+        position: "Escolta",
+        level: "pro"
+      },
+      {
+        id: "10",
+        name: "Roberto Gil",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=roberto",
+        position: "Alero",
+        level: "pro"
+      }
+    ],
+    captain: {
+      id: "8",
+      name: "Javier Martín",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=javier",
+      position: "Base",
+      level: "pro"
+    },
+    stats: {
+      wins: 45,
+      losses: 12,
+      tournamentsPlayed: 15,
+      tournamentsWon: 8
+    },
+    maxPlayers: 3,
+    status: "closed",
+    createdAt: new Date("2023-03-15"),
+    updatedAt: new Date("2024-01-18")
+  }
 ]
 
 function TeamCard({ team }: { team: Team }) {
