@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4">
           <nav className="flex items-center justify-between h-16">
             <Link to="/" className="font-bold text-xl">
-              3x3 League
+              DRIBLA
             </Link>
             
             <div className="flex items-center space-x-4">
@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-bold mb-4">3x3 League</h3>
+              <h3 className="font-bold mb-4">DRIBLA</h3>
               <p className="text-sm text-muted-foreground">
                 La mejor plataforma para jugar baloncesto 3x3
               </p>
@@ -84,13 +84,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="font-semibold mb-4">Contacto</h4>
               <ul className="space-y-2 text-sm">
-                <li>Email: info@3x3league.com</li>
+                <li>Email: info@dribla.com</li>
                 <li>Tel: +34 900 123 456</li>
               </ul>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-            © 2024 3x3 League. Todos los derechos reservados.
+            © 2024 DRIBLA. Todos los derechos reservados.
           </div>
         </div>
       </footer>
