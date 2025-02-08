@@ -1,15 +1,41 @@
-import { TournamentRegistration } from "@/components/blocks/tournament-registration"
+import { useParams } from "react-router-dom"
+import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Calendar, MapPin, Trophy, Users } from "lucide-react"
-import { useParams, useNavigate } from "react-router-dom"
+import { MapPin, Calendar, Trophy, Users } from "lucide-react"
+import { TournamentRegistration } from "@/components/blocks/tournament-registration"
 
-// Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_TOURNAMENTS = {
+interface Tournament {
+  id: string
+  name: string
+  description: string
+  clubName: string
+  location: string
+  date: string
+  price: number
+  prizePool: string
+  maxTeams: number
+  registeredTeams: Array<{
+    name: string
+    players: Array<{
+      name: string
+      avatar: string
+      position: string
+    }>
+  }>
+  level: string
+  image: string
+}
+
+interface TournamentData {
+  [key: string]: Tournament
+}
+
+// Mock data - En una implementación real, esto vendría de una API
+const MOCK_TOURNAMENTS: TournamentData = {
   "1": {
     id: "1",
     name: "Torneo Verano 3x3",
-    description: "Gran torneo de baloncesto 3x3 con los mejores equipos de la ciudad. Ven y demuestra tu nivel en la cancha.",
+    description: "Torneo de baloncesto 3x3 con los mejores equipos de la ciudad. Premios en metálico y trofeos para los ganadores.",
     clubName: "Club Deportivo Central",
     location: "Pista Central - Madrid",
     date: "15 de Julio, 2024",
@@ -20,36 +46,15 @@ const MOCK_TOURNAMENTS = {
       {
         name: "Los Invencibles",
         players: [
-          {
-            name: "Juan Pérez",
-            avatar: "https://i.pravatar.cc/150?u=juan",
-            position: "Base"
-          },
-          {
-            name: "Ana García",
-            avatar: "https://i.pravatar.cc/150?u=ana",
-            position: "Alero"
-          },
-          {
-            name: "Carlos López",
-            avatar: "https://i.pravatar.cc/150?u=carlos",
-            position: "Pívot"
-          }
+          { name: "Juan Pérez", position: "Base", avatar: "https://i.pravatar.cc/150?u=juan" },
+          { name: "Ana García", position: "Alero", avatar: "https://i.pravatar.cc/150?u=ana" }
         ]
       },
       {
         name: "Street Warriors",
         players: [
-          {
-            name: "María Rodríguez",
-            avatar: "https://i.pravatar.cc/150?u=maria",
-            position: "Base"
-          },
-          {
-            name: "Pedro Sánchez",
-            avatar: "https://i.pravatar.cc/150?u=pedro",
-            position: "Alero"
-          }
+          { name: "María Rodríguez", position: "Base", avatar: "https://i.pravatar.cc/150?u=maria" },
+          { name: "Pedro Sánchez", position: "Alero", avatar: "https://i.pravatar.cc/150?u=pedro" }
         ]
       }
     ],
@@ -59,7 +64,7 @@ const MOCK_TOURNAMENTS = {
   "2": {
     id: "2",
     name: "Liga Amateur 3x3",
-    description: "Liga amateur de baloncesto 3x3 perfecta para iniciarse en la competición. Partidos todos los sábados.",
+    description: "Liga amateur de baloncesto 3x3. Partidos todos los sábados con premios semanales.",
     clubName: "Urban Court Downtown",
     location: "Plaza del Deporte - Barcelona",
     date: "Todos los Sábados",
@@ -70,16 +75,8 @@ const MOCK_TOURNAMENTS = {
       {
         name: "Rookies",
         players: [
-          {
-            name: "Luis Torres",
-            avatar: "https://i.pravatar.cc/150?u=luis",
-            position: "Base"
-          },
-          {
-            name: "Sara Martín",
-            avatar: "https://i.pravatar.cc/150?u=sara",
-            position: "Alero"
-          }
+          { name: "Luis Torres", position: "Base", avatar: "https://i.pravatar.cc/150?u=luis" },
+          { name: "Sara Martín", position: "Alero", avatar: "https://i.pravatar.cc/150?u=sara" }
         ]
       }
     ],
@@ -89,98 +86,92 @@ const MOCK_TOURNAMENTS = {
 }
 
 export default function TournamentDetailPage() {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  
-  // En una implementación real, aquí se haría una llamada a la API
-  const tournament = id ? MOCK_TOURNAMENTS[id] : null
+  const { id = "1" } = useParams()
+  const tournament = MOCK_TOURNAMENTS[id]
 
-  if (!tournament) return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] px-4">
-      <h1 className="text-2xl font-bold mb-2">Torneo no encontrado</h1>
-      <p className="text-muted-foreground mb-4">El torneo que buscas no existe o ha sido eliminado.</p>
-      <Button onClick={() => navigate('/tournaments')}>Ver todos los torneos</Button>
-    </div>
-  )
-
-  const handleViewOrganizer = () => {
-    navigate(`/club/${tournament.clubName}`)
+  if (!tournament) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <Card className="p-4 text-center">
+          <h1 className="text-xl font-bold mb-2">Torneo no encontrado</h1>
+          <p className="text-sm text-muted-foreground">
+            El torneo que buscas no existe o ha sido eliminado
+          </p>
+        </Card>
+      </div>
+    )
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-        {/* Información del torneo */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="relative h-[200px] sm:h-[300px] rounded-lg overflow-hidden">
-            <img 
-              src={tournament.image} 
-              alt={tournament.name} 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute top-4 right-4 flex gap-2">
-              <Badge variant="secondary" className="text-base sm:text-lg py-1">
-                {tournament.price}€
-              </Badge>
-              <Badge>{tournament.level}</Badge>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-[1200px] mx-auto px-3 py-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Información principal */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="relative h-48 sm:h-64 rounded-lg overflow-hidden">
+              <img 
+                src={tournament.image} 
+                alt={tournament.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <h1 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                  {tournament.name}
+                </h1>
+                <p className="text-sm text-white/80">{tournament.clubName}</p>
+              </div>
             </div>
+
+            <Card className="p-4">
+              <div className="space-y-4">
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="text-xs">
+                    {tournament.level}
+                  </Badge>
+                  <Badge variant="destructive" className="text-xs">
+                    {tournament.price}€
+                  </Badge>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                    <span>{tournament.location}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span>{tournament.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Trophy className="h-4 w-4 text-muted-foreground" />
+                    <span>Premio: {tournament.prizePool}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <span>{tournament.registeredTeams.length}/{tournament.maxTeams} equipos</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t">
+                  <h2 className="text-lg font-semibold mb-2">Sobre el torneo</h2>
+                  <p className="text-sm text-muted-foreground">
+                    {tournament.description}
+                  </p>
+                </div>
+              </div>
+            </Card>
           </div>
 
+          {/* Sidebar */}
           <div className="space-y-4">
-            <div className="text-center sm:text-left">
-              <h1 className="text-2xl sm:text-3xl font-bold mb-2">{tournament.name}</h1>
-              <p className="text-muted-foreground">{tournament.description}</p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="w-5 h-5 flex-shrink-0" />
-                <span>{tournament.location}</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="w-5 h-5 flex-shrink-0" />
-                <span>{tournament.date}</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Trophy className="w-5 h-5 flex-shrink-0" />
-                <span>Premio: {tournament.prizePool}</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Users className="w-5 h-5 flex-shrink-0" />
-                <span>Máximo {tournament.maxTeams} equipos</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-bold">Organizador</h2>
-            <div className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-secondary rounded-lg">
-              <div className="text-center sm:text-left">
-                <h3 className="font-semibold">{tournament.clubName}</h3>
-                <p className="text-sm text-muted-foreground">{tournament.location}</p>
-              </div>
-              <Button 
-                className="w-full sm:w-auto sm:ml-auto" 
-                variant="outline"
-                onClick={handleViewOrganizer}
-              >
-                Ver perfil
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Panel de registro */}
-        <div className="lg:col-span-1">
-          <div className="sticky top-8 space-y-6">
-            <div className="bg-card p-4 sm:p-6 rounded-lg border">
-              <h2 className="text-xl font-bold mb-4 text-center sm:text-left">Registro</h2>
+            <Card className="p-4">
               <TournamentRegistration
                 tournamentId={tournament.id}
                 maxTeams={tournament.maxTeams}
                 registeredTeams={tournament.registeredTeams}
               />
-            </div>
+            </Card>
           </div>
         </div>
       </div>
