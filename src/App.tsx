@@ -6,7 +6,7 @@ import Layout from './components/layout/Layout'
 // Páginas principales
 import IndexPage from './pages'
 import PlayersPage from './pages/players'
-import CourtsPage from './pages/aros'
+import ArosPage from './pages/courts' // Mantenemos el archivo como courts.tsx por ahora
 import ClubsPage from './pages/clubs'
 import TournamentsPage from './pages/tournaments'
 import RankingsPage from './pages/rankings'
@@ -17,7 +17,7 @@ import BookingPaymentPage from './pages/booking/payment'
 import BookingConfirmationPage from './pages/booking/confirmation'
 
 // Páginas de creación y gestión
-import PublishCourtPage from './pages/clubs/publish'
+import PublishAroPage from './pages/clubs/publish'
 import CreateTournamentPage from './pages/tournaments/create'
 import JoinAsPlayerPage from './pages/join-as-player'
 import InviteToPlayPage from './pages/invite-to-play'
@@ -34,7 +34,7 @@ function App() {
             {/* Páginas principales */}
             <Route path="/" element={<IndexPage />} />
             <Route path="/players" element={<PlayersPage />} />
-            <Route path="/aros" element={<CourtsPage />} />
+            <Route path="/aros" element={<ArosPage />} />
             <Route path="/clubs" element={<ClubsPage />} />
             <Route path="/tournaments" element={<TournamentsPage />} />
             <Route path="/rankings" element={<RankingsPage />} />
@@ -45,7 +45,7 @@ function App() {
             <Route path="/booking/confirmation" element={<BookingConfirmationPage />} />
             
             {/* Páginas de creación y gestión */}
-            <Route path="/clubs/publish" element={<PublishCourtPage />} />
+            <Route path="/clubs/publish" element={<PublishAroPage />} />
             <Route path="/tournaments/create" element={<CreateTournamentPage />} />
             <Route path="/join-as-player" element={<JoinAsPlayerPage />} />
             <Route path="/invite-to-play" element={<InviteToPlayPage />} />
