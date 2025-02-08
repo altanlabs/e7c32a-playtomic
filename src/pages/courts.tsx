@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
+import { Search, Filter, MapPin, Clock, Euro } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Link } from "react-router-dom"
-import { Search, Filter, MapPin, Clock, Euro } from "lucide-react"
 
 export default function CourtsPage() {
   const courts = [
@@ -23,6 +23,16 @@ export default function CourtsPage() {
       availability: "8:00 - 23:00",
       type: "3x3",
       surface: "Sintético",
+      image: "/sports/basketball-3x3.svg"
+    },
+    {
+      id: 3,
+      name: "Aro Street Valencia",
+      location: "Av. del Puerto 80, Valencia",
+      price: "20€/hora",
+      availability: "10:00 - 21:00",
+      type: "3x3",
+      surface: "Cemento",
       image: "/sports/basketball-3x3.svg"
     },
   ]
@@ -87,10 +97,59 @@ export default function CourtsPage() {
       </div>
 
       {/* Courts List */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col items-center gap-4 max-w-md mx-auto">
+      <div className="bg-background py-6">
+        {/* Mobile view (1 column, centered) */}
+        <div className="md:hidden px-4">
+          <div className="max-w-[340px] mx-auto">
+            <div className="space-y-3">
+              {courts.map((court) => (
+                <Card key={court.id} className="overflow-hidden bg-[#0A0F1C] border-border">
+                  <div className="aspect-video relative">
+                    <img
+                      src={court.image}
+                      alt={court.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-background/90 text-foreground px-3 py-1 rounded-full text-sm">
+                        {court.type}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold mb-3">{court.name}</h3>
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      <div className="flex items-center">
+                        <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
+                        <span className="line-clamp-1">{court.location}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Clock className="h-4 w-4 mr-2 flex-shrink-0" />
+                        <span>{court.availability}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Euro className="h-4 w-4 mr-2 flex-shrink-0" />
+                        <span>{court.price}</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <Link to={`/booking?court=${court.id}`} className="block">
+                        <Button className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
+                          Reservar aro
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        {/* Desktop view (2-3 columns) */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto px-4">
           {courts.map((court) => (
-            <Card key={court.id} className="w-full overflow-hidden bg-[#0A0F1C] border-border">
+            <Card key={court.id} className="overflow-hidden bg-[#0A0F1C] border-border">
               <div className="aspect-video relative">
                 <img
                   src={court.image}
