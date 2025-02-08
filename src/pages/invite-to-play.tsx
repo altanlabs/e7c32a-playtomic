@@ -4,6 +4,7 @@ import { InviteToPlayForm } from "@/components/blocks/forms/invite-to-play-form"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
 import { MapPin, Users, Calendar } from "lucide-react"
+import axios from "@/utils/axios"
 
 export default function InviteToPlayPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -13,21 +14,29 @@ export default function InviteToPlayPage() {
   const handleSubmit = async (data: any) => {
     setIsLoading(true)
     try {
-      // Aquí iría la llamada a la API para crear el partido e invitar jugadores
-      console.log("Invitación a jugar:", data)
-      await new Promise(resolve => setTimeout(resolve, 1500)) // Simulación de llamada API
-      
+      // Realizar la llamada real a la API
+      const response = await axios.post("/api/games/invite", {
+        courtId: data.court.id,
+        date: data.date,
+        playerIds: data.players.map((p: any) => p.id),
+        gameType: data.gameType,
+        pricePerPlayer: parseFloat(data.pricePerPlayer),
+        maxPlayers: parseInt(data.maxPlayers),
+        levelRequired: data.levelRequired,
+        message: data.message
+      })
+
       toast({
         title: "¡Partido creado!",
         description: `Se han enviado invitaciones a ${data.players.length} jugadores.`,
       })
       
-      navigate("/join-game")
-    } catch (error) {
+      navigate(`/join-game/${response.data.gameId}`)
+    } catch (error: any) {
       console.error("Error al crear el partido:", error)
       toast({
         title: "Error al crear el partido",
-        description: "Por favor, inténtalo de nuevo más tarde.",
+        description: error.response?.data?.message || "Por favor, inténtalo de nuevo más tarde.",
         variant: "destructive",
       })
     } finally {
