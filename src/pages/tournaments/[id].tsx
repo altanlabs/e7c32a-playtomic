@@ -95,65 +95,72 @@ export default function TournamentDetailPage() {
   // En una implementación real, aquí se haría una llamada a la API
   const tournament = id ? MOCK_TOURNAMENTS[id] : null
 
-  if (!tournament) return <div>Torneo no encontrado</div>
+  if (!tournament) return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh] px-4">
+      <h1 className="text-2xl font-bold mb-2">Torneo no encontrado</h1>
+      <p className="text-muted-foreground mb-4">El torneo que buscas no existe o ha sido eliminado.</p>
+      <Button onClick={() => navigate('/tournaments')}>Ver todos los torneos</Button>
+    </div>
+  )
 
   const handleViewOrganizer = () => {
-    // Aquí iría la navegación al perfil del organizador
     navigate(`/club/${tournament.clubName}`)
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Información del torneo */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="relative h-[300px] rounded-lg overflow-hidden">
+          <div className="relative h-[200px] sm:h-[300px] rounded-lg overflow-hidden">
             <img 
               src={tournament.image} 
               alt={tournament.name} 
               className="w-full h-full object-cover"
             />
             <div className="absolute top-4 right-4 flex gap-2">
-              <Badge variant="secondary" className="text-lg py-1">
+              <Badge variant="secondary" className="text-base sm:text-lg py-1">
                 {tournament.price}€
               </Badge>
               <Badge>{tournament.level}</Badge>
             </div>
           </div>
 
-          <div>
-            <h1 className="text-3xl font-bold mb-2">{tournament.name}</h1>
-            <p className="text-muted-foreground mb-4">{tournament.description}</p>
+          <div className="space-y-4">
+            <div className="text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2">{tournament.name}</h1>
+              <p className="text-muted-foreground">{tournament.description}</p>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="w-5 h-5" />
+                <MapPin className="w-5 h-5 flex-shrink-0" />
                 <span>{tournament.location}</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="w-5 h-5" />
+                <Calendar className="w-5 h-5 flex-shrink-0" />
                 <span>{tournament.date}</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Trophy className="w-5 h-5" />
+                <Trophy className="w-5 h-5 flex-shrink-0" />
                 <span>Premio: {tournament.prizePool}</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Users className="w-5 h-5" />
+                <Users className="w-5 h-5 flex-shrink-0" />
                 <span>Máximo {tournament.maxTeams} equipos</span>
               </div>
             </div>
           </div>
 
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Organizador</h2>
-            <div className="flex items-center gap-4 p-4 bg-secondary rounded-lg">
-              <div>
+          <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-bold">Organizador</h2>
+            <div className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-secondary rounded-lg">
+              <div className="text-center sm:text-left">
                 <h3 className="font-semibold">{tournament.clubName}</h3>
                 <p className="text-sm text-muted-foreground">{tournament.location}</p>
               </div>
               <Button 
-                className="ml-auto" 
+                className="w-full sm:w-auto sm:ml-auto" 
                 variant="outline"
                 onClick={handleViewOrganizer}
               >
@@ -166,8 +173,8 @@ export default function TournamentDetailPage() {
         {/* Panel de registro */}
         <div className="lg:col-span-1">
           <div className="sticky top-8 space-y-6">
-            <div className="bg-card p-6 rounded-lg border">
-              <h2 className="text-xl font-bold mb-4">Registro</h2>
+            <div className="bg-card p-4 sm:p-6 rounded-lg border">
+              <h2 className="text-xl font-bold mb-4 text-center sm:text-left">Registro</h2>
               <TournamentRegistration
                 tournamentId={tournament.id}
                 maxTeams={tournament.maxTeams}
