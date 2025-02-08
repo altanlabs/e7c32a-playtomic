@@ -8,11 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Bell, Settings, LogOut } from "lucide-react";
+import { Bell, Settings, LogOut, Menu } from "lucide-react";
 import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/theme/use-theme";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const DefaultNavigation = [
   { label: "Inicio", href: "/" },
@@ -55,6 +56,7 @@ export default function Layout({
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const initialThemeSet = useRef(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (initialThemeSet.current) return;
@@ -71,12 +73,31 @@ export default function Layout({
     }
   }, [location.hash, location.pathname, location.search, setTheme]);
 
+  const NavigationLinks = () => (
+    <>
+      {header.navigation?.map((item, index) => (
+        <Link
+          key={index}
+          to={item.href}
+          className={`text-sm font-medium transition-colors hover:text-primary ${
+            location.pathname === item.href
+              ? "text-primary"
+              : "text-muted-foreground"
+          }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </>
+  );
+
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
       {/* Optional Sidebar */}
       {showSidebar && sidebarConfig && (
         <AppSidebar 
-          className="h-full border-r border-border" 
+          className="h-full border-r border-border hidden lg:block" 
           {...sidebarConfig}
         />
       )}
@@ -86,25 +107,27 @@ export default function Layout({
         {/* Configurable Header */}
         {header && showHeader && (
           <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
-              <nav className="flex items-center gap-6 flex-1">
-                {/* Navigation Links */}
-                {header.navigation?.map((item, index) => (
-                  <Link
-                    key={index}
-                    to={item.href}
-                    className={`text-sm transition-colors hover:text-primary ${
-                      location.pathname === item.href
-                        ? "text-primary font-medium"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+            <div className="container flex h-14 items-center justify-between">
+              {/* Mobile Menu Button */}
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[240px] sm:w-[300px]">
+                  <nav className="flex flex-col gap-4 mt-6">
+                    <NavigationLinks />
+                  </nav>
+                </SheetContent>
+              </Sheet>
+
+              {/* Desktop Navigation */}
+              <nav className="hidden lg:flex items-center gap-6 flex-1">
+                <NavigationLinks />
               </nav>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
                 {/* Theme Toggle */}
                 {header.showThemeToggle && (
                   <Toggle
@@ -123,7 +146,7 @@ export default function Layout({
 
                 {/* Notifications */}
                 {header.showNotifications && (
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="relative">
                     <Bell className="h-5 w-5" />
                   </Button>
                 )}
