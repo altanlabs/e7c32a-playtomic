@@ -57,21 +57,24 @@ export default function PlayersPage() {
       </div>
 
       {/* Players Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {players.map((player) => (
           <Card key={player.id} className="overflow-hidden">
-            <div className="aspect-square relative">
+            <div className="flex items-center p-4">
               <img
                 src={player.image}
                 alt={player.name}
-                className="w-full h-full object-cover"
+                className="w-16 h-16 rounded-full object-cover mr-4"
               />
+              <div>
+                <h3 className="font-semibold">{player.name}</h3>
+                <div className="text-sm text-muted-foreground">{player.position}</div>
+              </div>
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">{player.name}</h3>
+            <div className="px-4 pb-4">
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div className="flex items-center justify-between">
-                  <span>{player.position}</span>
+                  <span>{player.level}</span>
                   <span className="flex items-center">
                     <Star className="h-4 w-4 text-yellow-500 mr-1" />
                     {player.rating}
@@ -81,7 +84,6 @@ export default function PlayersPage() {
                   <MapPin className="h-4 w-4 mr-1" />
                   {player.location}
                 </div>
-                <div>Nivel: {player.level}</div>
               </div>
               <div className="mt-4 pt-4 border-t">
                 <Button variant="outline" className="w-full">
