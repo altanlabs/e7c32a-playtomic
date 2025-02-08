@@ -28,6 +28,22 @@ export default function PlayersPage() {
       rating: 4.9,
       avatar: "/avatars/player3.jpg"
     },
+    {
+      id: 4,
+      name: "Laura Sánchez",
+      position: "Base",
+      level: "Intermedio",
+      rating: 4.7,
+      avatar: "/avatars/player4.jpg"
+    },
+    {
+      id: 5,
+      name: "Miguel Torres",
+      position: "Pívot",
+      level: "Avanzado",
+      rating: 4.6,
+      avatar: "/avatars/player5.jpg"
+    },
   ]
 
   return (
@@ -92,7 +108,7 @@ export default function PlayersPage() {
 
       {/* Players List */}
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col items-center gap-4 max-w-md mx-auto">
+        <div className="max-w-sm mx-auto space-y-3">
           {players.map((player) => (
             <div key={player.id} className="w-full">
               <PlayerCard {...player} />
