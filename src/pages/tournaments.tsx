@@ -1,9 +1,10 @@
 import { TournamentCard } from "@/components/blocks/tournament-card"
-import { TournamentFilters } from "@/components/blocks/tournament-filters"
 import { Button } from "@/components/ui/button"
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, Search } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // Datos de ejemplo - En una implementación real, esto vendría de una API
 const MOCK_TOURNAMENTS = [
@@ -53,56 +54,89 @@ const MOCK_TOURNAMENTS = [
 
 export default function TournamentsPage() {
   const navigate = useNavigate()
-  const [filters, setFilters] = useState({})
+  const [searchTerm, setSearchTerm] = useState("")
+  const [levelFilter, setLevelFilter] = useState("all")
+  const [typeFilter, setTypeFilter] = useState("all")
   const [tournaments] = useState(MOCK_TOURNAMENTS)
-
-  const handleFilterChange = (newFilters: any) => {
-    setFilters(newFilters)
-    // Aquí iría la lógica de filtrado real
-    console.log("Aplicando filtros:", newFilters)
-  }
 
   const handleCreateTournament = () => {
     navigate("/publicar-evento")
   }
 
+  const filteredTournaments = tournaments.filter(tournament => {
+    const matchesSearch = tournament.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         tournament.location.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesLevel = levelFilter === "all" || tournament.level === levelFilter
+    const matchesType = typeFilter === "all" || tournament.registrationType === typeFilter
+    return matchesSearch && matchesLevel && matchesType
+  })
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-[1200px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
-        <div className="flex flex-col items-center space-y-6">
+      <div className="max-w-[1200px] mx-auto px-3 py-4">
+        <div className="flex flex-col items-center space-y-4">
           {/* Encabezado */}
           <div className="w-full text-center max-w-xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl font-bold mb-2">Torneos</h1>
-            <p className="text-sm sm:text-base text-muted-foreground mb-4">
+            <h1 className="text-lg sm:text-2xl font-bold mb-1">Torneos</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-3">
               Encuentra y participa en torneos 3x3 cerca de ti
             </p>
             <Button 
               onClick={handleCreateTournament}
-              size="sm"
-              className="h-8 text-xs sm:text-sm px-3"
+              className="h-7 text-xs px-3 bg-[#FFA726] hover:bg-[#FF9800]"
             >
-              <PlusCircle className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+              <PlusCircle className="mr-2 h-3 w-3" />
               Organizar torneo
             </Button>
           </div>
 
           {/* Filtros */}
-          <div className="w-full max-w-2xl mx-auto px-2 sm:px-0">
-            <TournamentFilters onFilterChange={handleFilterChange} />
+          <div className="w-full max-w-3xl space-y-2">
+            <div className="relative">
+              <Search className="absolute left-2 top-1.5 h-3 w-3 text-muted-foreground" />
+              <Input
+                placeholder="Buscar torneos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-8 h-7 text-xs"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Select value={levelFilter} onValueChange={setLevelFilter}>
+                <SelectTrigger className="h-7 text-xs flex-1">
+                  <SelectValue placeholder="Nivel" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos los niveles</SelectItem>
+                  <SelectItem value="Principiante">Principiante</SelectItem>
+                  <SelectItem value="Intermedio">Intermedio</SelectItem>
+                  <SelectItem value="Avanzado">Avanzado</SelectItem>
+                  <SelectItem value="Pro">Pro</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={typeFilter} onValueChange={setTypeFilter}>
+                <SelectTrigger className="h-7 text-xs flex-1">
+                  <SelectValue placeholder="Tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos los tipos</SelectItem>
+                  <SelectItem value="team">Equipos</SelectItem>
+                  <SelectItem value="individual">Individual</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* Lista de torneos */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 place-items-center">
-            {tournaments.map((tournament) => (
-              <div key={tournament.id} className="w-full">
-                <TournamentCard {...tournament} />
-              </div>
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+            {filteredTournaments.map((tournament) => (
+              <TournamentCard key={tournament.id} {...tournament} />
             ))}
           </div>
 
           {/* Estado de búsqueda */}
-          <div className="text-center text-xs sm:text-sm text-muted-foreground py-2 sm:py-4">
-            Mostrando {tournaments.length} torneos disponibles
+          <div className="text-xs text-muted-foreground py-2">
+            Mostrando {filteredTournaments.length} torneos
           </div>
         </div>
       </div>
