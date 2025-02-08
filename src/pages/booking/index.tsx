@@ -10,9 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { format } from "date-fns"
-import { es } from "date-fns/locale"
-import { CalendarIcon, Clock, Euro } from "lucide-react"
+import { TimeSlotPicker } from "@/components/booking/time-slot-picker"
+import { BookingSummary } from "@/components/booking/booking-summary"
+import { CalendarIcon } from "lucide-react"
+import "@/styles/calendar.css"
 
 const timeSlots = [
   "09:00", "10:00", "11:00", "12:00", "13:00", "14:00",
@@ -28,7 +29,13 @@ export default function BookingPage() {
   const handleContinue = () => {
     if (selectedDate && selectedTime) {
       // Aquí podrías guardar los datos en un estado global o pasarlos como parámetros
-      navigate('/booking/payment');
+      navigate('/booking/payment', {
+        state: {
+          date: selectedDate,
+          time: selectedTime,
+          price: 30
+        }
+      });
     }
   };
 
@@ -77,7 +84,6 @@ export default function BookingPage() {
                     mode="single"
                     selected={selectedDate}
                     onSelect={setSelectedDate}
-                    locale={es}
                     disabled={(date) =>
                       date < new Date() || date > new Date(new Date().setMonth(new Date().getMonth() + 2))
                     }
@@ -85,24 +91,11 @@ export default function BookingPage() {
                   />
                 </div>
 
-                <div>
-                  <div className="flex items-center mb-2">
-                    <Clock className="mr-2 h-4 w-4" />
-                    <h3 className="font-medium">Hora</h3>
-                  </div>
-                  <div className="grid grid-cols-4 gap-2">
-                    {timeSlots.map((time) => (
-                      <Button
-                        key={time}
-                        variant={selectedTime === time ? "default" : "outline"}
-                        className={selectedTime === time ? "bg-[#FFA726]" : ""}
-                        onClick={() => setSelectedTime(time)}
-                      >
-                        {time}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
+                <TimeSlotPicker
+                  selectedTime={selectedTime}
+                  onTimeSelect={setSelectedTime}
+                  availableSlots={timeSlots}
+                />
               </CardContent>
               <CardFooter>
                 <Button
@@ -118,42 +111,11 @@ export default function BookingPage() {
 
           {/* Booking Summary */}
           <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>Resumen de la reserva</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    <span>Fecha</span>
-                  </div>
-                  <span className="font-medium">
-                    {selectedDate ? format(selectedDate, "d MMMM yyyy", { locale: es }) : "-"}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
-                    <Clock className="mr-2 h-4 w-4" />
-                    <span>Hora</span>
-                  </div>
-                  <span className="font-medium">{selectedTime || "-"}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center">
-                    <Euro className="mr-2 h-4 w-4" />
-                    <span>Precio</span>
-                  </div>
-                  <span className="font-medium">30€</span>
-                </div>
-                <div className="pt-4 border-t">
-                  <div className="flex justify-between items-center font-semibold">
-                    <span>Total</span>
-                    <span>30€</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <BookingSummary
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              price={30}
+            />
           </div>
         </div>
       </div>
