@@ -18,6 +18,8 @@ import JoinGameListPage from './pages/join-game'
 import JoinGameDetailPage from './pages/join-game/[id]'
 import PlayersPage from './pages/players'
 import CourtsPage from './pages/courts'
+import ClubsPage from './pages/clubs'
+import PublishCourtPage from './pages/clubs/publish'
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
             {/* Páginas principales del menú */}
             <Route path="/players" element={<PlayersPage />} />
             <Route path="/courts" element={<CourtsPage />} />
+            <Route path="/clubs" element={<ClubsPage />} />
+            <Route path="/clubs/publish" element={<PublishCourtPage />} />
             <Route path="/tournaments" element={<TournamentsPage />} />
             <Route path="/rankings" element={<RankingsPage />} />
             
