@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { Search, Filter } from "lucide-react"
+import { Search, Filter, X } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -10,6 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetFooter,
 } from "@/components/ui/sheet"
 import { useState } from "react"
 
@@ -18,6 +19,7 @@ interface TournamentFiltersProps {
 }
 
 export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
+  const [isOpen, setIsOpen] = useState(false)
   const [filters, setFilters] = useState({
     search: "",
     location: "",
@@ -42,6 +44,12 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
     }
     setFilters(resetFilters)
     onFilterChange(resetFilters)
+    setIsOpen(false)
+  }
+
+  const handleApplyFilters = () => {
+    onFilterChange(filters)
+    setIsOpen(false)
   }
 
   return (
@@ -56,14 +64,19 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
             className="pl-10"
           />
         </div>
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="outline" className="w-full sm:w-auto">
               <Filter className="mr-2 h-4 w-4" />
               Filtros
+              {Object.values(filters).some(Boolean) && (
+                <Badge variant="secondary" className="ml-2">
+                  {Object.values(filters).filter(Boolean).length}
+                </Badge>
+              )}
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="w-full sm:max-w-md">
             <SheetHeader>
               <SheetTitle>Filtros</SheetTitle>
               <SheetDescription>
@@ -142,23 +155,56 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="flex gap-4 pt-4">
-                <Button 
-                  variant="outline" 
-                  className="flex-1"
-                  onClick={handleReset}
-                >
-                  Resetear
-                </Button>
-                <Button className="flex-1">
-                  Aplicar filtros
-                </Button>
-              </div>
             </div>
+            <SheetFooter className="flex-row gap-4 sm:justify-between">
+              <Button 
+                variant="outline" 
+                className="flex-1"
+                onClick={handleReset}
+              >
+                <X className="mr-2 h-4 w-4" />
+                Resetear
+              </Button>
+              <Button 
+                className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
+                onClick={handleApplyFilters}
+              >
+                Aplicar filtros
+              </Button>
+            </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>
+
+      {/* Chips de filtros activos */}
+      {Object.entries(filters).some(([_, value]) => value) && (
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(filters).map(([key, value]) => {
+            if (!value) return null
+            return (
+              <Badge 
+                key={key}
+                variant="secondary"
+                className="flex items-center gap-1 px-3 py-1"
+              >
+                {value}
+                <X 
+                  className="h-3 w-3 ml-1 cursor-pointer" 
+                  onClick={() => handleFilterChange(key, "")}
+                />
+              </Badge>
+            )
+          })}
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={handleReset}
+            className="text-sm"
+          >
+            Limpiar filtros
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
