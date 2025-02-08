@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { Search, Filter, X } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import {
   Sheet,
   SheetContent,
@@ -53,44 +54,48 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row gap-4">
+    <div className="space-y-3 sm:space-y-4">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3 sm:h-4 sm:w-4" />
           <Input
             placeholder="Buscar torneos..."
             value={filters.search}
             onChange={(e) => handleFilterChange("search", e.target.value)}
-            className="pl-10"
+            className="pl-8 h-8 text-xs sm:text-sm"
           />
         </div>
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" className="w-full sm:w-auto">
-              <Filter className="mr-2 h-4 w-4" />
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="w-full sm:w-auto h-8 text-xs sm:text-sm"
+            >
+              <Filter className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
               Filtros
               {Object.values(filters).some(Boolean) && (
-                <Badge variant="secondary" className="ml-2">
+                <Badge variant="secondary" className="ml-2 text-xs">
                   {Object.values(filters).filter(Boolean).length}
                 </Badge>
               )}
             </Button>
           </SheetTrigger>
-          <SheetContent className="w-full sm:max-w-md">
+          <SheetContent className="w-[90%] sm:max-w-md">
             <SheetHeader>
-              <SheetTitle>Filtros</SheetTitle>
-              <SheetDescription>
+              <SheetTitle className="text-base sm:text-lg">Filtros</SheetTitle>
+              <SheetDescription className="text-xs sm:text-sm">
                 Ajusta los filtros para encontrar el torneo perfecto
               </SheetDescription>
             </SheetHeader>
-            <div className="space-y-4 py-4">
-              <div className="space-y-2">
-                <Label>Ubicación</Label>
+            <div className="space-y-3 py-4">
+              <div className="space-y-1">
+                <Label className="text-xs sm:text-sm">Ubicación</Label>
                 <Select
                   value={filters.location}
                   onValueChange={(value) => handleFilterChange("location", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-xs sm:text-sm">
                     <SelectValue placeholder="Selecciona ubicación" />
                   </SelectTrigger>
                   <SelectContent>
@@ -102,13 +107,13 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label>Nivel</Label>
+              <div className="space-y-1">
+                <Label className="text-xs sm:text-sm">Nivel</Label>
                 <Select
                   value={filters.level}
                   onValueChange={(value) => handleFilterChange("level", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-xs sm:text-sm">
                     <SelectValue placeholder="Selecciona nivel" />
                   </SelectTrigger>
                   <SelectContent>
@@ -120,13 +125,13 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label>Tipo de torneo</Label>
+              <div className="space-y-1">
+                <Label className="text-xs sm:text-sm">Tipo de torneo</Label>
                 <Select
                   value={filters.type}
                   onValueChange={(value) => handleFilterChange("type", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-xs sm:text-sm">
                     <SelectValue placeholder="Selecciona tipo" />
                   </SelectTrigger>
                   <SelectContent>
@@ -138,13 +143,13 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label>Rango de precio</Label>
+              <div className="space-y-1">
+                <Label className="text-xs sm:text-sm">Rango de precio</Label>
                 <Select
                   value={filters.priceRange}
                   onValueChange={(value) => handleFilterChange("priceRange", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-xs sm:text-sm">
                     <SelectValue placeholder="Selecciona rango" />
                   </SelectTrigger>
                   <SelectContent>
@@ -156,17 +161,19 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
                 </Select>
               </div>
             </div>
-            <SheetFooter className="flex-row gap-4 sm:justify-between">
+            <SheetFooter className="flex-row gap-2 sm:gap-4">
               <Button 
                 variant="outline" 
-                className="flex-1"
+                size="sm"
+                className="flex-1 h-8 text-xs sm:text-sm"
                 onClick={handleReset}
               >
-                <X className="mr-2 h-4 w-4" />
+                <X className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                 Resetear
               </Button>
               <Button 
-                className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
+                size="sm"
+                className="flex-1 bg-[#FFA726] hover:bg-[#FF9800] h-8 text-xs sm:text-sm"
                 onClick={handleApplyFilters}
               >
                 Aplicar filtros
@@ -178,14 +185,14 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
 
       {/* Chips de filtros activos */}
       {Object.entries(filters).some(([_, value]) => value) && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1 sm:gap-2">
           {Object.entries(filters).map(([key, value]) => {
             if (!value) return null
             return (
               <Badge 
                 key={key}
                 variant="secondary"
-                className="flex items-center gap-1 px-3 py-1"
+                className="flex items-center gap-1 px-2 py-0.5 text-xs"
               >
                 {value}
                 <X 
@@ -199,7 +206,7 @@ export function TournamentFilters({ onFilterChange }: TournamentFiltersProps) {
             variant="ghost" 
             size="sm"
             onClick={handleReset}
-            className="text-sm"
+            className="text-xs h-6 px-2"
           >
             Limpiar filtros
           </Button>
