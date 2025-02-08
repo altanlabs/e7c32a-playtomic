@@ -116,7 +116,7 @@ export function CourtCard({
 
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-[#FFA726]">{price}</span>
-            <Link to={`/courts/book/${id}`}>
+            <Link to={`/aros/book/${id}`}>
               <Button className="bg-[#FFA726] hover:bg-[#FF9800]">
                 Reservar ahora
               </Button>

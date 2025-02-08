@@ -33,7 +33,7 @@ export default function PublicarPistaBaloncesto() {
         className="space-y-8"
       >
         <div className="flex items-center gap-4">
-          <Link to="/courts">
+          <Link to="/aros">
             <Button variant="ghost" size="icon">
               <ChevronLeft className="h-4 w-4" />
             </Button>

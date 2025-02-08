@@ -93,7 +93,7 @@ export function BasketballCourtCard({
                 <span className="text-sm">Medio campo (1 aro)</span>
                 <span className="text-lg font-bold text-[#FFA726]">{price.halfCourt}€</span>
               </div>
-              <Link to={`/courts/book/${id}?type=half`}>
+              <Link to={`/aros/book/${id}?type=half`}>
                 <Button 
                   className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
                   disabled={!availability.halfCourt}
@@ -108,7 +108,7 @@ export function BasketballCourtCard({
                 <span className="text-sm">Campo completo (2 aros)</span>
                 <span className="text-lg font-bold text-[#FFA726]">{price.fullCourt}€</span>
               </div>
-              <Link to={`/courts/book/${id}?type=full`}>
+              <Link to={`/aros/book/${id}?type=full`}>
                 <Button 
                   className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
                   disabled={!availability.fullCourt}

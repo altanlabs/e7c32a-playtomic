@@ -10,7 +10,7 @@ export default function IndexPage() {
       title: "Encuentra tu aro",
       description: "Localiza los mejores aros cerca de ti",
       color: "text-[#FFA726]",
-      link: "/courts"
+      link: "/aros"
     },
     {
       icon: <Users className="h-12 w-12 text-[#66BB6A]" />,
@@ -54,7 +54,7 @@ export default function IndexPage() {
                   Reserva tu aro
                 </Button>
               </Link>
-              <Link to="/courts">
+              <Link to="/aros">
                 <Button size="lg" variant="outline">
                   Ver aros disponibles
                 </Button>

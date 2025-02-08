@@ -41,7 +41,7 @@ const defaultItems = [
   },
   {
     label: "Canchas",
-    href: "/courts",
+    href: "/aros",
     icon: <CalendarDays className="h-4 w-4" />,
   },
   {

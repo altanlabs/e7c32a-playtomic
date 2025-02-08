@@ -6,7 +6,7 @@ import Layout from './components/layout/Layout'
 // Páginas principales
 import IndexPage from './pages'
 import PlayersPage from './pages/players'
-import CourtsPage from './pages/courts'
+import CourtsPage from './pages/aros'
 import ClubsPage from './pages/clubs'
 import TournamentsPage from './pages/tournaments'
 import RankingsPage from './pages/rankings'
@@ -34,7 +34,7 @@ function App() {
             {/* Páginas principales */}
             <Route path="/" element={<IndexPage />} />
             <Route path="/players" element={<PlayersPage />} />
-            <Route path="/courts" element={<CourtsPage />} />
+            <Route path="/aros" element={<CourtsPage />} />
             <Route path="/clubs" element={<ClubsPage />} />
             <Route path="/tournaments" element={<TournamentsPage />} />
             <Route path="/rankings" element={<RankingsPage />} />
