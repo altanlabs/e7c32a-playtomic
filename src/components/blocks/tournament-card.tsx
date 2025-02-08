@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 
 interface TournamentCardProps {
-  id?: string // Añadido ID para identificar el torneo
+  id?: string
   name: string
   clubName: string
   location: string
@@ -26,7 +26,7 @@ interface TournamentCardProps {
 }
 
 export function TournamentCard({
-  id = "1", // ID por defecto si no se proporciona
+  id = "1",
   name,
   clubName,
   location,
@@ -34,7 +34,7 @@ export function TournamentCard({
   price,
   prizePool,
   maxTeams,
-  registeredTeams,
+  registeredTeams: registeredTeamsCount,
   registrationType,
   level,
   image
@@ -48,8 +48,8 @@ export function TournamentCard({
     phone: ""
   })
 
-  const spotsLeft = maxTeams - registeredTeams
-  const registrationProgress = (registeredTeams / maxTeams) * 100
+  const spotsLeft = maxTeams - registeredTeamsCount
+  const registrationProgress = (registeredTeamsCount / maxTeams) * 100
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target
@@ -138,7 +138,7 @@ export function TournamentCard({
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Equipos registrados</span>
-            <span className="font-medium">{registeredTeams}/{maxTeams}</span>
+            <span className="font-medium">{registeredTeamsCount}/{maxTeams}</span>
           </div>
           <Progress value={registrationProgress} />
           <p className="text-sm text-muted-foreground flex items-center gap-1">
@@ -205,9 +205,22 @@ export function TournamentCard({
                       required 
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
-                    Continuar registro
-                  </Button>
+                  <div className="flex gap-4">
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={() => setIsRegisterTeamOpen(false)}
+                      className="flex-1"
+                    >
+                      Cancelar
+                    </Button>
+                    <Button 
+                      type="submit" 
+                      className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
+                    >
+                      Continuar registro
+                    </Button>
+                  </div>
                 </form>
               </DialogContent>
             </Dialog>
