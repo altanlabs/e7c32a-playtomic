@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/theme/theme-provider"
-import Layout from './layout'
+import Layout from '@/components/layout/Layout'
 import IndexPage from './pages'
 import TournamentsPage from './pages/tournaments'
 import TournamentDetailPage from './pages/tournaments/[id]'
