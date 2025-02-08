@@ -28,7 +28,6 @@ export default function JoinAsPlayerPage() {
       })
 
       toast.success("¡Registro completado con éxito!")
-      // Redirigir al detalle del torneo
       navigate(`/tournaments/${tournamentId}`)
     } catch (error) {
       toast.error("Error al procesar el registro")
@@ -36,100 +35,105 @@ export default function JoinAsPlayerPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="max-w-2xl mx-auto p-6">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Unirse como jugador</h1>
-          {teamName && (
-            <p className="text-muted-foreground">
-              Únete al equipo {teamName}
-            </p>
-          )}
+    <div className="min-h-screen bg-background px-4 py-6 sm:py-8">
+      <Card className="max-w-md mx-auto">
+        <div className="p-4 sm:p-6">
+          <div className="text-center mb-6">
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">Unirse como jugador</h1>
+            {teamName && (
+              <p className="text-sm text-muted-foreground">
+                Únete al equipo {teamName}
+              </p>
+            )}
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-3">
+              <div>
+                <Label htmlFor="playerName" className="text-sm">Nombre completo</Label>
+                <Input
+                  id="playerName"
+                  name="playerName"
+                  placeholder="Tu nombre completo"
+                  required
+                  className="h-8 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="email" className="text-sm">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="tu@email.com"
+                  required
+                  className="h-8 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="phone" className="text-sm">Teléfono</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="Tu número de teléfono"
+                  required
+                  className="h-8 text-sm"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="position" className="text-sm">Posición preferida</Label>
+                <Select name="position" required>
+                  <SelectTrigger className="h-8 text-sm">
+                    <SelectValue placeholder="Selecciona tu posición" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="base">Base</SelectItem>
+                    <SelectItem value="escolta">Escolta</SelectItem>
+                    <SelectItem value="alero">Alero</SelectItem>
+                    <SelectItem value="ala-pivot">Ala-Pívot</SelectItem>
+                    <SelectItem value="pivot">Pívot</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="experience" className="text-sm">Experiencia</Label>
+                <Select name="experience" required>
+                  <SelectTrigger className="h-8 text-sm">
+                    <SelectValue placeholder="Nivel de experiencia" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="principiante">Principiante</SelectItem>
+                    <SelectItem value="intermedio">Intermedio</SelectItem>
+                    <SelectItem value="avanzado">Avanzado</SelectItem>
+                    <SelectItem value="profesional">Profesional</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="flex justify-center gap-3 pt-2">
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={() => navigate(`/tournaments/${tournamentId}`)}
+                className="h-7 text-xs px-3"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit" 
+                className="h-7 text-xs px-3 bg-[#FFA726] hover:bg-[#FF9800]"
+              >
+                Completar registro
+              </Button>
+            </div>
+          </form>
         </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="playerName">Nombre completo</Label>
-              <Input
-                id="playerName"
-                name="playerName"
-                placeholder="Tu nombre completo"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="tu@email.com"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="phone">Teléfono</Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="Tu número de teléfono"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="position">Posición preferida</Label>
-              <Select name="position" required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecciona tu posición" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="base">Base</SelectItem>
-                  <SelectItem value="escolta">Escolta</SelectItem>
-                  <SelectItem value="alero">Alero</SelectItem>
-                  <SelectItem value="ala-pivot">Ala-Pívot</SelectItem>
-                  <SelectItem value="pivot">Pívot</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label htmlFor="experience">Experiencia</Label>
-              <Select name="experience" required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Nivel de experiencia" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="principiante">Principiante</SelectItem>
-                  <SelectItem value="intermedio">Intermedio</SelectItem>
-                  <SelectItem value="avanzado">Avanzado</SelectItem>
-                  <SelectItem value="profesional">Profesional</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="flex gap-4">
-            <Button 
-              type="button" 
-              variant="outline"
-              onClick={() => navigate(`/tournaments/${tournamentId}`)}
-              className="flex-1"
-            >
-              Cancelar
-            </Button>
-            <Button 
-              type="submit" 
-              className="flex-1 bg-[#FFA726] hover:bg-[#FF9800]"
-            >
-              Completar registro
-            </Button>
-          </div>
-        </form>
       </Card>
     </div>
   )
