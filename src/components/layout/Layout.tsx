@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Button variant="ghost">Jugadores</Button>
               </Link>
               <Link to="/aros">
-                <Button variant="ghost">Aros</Button>
+                <Button variant="ghost">Ver aro</Button>
               </Link>
               
               {/* Clubs Menu */}
@@ -67,7 +67,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="font-semibold mb-4">Enlaces</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/aros">Aros</Link></li>
+                <li><Link to="/aros">Ver aro</Link></li>
                 <li><Link to="/players">Jugadores</Link></li>
                 <li><Link to="/tournaments">Torneos</Link></li>
                 <li><Link to="/rankings">Rankings</Link></li>
