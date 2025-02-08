@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Main Content */}
-      <main className="min-h-[calc(100vh-4rem)]">
+      <main>
         {children}
       </main>
 
