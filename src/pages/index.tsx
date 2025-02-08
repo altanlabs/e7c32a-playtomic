@@ -89,20 +89,20 @@ export default function IndexPage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Link to="/join-as-player" className="flex-1">
+                  <Link to="/join-game" className="flex-1">
                     <Button 
                       className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-lg transform transition-all duration-300 hover:scale-105"
                     >
-                      Unirse como jugador
+                      Unirse a un partido
                       <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
-                  <Link to="/teams" className="flex-1">
+                  <Link to="/invite-players" className="flex-1">
                     <Button 
                       variant="outline" 
                       className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
                     >
-                      Ver equipos
+                      Invitar jugadores
                     </Button>
                   </Link>
                 </div>
@@ -213,16 +213,16 @@ export default function IndexPage() {
               <p className="text-xl text-white/80 max-w-2xl mx-auto">
                 Únete a la comunidad de baloncesto 3x3 más grande de España
               </p>
-              <div className="flex justify-center gap-4">
-                <Link to="/join-as-player">
-                  <Button className="bg-white text-[#FFA726] hover:bg-white/90">
-                    Empezar ahora
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link to="/join-game">
+                  <Button className="w-full sm:w-auto bg-white text-[#FFA726] hover:bg-white/90">
+                    Buscar partido
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link to="/courts">
-                  <Button variant="outline" className="border-white text-white hover:bg-white/20">
-                    Ver canchas disponibles
+                <Link to="/invite-players">
+                  <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/20">
+                    Invitar jugadores
                   </Button>
                 </Link>
               </div>
