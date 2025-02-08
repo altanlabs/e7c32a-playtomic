@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from "@/theme/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import Layout from './components/layout/Layout'
+import Layout from './layout'
 
 // Páginas principales
 import IndexPage from './pages'
