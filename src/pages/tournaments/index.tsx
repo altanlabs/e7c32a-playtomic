@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Search, Filter } from "lucide-react"
 import { Link } from "react-router-dom"
-import TournamentCard from "@/components/TournamentCard"
+import TournamentCard from "../../components/TournamentCard"
 
 export default function TournamentsPage() {
   const tournaments = [
