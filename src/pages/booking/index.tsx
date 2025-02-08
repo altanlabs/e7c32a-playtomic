@@ -1,4 +1,4 @@
-import { BookingCalendar } from "@/components/blocks/booking-calendar"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarIcon, Clock, Euro } from "lucide-react"
 
@@ -31,7 +31,48 @@ export default function BookingPage() {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Calendar and Time Selection */}
           <div className="md:col-span-2">
-            <BookingCalendar />
+            <Card>
+              <CardHeader>
+                <CardTitle>Selecciona fecha y hora</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Date Selection */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Fecha
+                    </label>
+                    <input
+                      type="date"
+                      className="w-full p-2 rounded-md border bg-background"
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+
+                  {/* Time Selection */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Hora
+                    </label>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[
+                        "09:00", "10:00", "11:00", "12:00",
+                        "13:00", "14:00", "15:00", "16:00",
+                        "17:00", "18:00", "19:00", "20:00"
+                      ].map((time) => (
+                        <Button
+                          key={time}
+                          variant="outline"
+                          className="w-full"
+                        >
+                          {time}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Booking Summary */}
@@ -68,6 +109,12 @@ export default function BookingPage() {
                     <span>30€</span>
                   </div>
                 </div>
+                <Button 
+                  className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
+                  disabled
+                >
+                  Continuar al pago
+                </Button>
               </CardContent>
             </Card>
           </div>
