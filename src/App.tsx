@@ -20,6 +20,9 @@ import PlayersPage from './pages/players'
 import CourtsPage from './pages/courts'
 import ClubsPage from './pages/clubs'
 import PublishCourtPage from './pages/clubs/publish'
+import BookingPage from './pages/booking'
+import BookingPaymentPage from './pages/booking/payment'
+import BookingConfirmationPage from './pages/booking/confirmation'
 
 function App() {
   return (
@@ -28,6 +31,11 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<IndexPage />} />
+            
+            {/* Booking Flow */}
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/booking/payment" element={<BookingPaymentPage />} />
+            <Route path="/booking/confirmation" element={<BookingConfirmationPage />} />
             
             {/* Páginas principales del menú */}
             <Route path="/players" element={<PlayersPage />} />
