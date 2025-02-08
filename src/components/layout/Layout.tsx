@@ -1,11 +1,5 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,20 +20,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Button variant="ghost">Canchas</Button>
               </Link>
               
-              {/* Clubs Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost">Clubs</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <Link to="/clubs">Ver todos</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/clubs/publish">Publicar pista</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {/* Clubs Menu */}
+              <div className="relative group">
+                <Button variant="ghost">Clubs</Button>
+                <div className="absolute hidden group-hover:block w-48 right-0 mt-2 py-2 bg-background border rounded-md shadow-lg">
+                  <Link to="/clubs" className="block px-4 py-2 hover:bg-accent">
+                    Ver todos
+                  </Link>
+                  <Link to="/clubs/publish" className="block px-4 py-2 hover:bg-accent">
+                    Publicar pista
+                  </Link>
+                </div>
+              </div>
 
               <Link to="/tournaments">
                 <Button variant="ghost">Torneos</Button>
