@@ -6,7 +6,6 @@ import { Calendar, MapPin, Users, Trophy, Euro, Info } from "lucide-react"
 export default function TournamentDetailsPage() {
   const { id } = useParams()
   
-  // Ejemplo de datos del torneo (en producción vendría de una API)
   const tournament = {
     id: 1,
     name: "Liga 3x3 Barcelona",
@@ -109,7 +108,7 @@ export default function TournamentDetailsPage() {
                 
                 <div className="space-y-2">
                   <Link to={`/tournaments/join?id=${id}`}>
-                    <Button className="w-full bg-[#66BB6A] hover:bg-[#4CAF50]">
+                    <Button className="w-full bg-[#FFA726] hover:bg-[#FF9800]">
                       Me apunto
                     </Button>
                   </Link>
