@@ -8,7 +8,7 @@ export default function IndexPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section with Dynamic Background */}
-      <section className="relative min-h-screen flex items-center justify-center">
+      <section className="relative min-h-[calc(100vh-2.5rem)] flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <div className="relative h-full">
             <img
@@ -20,17 +20,17 @@ export default function IndexPage() {
           </div>
         </div>
 
-        <div className="container relative z-10 px-4 mx-auto">
+        <div className="container relative z-10 px-3 mx-auto">
           <div className="max-w-[90rem] mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-12"
+              className="space-y-8 sm:space-y-12"
             >
               <div className="space-y-4">
                 <motion.h1 
-                  className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
+                  className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
@@ -42,7 +42,7 @@ export default function IndexPage() {
               </div>
               
               <motion.p 
-                className="text-xl md:text-2xl text-gray-300 max-w-2xl"
+                className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -51,26 +51,24 @@ export default function IndexPage() {
               </motion.p>
 
               <motion.div 
-                className="flex flex-col gap-4 max-w-xl"
+                className="flex flex-col gap-3 max-w-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <Link to="/join-as-player" className="flex-1">
                     <Button 
-                      size="lg" 
-                      className="w-full text-lg py-8 bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-xl transform transition-all duration-300 hover:scale-105"
+                      className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-[#FFA726] hover:bg-[#FF9800] text-white rounded-lg transform transition-all duration-300 hover:scale-105"
                     >
                       Unirse como jugador
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                   <Link to="/teams" className="flex-1">
                     <Button 
-                      size="lg" 
                       variant="outline" 
-                      className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl transform transition-all duration-300 hover:scale-105"
+                      className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
                     >
                       Ver equipos
                     </Button>
@@ -78,12 +76,11 @@ export default function IndexPage() {
                 </div>
                 <Link to="/teams/create">
                   <Button 
-                    size="lg" 
                     variant="outline" 
-                    className="w-full text-lg py-8 bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-xl transform transition-all duration-300 hover:scale-105"
+                    className="w-full h-8 sm:h-10 text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-lg transform transition-all duration-300 hover:scale-105"
                   >
                     Inscribir un equipo
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 </Link>
               </motion.div>
@@ -93,20 +90,20 @@ export default function IndexPage() {
 
         {/* Animated Scroll Indicator */}
         <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <span className="text-sm text-gray-400">Explora más</span>
-          <ChevronDown className="h-6 w-6 text-[#FFA726]" />
+          <span className="text-xs sm:text-sm text-gray-400">Explora más</span>
+          <ChevronDown className="h-4 w-4 sm:h-6 sm:w-6 text-[#FFA726]" />
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-black border-t border-white/10">
-        <div className="container mx-auto px-4">
+      <footer className="py-4 sm:py-8 bg-black border-t border-white/10">
+        <div className="container mx-auto px-3">
           <div className="max-w-[90rem] mx-auto">
-            <p className="text-sm text-gray-400 text-center">
+            <p className="text-xs sm:text-sm text-gray-400 text-center">
               Hecho con <span className="font-bold">altan</span>
             </p>
           </div>
