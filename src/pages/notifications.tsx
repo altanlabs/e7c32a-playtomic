@@ -1,102 +1,51 @@
-import { NotificationsPanel } from "@/components/blocks/notifications-panel"
-import { useState } from "react"
-
-type NotificationType = "newTournament" | "teamJoin" | "reminder" | "update" | "result"
-
-interface Notification {
-  id: string
-  type: NotificationType
-  title: string
-  description: string
-  date: string
-  read: boolean
-  actionUrl: string
-  tournament?: {
-    name: string
-    date: string
-  }
-}
-
-// Datos de ejemplo - En una implementación real, esto vendría de una API
-const MOCK_NOTIFICATIONS = [
-  {
-    id: "1",
-    type: "newTournament" as const,
-    title: "Nuevo torneo en tu zona",
-    description: "El Club Deportivo Central ha organizado un nuevo torneo 3x3 para el próximo mes.",
-    date: "Hace 5 minutos",
-    read: false,
-    actionUrl: "/tournaments/1",
-    tournament: {
-      name: "Torneo Verano 3x3",
-      date: "15 de Julio, 2024"
-    }
-  },
-  {
-    id: "2",
-    type: "teamJoin" as const,
-    title: "Nuevo miembro en tu equipo",
-    description: "Carlos López se ha unido a tu equipo 'Street Warriors' para el torneo.",
-    date: "Hace 1 hora",
-    read: false,
-    actionUrl: "/tournaments/1"
-  },
-  {
-    id: "3",
-    type: "reminder" as const,
-    title: "Recordatorio de torneo",
-    description: "Tu torneo 'Liga Amateur 3x3' comienza mañana a las 10:00.",
-    date: "Hace 2 horas",
-    read: true,
-    actionUrl: "/tournaments/2",
-    tournament: {
-      name: "Liga Amateur 3x3",
-      date: "Mañana, 10:00"
-    }
-  },
-  {
-    id: "4",
-    type: "update" as const,
-    title: "Cambio en el horario del torneo",
-    description: "El horario del torneo 'Torneo Nocturno' ha sido actualizado.",
-    date: "Ayer",
-    read: true,
-    actionUrl: "/tournaments/3"
-  },
-  {
-    id: "5",
-    type: "result" as const,
-    title: "Resultados disponibles",
-    description: "Los resultados de tu último partido están disponibles.",
-    date: "Hace 2 días",
-    read: true,
-    actionUrl: "/tournaments/1"
-  }
-] as const
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Bell } from "lucide-react"
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState<Array<Notification>>([...MOCK_NOTIFICATIONS])
-
-  const handleReadAll = () => {
-    setNotifications(prevNotifications => 
-      prevNotifications.map(n => ({ ...n, read: true }))
-    )
-  }
-
-  const handleRead = (id: string) => {
-    setNotifications(prevNotifications => 
-      prevNotifications.map(n => n.id === id ? { ...n, read: true } : n)
-    )
-  }
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-3xl mx-auto">
-        <NotificationsPanel
-          notifications={notifications}
-          onReadAll={handleReadAll}
-          onRead={handleRead}
-        />
+    <div className="min-h-screen bg-background">
+      {/* Hero Section with Background */}
+      <div className="relative bg-[#0A0F1C] py-16">
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="/headers/basketball-notifications.jpg"
+            alt="Basketball Notifications"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1C]/80 to-[#0A0F1C]" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-6">
+            <div className="flex justify-center mb-4">
+              <Bell className="h-12 w-12 text-[#FFA726]" />
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-bold mb-3">
+              Notificaciones
+            </h1>
+            <p className="text-muted-foreground text-base sm:text-lg mb-4">
+              Mantente al día con tus actividades
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Notifications List */}
+      <div className="bg-background py-6">
+        <div className="container mx-auto px-4">
+          <div className="max-w-[340px] mx-auto md:max-w-2xl">
+            <Card className="bg-[#0A0F1C] border-border">
+              <div className="p-4">
+                <div className="space-y-4">
+                  {/* Notifications will go here */}
+                  <div className="text-center text-muted-foreground">
+                    No tienes notificaciones nuevas
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   )
