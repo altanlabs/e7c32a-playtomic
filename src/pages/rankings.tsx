@@ -9,7 +9,7 @@ export default function RankingsPage() {
       <div className="relative bg-[#0A0F1C] py-16">
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/headers/basketball-hoop.jpg"
+            src="https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=1920&q=80"
             alt="Basketball Hoop"
             className="w-full h-full object-cover opacity-30"
           />
