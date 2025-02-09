@@ -16,9 +16,10 @@ interface TeamRankingTableProps {
     streak: string
     trend: "up" | "down" | "same"
   }[]
+  onTeamClick?: (teamId: string) => void
 }
 
-export function TeamRankingTable({ teams }: TeamRankingTableProps) {
+export function TeamRankingTable({ teams, onTeamClick }: TeamRankingTableProps) {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case "up":
@@ -45,7 +46,11 @@ export function TeamRankingTable({ teams }: TeamRankingTableProps) {
         </TableHeader>
         <TableBody>
           {teams.map((team) => (
-            <TableRow key={team.id}>
+            <TableRow 
+              key={team.id}
+              className={onTeamClick ? "cursor-pointer hover:bg-accent/50" : ""}
+              onClick={() => onTeamClick?.(team.id)}
+            >
               <TableCell className="text-center text-xs font-medium">
                 {team.position}
                 {team.position === 1 && (
