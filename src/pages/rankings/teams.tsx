@@ -161,7 +161,18 @@ export default function TeamRankingsPage() {
 
         {/* Tabla de ranking */}
         <TeamRankingTable 
-          teams={teams}
+          teams={teams.map(team => ({
+    id: team.id,
+    position: team.position,
+    name: team.name,
+    avatar: team.logo,
+    level: team.division,
+    points: team.points,
+    wins: Math.round(team.gamesPlayed * (team.winRate / 100)),
+    losses: Math.round(team.gamesPlayed * (1 - team.winRate / 100)),
+    streak: team.streak.toString(),
+    trend: team.position < team.previousPosition ? 'up' : team.position > team.previousPosition ? 'down' : 'same'
+  }))}
           onTeamClick={handleTeamClick}
         />
 
