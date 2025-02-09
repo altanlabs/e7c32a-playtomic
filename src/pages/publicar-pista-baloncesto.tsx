@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { ChevronLeft, Upload, MapPin, Clock, Euro, Users, Droplets, Building } from "lucide-react"
-import { BsBasketball as Basketball } from "react-icons/bs"
+import { BsBasketballFill as Basketball } from "react-icons/bs"
 import { Link } from "react-router-dom"
 
 export default function PublicarPistaBaloncesto() {
