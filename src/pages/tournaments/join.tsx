@@ -70,7 +70,7 @@ export default function JoinTournamentPage() {
     },
   })
 
-  const { fields, append, remove } = form.watch("players")
+  const { fields, append, remove } = form.control._formValues.players
 
   const updateTeamSize = (size: string) => {
     setTeamSize(size)
