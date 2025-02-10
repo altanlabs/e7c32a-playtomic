@@ -11,7 +11,7 @@ import {
 import { Bell, Settings, LogOut, Menu } from "lucide-react";
 import { Toggle } from "@radix-ui/react-toggle";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
-import { useTheme } from "@/theme/use-theme";
+import { useTheme } from "@/theme/theme-provider";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -54,23 +54,7 @@ export default function Layout({
 }) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
-  const initialThemeSet = useRef(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (initialThemeSet.current) return;
-    
-    const queryParams = new URLSearchParams(location.search);
-    const themeParam = queryParams.get('theme');
-    if (themeParam === 'light' || themeParam === 'dark') {
-      setTheme(themeParam);
-      queryParams.delete('theme');
-      const newSearch = queryParams.toString();
-      const newUrl = `${location.pathname}${newSearch ? `?${newSearch}` : ''}${location.hash}`;
-      window.history.replaceState({}, '', newUrl);
-      initialThemeSet.current = true;
-    }
-  }, [location.hash, location.pathname, location.search, setTheme]);
 
   const NavigationLinks = () => (
     <>
@@ -92,7 +76,7 @@ export default function Layout({
   );
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
+    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       {/* Optional Sidebar */}
       {showSidebar && sidebarConfig && (
         <AppSidebar 
@@ -105,7 +89,7 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className="sticky top-0 z-50 w-full bg-[#0A0F1C]">
+          <header className="sticky top-0 z-50 w-full bg-[#0A0F1C] border-b border-border">
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation */}
@@ -181,13 +165,13 @@ export default function Layout({
         )}
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-auto bg-background">
+        <main className="flex-1">
           {children}
         </main>
 
         {/* Footer */}
         {footer && showFooter && (
-          <footer className="border-t border-border">
+          <footer className="border-t border-border bg-[#0A0F1C]">
             <div className="container flex h-14 items-center justify-between">
               <span className="text-sm text-muted-foreground">
                 {footer.text}
