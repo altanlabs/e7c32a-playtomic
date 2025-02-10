@@ -1,11 +1,12 @@
 import Stripe from 'stripe';
 import { buffer } from 'micro';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export const config = {
   api: {
@@ -13,78 +14,44 @@ export const config = {
   },
 };
 
-async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent) {
-  try {
-    // Extraer los datos de la reserva del metadata del PaymentIntent
-    const { 
-      courtId, 
-      courtType, 
-      bookingDate, 
-      bookingTime,
-      playerName,
-      playerPhone,
-      clubId 
-    } = paymentIntent.metadata;
-
-    // Aquí actualizarías el estado de la reserva en tu base de datos
-    // y enviarías las notificaciones correspondientes
-    
-    // Ejemplo:
-    // await updateBookingStatus(paymentIntent.id, 'confirmed');
-    // await sendNotificationToClub(clubId, {
-    //   type: 'newBooking',
-    //   bookingDetails: { ... }
-    // });
-  } catch (error) {
-    console.error('Error processing successful payment:', error);
-  }
-}
-
-async function handlePaymentFailed(paymentIntent: Stripe.PaymentIntent) {
-  try {
-    // Manejar el fallo del pago
-    // Ejemplo:
-    // await updateBookingStatus(paymentIntent.id, 'failed');
-    // await sendNotificationToPlayer(paymentIntent.metadata.playerEmail, {
-    //   type: 'paymentFailed',
-    //   bookingDetails: { ... }
-    // });
-  } catch (error) {
-    console.error('Error processing failed payment:', error);
-  }
-}
-
-export default async function handler(req: any, res: any) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
-
-  try {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === 'POST') {
     const buf = await buffer(req);
-    const sig = req.headers['stripe-signature'];
+    const sig = req.headers['stripe-signature']!;
 
-    if (!sig || !webhookSecret) {
-      return res.status(400).json({ message: 'Missing signature or webhook secret' });
+    let event: Stripe.Event;
+
+    try {
+      event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      console.log(`❌ Error message: ${errorMessage}`);
+      res.status(400).send(`Webhook Error: ${errorMessage}`);
+      return;
     }
 
-    const event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
-
-    // Manejar diferentes tipos de eventos
+    // Handle the event
     switch (event.type) {
       case 'payment_intent.succeeded':
-        await handlePaymentSucceeded(event.data.object as Stripe.PaymentIntent);
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        console.log(`💰 PaymentIntent status: ${paymentIntent.status}`);
         break;
-      
       case 'payment_intent.payment_failed':
-        await handlePaymentFailed(event.data.object as Stripe.PaymentIntent);
+        const paymentIntentFailed = event.data.object as Stripe.PaymentIntent;
+        console.log(
+          `❌ Payment failed: ${paymentIntentFailed.last_payment_error?.message}`
+        );
         break;
-      
-      // Puedes agregar más manejadores de eventos según necesites
+      default:
+        console.log(`Unhandled event type ${event.type}`);
     }
 
-    res.status(200).json({ received: true });
-  } catch (error) {
-    console.error('Webhook error:', error);
-    res.status(400).json({ message: 'Webhook error' });
+    res.json({ received: true });
+  } else {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
   }
 }
