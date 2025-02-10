@@ -44,7 +44,7 @@ export default function IndexPage() {
               </div>
               <h3 className="text-xl font-semibold mb-4">Encuentra tu aro</h3>
               <p className="text-muted-foreground">
-                Localiza los mejores aros de baloncesto cerca de ti
+                Localiza los mejores aros cerca de ti
               </p>
             </Card>
 
