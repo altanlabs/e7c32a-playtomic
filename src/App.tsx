@@ -31,36 +31,34 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="dribla-theme">
       <Router>
-        <div className="min-h-screen bg-background">
-          <Layout>
-            <Routes>
-              {/* Páginas principales */}
-              <Route path="/" element={<IndexPage />} />
-              <Route path="/players" element={<PlayersPage />} />
-              <Route path="/aros" element={<ArosPage />} />
-              <Route path="/clubs" element={<ClubsPage />} />
-              <Route path="/tournaments" element={<TournamentsPage />} />
-              <Route path="/tournaments/join" element={<JoinTournamentPage />} />
-              <Route path="/rankings" element={<RankingsPage />} />
-              <Route path="/perfil/:id" element={<PlayerProfilePage />} />
-              
-              {/* Flujo de reserva */}
-              <Route path="/booking" element={<BookingPage />} />
-              <Route path="/booking/payment" element={<BookingPaymentPage />} />
-              <Route path="/booking/confirmation" element={<BookingConfirmationPage />} />
-              
-              {/* Páginas de creación y gestión */}
-              <Route path="/clubs/publish" element={<PublishAroPage />} />
-              <Route path="/tournaments/create" element={<CreateTournamentPage />} />
-              <Route path="/join-as-player" element={<JoinAsPlayerPage />} />
-              <Route path="/invite-to-play" element={<InviteToPlayPage />} />
-              
-              {/* 404 */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Layout>
-          <Toaster />
-        </div>
+        <Layout>
+          <Routes>
+            {/* Páginas principales */}
+            <Route path="/" element={<IndexPage />} />
+            <Route path="/players" element={<PlayersPage />} />
+            <Route path="/aros" element={<ArosPage />} />
+            <Route path="/clubs" element={<ClubsPage />} />
+            <Route path="/tournaments" element={<TournamentsPage />} />
+            <Route path="/tournaments/join" element={<JoinTournamentPage />} />
+            <Route path="/rankings" element={<RankingsPage />} />
+            <Route path="/perfil/:id" element={<PlayerProfilePage />} />
+            
+            {/* Flujo de reserva */}
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/booking/payment" element={<BookingPaymentPage />} />
+            <Route path="/booking/confirmation" element={<BookingConfirmationPage />} />
+            
+            {/* Páginas de creación y gestión */}
+            <Route path="/clubs/publish" element={<PublishAroPage />} />
+            <Route path="/tournaments/create" element={<CreateTournamentPage />} />
+            <Route path="/join-as-player" element={<JoinAsPlayerPage />} />
+            <Route path="/invite-to-play" element={<InviteToPlayPage />} />
+            
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Layout>
+        <Toaster />
       </Router>
     </ThemeProvider>
   )
