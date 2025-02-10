@@ -1,40 +1,9 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { MapPin, Users, Trophy, Star } from "lucide-react"
+import { MapPin, Users, Trophy, Star, Basketball } from "lucide-react"
 
 export default function IndexPage() {
-  const features = [
-    {
-      icon: <MapPin className="h-12 w-12 text-[#FFA726]" />,
-      title: "Encuentra tu aro",
-      description: "Localiza los mejores aros cerca de ti",
-      color: "text-[#FFA726]",
-      link: "/aros"
-    },
-    {
-      icon: <Users className="h-12 w-12 text-[#66BB6A]" />,
-      title: "Únete a partidos",
-      description: "Encuentra jugadores y equipos",
-      color: "text-[#66BB6A]",
-      link: "/players"
-    },
-    {
-      icon: <Trophy className="h-12 w-12 text-[#42A5F5]" />,
-      title: "Compite en torneos",
-      description: "Participa en torneos oficiales",
-      color: "text-[#42A5F5]",
-      link: "/tournaments"
-    },
-    {
-      icon: <Star className="h-12 w-12 text-[#EC407A]" />,
-      title: "Mejora tu nivel",
-      description: "Sistema de rankings y estadísticas",
-      color: "text-[#EC407A]",
-      link: "/rankings"
-    }
-  ]
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -42,21 +11,25 @@ export default function IndexPage() {
         <div className="absolute inset-0 bg-[url('/sports/basketball-3x3.svg')] bg-cover bg-center opacity-10" />
         <div className="relative container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-7xl font-bold mb-6">
-              DRIBLA
+            <h1 className="text-4xl md:text-7xl font-bold mb-6 flex items-center gap-4">
+              <span className="text-[#FFA726]">DRIBLA</span>
+              <Basketball className="h-12 w-12 md:h-16 md:w-16 text-[#FFA726]" />
             </h1>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-[#FFA726]/80">
+              Reserva y Juega
+            </h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
+              Tu próximo partido está a un click de distancia.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/booking">
-                <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
-                  Reserva tu aro
+                <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800] text-lg">
+                  Reserva ahora
                 </Button>
               </Link>
               <Link to="/aros">
-                <Button size="lg" variant="outline">
-                  Ver aros disponibles
+                <Button size="lg" variant="outline" className="text-lg">
+                  Explorar pistas
                 </Button>
               </Link>
             </div>
@@ -67,20 +40,37 @@ export default function IndexPage() {
       {/* Features Section */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <Link to={feature.link} key={index}>
-                <Card className="p-6 h-full hover:border-primary transition-colors">
-                  <div className="mb-4">{feature.icon}</div>
-                  <h3 className={`text-xl font-semibold mb-2 ${feature.color}`}>
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </Card>
-              </Link>
-            ))}
+          <h2 className="text-3xl font-bold text-center mb-12">¿Cómo funciona?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="p-8 text-center hover:border-[#FFA726] transition-colors">
+              <div className="mb-6 inline-block p-4 bg-[#FFA726]/10 rounded-full">
+                <MapPin className="h-12 w-12 text-[#FFA726]" />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Encuentra tu pista</h3>
+              <p className="text-muted-foreground">
+                Localiza las mejores pistas de baloncesto cerca de ti
+              </p>
+            </Card>
+
+            <Card className="p-8 text-center hover:border-[#FFA726] transition-colors">
+              <div className="mb-6 inline-block p-4 bg-[#FFA726]/10 rounded-full">
+                <Basketball className="h-12 w-12 text-[#FFA726]" />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Reserva fácilmente</h3>
+              <p className="text-muted-foreground">
+                Proceso de reserva simple y rápido, sin complicaciones
+              </p>
+            </Card>
+
+            <Card className="p-8 text-center hover:border-[#FFA726] transition-colors">
+              <div className="mb-6 inline-block p-4 bg-[#FFA726]/10 rounded-full">
+                <Users className="h-12 w-12 text-[#FFA726]" />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Juega y disfruta</h3>
+              <p className="text-muted-foreground">
+                Únete a partidos o crea los tuyos propios
+              </p>
+            </Card>
           </div>
         </div>
       </section>
@@ -91,18 +81,18 @@ export default function IndexPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-[#FFA726] mb-2">150+</div>
-              <div className="text-muted-foreground">Aros disponibles</div>
+              <div className="text-muted-foreground">Pistas disponibles</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-[#66BB6A] mb-2">2,500+</div>
+              <div className="text-4xl font-bold text-[#FFA726] mb-2">2,500+</div>
               <div className="text-muted-foreground">Jugadores activos</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-[#42A5F5] mb-2">50+</div>
-              <div className="text-muted-foreground">Torneos organizados</div>
+              <div className="text-4xl font-bold text-[#FFA726] mb-2">10K+</div>
+              <div className="text-muted-foreground">Reservas realizadas</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-[#EC407A] mb-2">98%</div>
+              <div className="text-4xl font-bold text-[#FFA726] mb-2">98%</div>
               <div className="text-muted-foreground">Usuarios satisfechos</div>
             </div>
           </div>
@@ -113,14 +103,14 @@ export default function IndexPage() {
       <section className="py-20 bg-[#0A0F1C]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            ¿Listo para empezar a jugar?
+            ¿Listo para jugar?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Únete a la comunidad de baloncesto 3x3 más grande de España
+            Únete a la comunidad de baloncesto más grande de España
           </p>
           <Link to="/booking">
-            <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
-              Reserva tu aro
+            <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800] text-lg">
+              Reserva tu pista ahora
             </Button>
           </Link>
         </div>
