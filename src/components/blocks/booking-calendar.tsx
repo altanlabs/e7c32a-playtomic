@@ -1,74 +1,85 @@
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import { Card } from "@/components/ui/card"
-import { CalendarIcon, Clock } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Clock } from "lucide-react"
 
-export function BookingCalendar() {
-  const [selectedDate, setSelectedDate] = useState<string>("")
-  const [selectedTime, setSelectedTime] = useState<string>("")
+interface TimeSlot {
+  time: string
+  available: boolean
+  price: number
+  maxPlayers: number
+  currentPlayers: number
+}
 
-  const timeSlots = [
-    "09:00", "10:00", "11:00", "12:00",
-    "13:00", "14:00", "15:00", "16:00",
-    "17:00", "18:00", "19:00", "20:00"
+interface BookingCalendarProps {
+  mode: 'club' | 'player'
+  onSlotSelect?: (date: Date, slot: TimeSlot) => void
+  onSlotUpdate?: (date: Date, slot: any) => void
+}
+
+export function BookingCalendar({ mode, onSlotSelect, onSlotUpdate }: BookingCalendarProps) {
+  const [date, setDate] = useState<Date | undefined>(new Date())
+  
+  // Example time slots - in a real app, these would come from an API
+  const timeSlots: TimeSlot[] = [
+    { time: "09:00", available: true, price: 20, maxPlayers: 10, currentPlayers: 4 },
+    { time: "10:00", available: true, price: 20, maxPlayers: 10, currentPlayers: 2 },
+    { time: "11:00", available: false, price: 20, maxPlayers: 10, currentPlayers: 10 },
+    { time: "12:00", available: true, price: 25, maxPlayers: 10, currentPlayers: 6 },
+    { time: "13:00", available: true, price: 25, maxPlayers: 10, currentPlayers: 3 },
+    { time: "16:00", available: true, price: 30, maxPlayers: 10, currentPlayers: 5 },
+    { time: "17:00", available: false, price: 30, maxPlayers: 10, currentPlayers: 10 },
+    { time: "18:00", available: true, price: 30, maxPlayers: 10, currentPlayers: 7 },
+    { time: "19:00", available: true, price: 30, maxPlayers: 10, currentPlayers: 4 },
+    { time: "20:00", available: true, price: 25, maxPlayers: 10, currentPlayers: 2 },
   ]
 
-  return (
-    <Card className="p-6">
-      <div className="space-y-6">
-        {/* Date Selection */}
-        <div>
-          <div className="flex items-center mb-2">
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            <h3 className="font-medium">Fecha</h3>
-          </div>
-          <input
-            type="date"
-            className="w-full p-2 rounded-md border bg-background"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            min={new Date().toISOString().split('T')[0]}
-          />
-        </div>
+  const handleSlotClick = (slot: TimeSlot) => {
+    if (!date) return
+    
+    if (mode === 'player' && onSlotSelect && slot.available) {
+      onSlotSelect(date, slot)
+    } else if (mode === 'club' && onSlotUpdate) {
+      onSlotUpdate(date, slot)
+    }
+  }
 
-        {/* Time Selection */}
-        <div>
-          <div className="flex items-center mb-2">
-            <Clock className="mr-2 h-4 w-4" />
-            <h3 className="font-medium">Hora</h3>
-          </div>
-          <div className="grid grid-cols-4 gap-2">
-            {timeSlots.map((time) => (
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <Calendar
+        mode="single"
+        selected={date}
+        onSelect={setDate}
+        className="rounded-md border"
+      />
+
+      <Card className="p-4">
+        <div className="space-y-2">
+          <h3 className="font-semibold">Horarios disponibles</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {timeSlots.map((slot) => (
               <Button
-                key={time}
-                variant={selectedTime === time ? "default" : "outline"}
-                className={selectedTime === time ? "bg-[#FFA726] hover:bg-[#FF9800]" : ""}
-                onClick={() => setSelectedTime(time)}
+                key={slot.time}
+                variant={slot.available ? "outline" : "ghost"}
+                className={`
+                  justify-start space-x-2
+                  ${!slot.available && "opacity-50 cursor-not-allowed"}
+                  ${mode === 'club' && "hover:bg-primary hover:text-primary-foreground"}
+                `}
+                onClick={() => handleSlotClick(slot)}
+                disabled={mode === 'player' && !slot.available}
               >
-                {time}
+                <Clock className="h-4 w-4" />
+                <span>{slot.time}</span>
+                {mode === 'player' && slot.available && (
+                  <span className="ml-auto">{slot.price}€</span>
+                )}
               </Button>
             ))}
           </div>
         </div>
-
-        {/* Summary */}
-        <div className="pt-4 border-t">
-          <div className="flex justify-between items-center mb-2">
-            <span>Fecha seleccionada:</span>
-            <span className="font-medium">{selectedDate || "-"}</span>
-          </div>
-          <div className="flex justify-between items-center mb-4">
-            <span>Hora seleccionada:</span>
-            <span className="font-medium">{selectedTime || "-"}</span>
-          </div>
-          <Button 
-            className="w-full bg-[#FFA726] hover:bg-[#FF9800]"
-            disabled={!selectedDate || !selectedTime}
-          >
-            Confirmar reserva
-          </Button>
-        </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   )
 }
