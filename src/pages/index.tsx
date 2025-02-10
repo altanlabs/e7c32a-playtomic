@@ -5,7 +5,7 @@ import { MapPin, Users, Trophy, Star, Basketball } from "lucide-react"
 
 export default function IndexPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/sports/basketball-3x3.svg')] bg-cover bg-center opacity-10" />
