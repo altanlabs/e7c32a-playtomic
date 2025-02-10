@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ChevronLeft, Upload, MapPin, Clock, Euro, Users, Droplets, Building, Basketball } from "lucide-react"
+import { ChevronLeft, Upload, MapPin, Clock, Euro, Users, Droplets, Building } from "lucide-react"
 import { Link } from "react-router-dom"
 
 export default function PublicarPistaBaloncesto() {
@@ -40,7 +40,7 @@ export default function PublicarPistaBaloncesto() {
           {/* Información básica */}
           <div className="space-y-4">
             <h2 className="text-xl font-semibold flex items-center gap-2">
-              <Basketball className="h-5 w-5" />
+              <Users className="h-5 w-5" />
               Información básica
             </h2>
             
