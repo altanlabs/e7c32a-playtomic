@@ -14,15 +14,16 @@ interface TimeSlot {
 
 interface BookingCalendarProps {
   mode: 'club' | 'player'
+  slots?: Record<string, TimeSlot[]>
   onSlotSelect?: (date: Date, slot: TimeSlot) => void
-  onSlotUpdate?: (date: Date, slot: any) => void
+  onSlotUpdate?: (date: Date, slot: TimeSlot) => void
 }
 
-export function BookingCalendar({ mode, onSlotSelect, onSlotUpdate }: BookingCalendarProps) {
+export function BookingCalendar({ mode, slots = {}, onSlotSelect, onSlotUpdate }: BookingCalendarProps) {
   const [date, setDate] = useState<Date | undefined>(new Date())
   
   // Example time slots - in a real app, these would come from an API
-  const timeSlots: TimeSlot[] = [
+  const defaultTimeSlots: TimeSlot[] = [
     { time: "09:00", available: true, price: 20, maxPlayers: 10, currentPlayers: 4 },
     { time: "10:00", available: true, price: 20, maxPlayers: 10, currentPlayers: 2 },
     { time: "11:00", available: false, price: 20, maxPlayers: 10, currentPlayers: 10 },
@@ -34,6 +35,10 @@ export function BookingCalendar({ mode, onSlotSelect, onSlotUpdate }: BookingCal
     { time: "19:00", available: true, price: 30, maxPlayers: 10, currentPlayers: 4 },
     { time: "20:00", available: true, price: 25, maxPlayers: 10, currentPlayers: 2 },
   ]
+
+  const currentTimeSlots = date 
+    ? (slots[date.toISOString().split('T')[0]] || defaultTimeSlots)
+    : defaultTimeSlots
 
   const handleSlotClick = (slot: TimeSlot) => {
     if (!date) return
@@ -58,7 +63,7 @@ export function BookingCalendar({ mode, onSlotSelect, onSlotUpdate }: BookingCal
         <div className="space-y-2">
           <h3 className="font-semibold">Horarios disponibles</h3>
           <div className="grid grid-cols-2 gap-2">
-            {timeSlots.map((slot) => (
+            {currentTimeSlots.map((slot) => (
               <Button
                 key={slot.time}
                 variant={slot.available ? "outline" : "ghost"}
