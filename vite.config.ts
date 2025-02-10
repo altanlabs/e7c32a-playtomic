@@ -4,6 +4,9 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  css: {
+    postcss: './postcss.config.js',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -12,25 +15,5 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-  },
-  build: {
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': [
-            '@radix-ui/react-avatar',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-icons',
-            '@radix-ui/react-slot',
-            'class-variance-authority',
-            'clsx',
-            'tailwind-merge',
-          ],
-        },
-      },
-    },
   },
 })
