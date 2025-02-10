@@ -12,20 +12,20 @@ export default function IndexPage() {
         <div className="relative container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Encuentra tu cancha de baloncesto ideal
+              DRIBLA RESERVA JUEGA
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Descubre, reserva y juega en las mejores canchas de tu zona
+              Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/booking">
-                <Button size="lg">
-                  Reservar ahora
+                <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
+                  Reserva tu aro
                 </Button>
               </Link>
               <Link to="/aros">
                 <Button size="lg" variant="outline">
-                  Explorar canchas
+                  Ver aros disponibles
                 </Button>
               </Link>
             </div>
@@ -42,9 +42,9 @@ export default function IndexPage() {
               <div className="mb-6 inline-block p-4 bg-primary/10 rounded-full">
                 <MapPin className="h-12 w-12 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-4">Encuentra tu cancha</h3>
+              <h3 className="text-xl font-semibold mb-4">Encuentra tu aro</h3>
               <p className="text-muted-foreground">
-                Localiza las mejores canchas de baloncesto cerca de ti
+                Localiza los mejores aros de baloncesto cerca de ti
               </p>
             </Card>
 
@@ -77,7 +77,7 @@ export default function IndexPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-primary mb-2">150+</div>
-              <div className="text-muted-foreground">Canchas disponibles</div>
+              <div className="text-muted-foreground">Aros disponibles</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-primary mb-2">2,500+</div>
@@ -105,8 +105,8 @@ export default function IndexPage() {
             Únete a la comunidad de baloncesto más grande de España
           </p>
           <Link to="/booking">
-            <Button size="lg">
-              Reserva tu cancha ahora
+            <Button size="lg" className="bg-[#FFA726] hover:bg-[#FF9800]">
+              Reserva tu aro ahora
             </Button>
           </Link>
         </div>
