@@ -11,8 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ChevronLeft, Upload, MapPin, Clock, Euro, Users, Droplets, Building } from "lucide-react"
-import { BsBasketballFill as Basketball } from "react-icons/bs"
+import { ChevronLeft, Upload, MapPin, Clock, Euro, Users, Droplets, Building, Basketball } from "lucide-react"
 import { Link } from "react-router-dom"
 
 export default function PublicarPistaBaloncesto() {
