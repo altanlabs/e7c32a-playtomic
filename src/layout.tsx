@@ -97,28 +97,17 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className={`sticky top-0 z-50 w-full transition-all duration-300`}>
-            {/* Background container */}
-            <div className="absolute inset-0 transition-opacity duration-300">
-              {/* Image background - always present */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: 'url("https://api.altan.ai/platform/media/39266f5d-9785-498b-b5bc-5fc0daa0172c?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae")',
-                }}
-              >
-                <div className="absolute inset-0 bg-black/40" />
-              </div>
-              
-              {/* Scroll background - appears on scroll */}
-              <div 
-                className={`absolute inset-0 bg-[#029455] transition-opacity duration-300 ${
-                  isScrolled ? 'opacity-95' : 'opacity-0'
-                }`}
-              />
-            </div>
-
-            <div className="container mx-auto px-4 relative">
+          <header 
+            className={`sticky top-0 z-50 w-full transition-all duration-300`}
+            style={{
+              backgroundImage: isScrolled ? 'none' : 'url("https://api.altan.ai/platform/media/39266f5d-9785-498b-b5bc-5fc0daa0172c?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundColor: isScrolled ? '#029455' : 'transparent',
+            }}
+          >
+            <div className="absolute inset-0 bg-black/40" style={{ display: isScrolled ? 'none' : 'block' }} />
+            <div className="container mx-auto px-4 relative z-10">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation together */}
                 <div className="flex items-center">
@@ -143,7 +132,7 @@ export default function Layout({
                     <Toggle
                       pressed={theme === "dark"}
                       onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                      className={`p-2 rounded-full transition-colors ${
+                      className={`p-2 rounded-full ${
                         isScrolled 
                           ? "bg-white/20 text-white hover:bg-white/30" 
                           : "bg-white/10 text-white hover:bg-white/20"
@@ -156,11 +145,12 @@ export default function Layout({
                   {/* Notifications */}
                   {header.showNotifications && (
                     <Button variant="ghost" size="icon" 
-                      className={`rounded-full transition-colors ${
+                      className={`rounded-full ${
                         isScrolled 
                           ? "bg-white/20 text-white hover:bg-white/30" 
                           : "bg-white/10 text-white hover:bg-white/20"
-                      }`}>
+                      }`}
+                    >
                       <Bell className="h-5 w-5" />
                     </Button>
                   )}
@@ -170,11 +160,12 @@ export default function Layout({
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" 
-                          className={`h-8 w-8 rounded-full overflow-hidden transition-colors ${
+                          className={`h-8 w-8 rounded-full overflow-hidden p-0 ${
                             isScrolled 
                               ? "bg-white/20 hover:bg-white/30" 
                               : "bg-white/10 hover:bg-white/20"
-                          }`}>
+                          }`}
+                        >
                           <Avatar>
                             <AvatarImage src={header.avatarSrc} alt="User" />
                             <AvatarFallback>{header.avatarFallback}</AvatarFallback>
@@ -197,15 +188,16 @@ export default function Layout({
                   <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                     <SheetTrigger asChild className="md:hidden">
                       <Button variant="ghost" size="icon" 
-                        className={`rounded-full transition-colors ${
+                        className={`rounded-full ${
                           isScrolled 
                             ? "bg-white/20 text-white hover:bg-white/30" 
                             : "bg-white/10 text-white hover:bg-white/20"
-                        }`}>
+                        }`}
+                      >
                         <Menu className="h-6 w-6" />
                       </Button>
                     </SheetTrigger>
-                    <SheetContent side="right" className="bg-[#029455]/95 backdrop-blur-sm border-none">
+                    <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
                       <div className="flex justify-center mb-6">
                         <img 
                           src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
