@@ -2,13 +2,9 @@ import { useState } from "react"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { toast } from "sonner"
-import { AltanDatabase } from "@altanlabs/database"
 
-// Initialize database client
-const db = new AltanDatabase({
-  baseId: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616",
-  apiBaseUrl: "https://api.altan.ai/galaxia/hook/mo6VsG"
-})
+const API_URL = "https://api.altan.ai/galaxia/hook/mo6VsG"
+const BASE_ID = "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616"
 
 export function WaitlistForm() {
   const [email, setEmail] = useState("")
@@ -19,11 +15,28 @@ export function WaitlistForm() {
     setIsLoading(true)
 
     try {
-      // Create a new entry in the Waitlist table
-      await db.from("Waitlist").insert({
-        email: email,
-        region: "España" // Default region
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          base_id: BASE_ID,
+          table: "Waitlist",
+          fields: {
+            email: {
+              value: email
+            },
+            region: {
+              value: "España"
+            }
+          }
+        }),
       })
+
+      if (!response.ok) {
+        throw new Error("Error al registrar el email")
+      }
 
       toast.success("¡Gracias por unirte a la lista de espera!")
       setEmail("")
