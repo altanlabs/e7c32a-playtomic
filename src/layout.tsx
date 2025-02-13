@@ -1,16 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
-import { AppSidebar } from "@/components/blocks/app-sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { AppSidebar } from "./components/blocks/app-sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
+import { Button } from "./components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "./components/ui/dropdown-menu";
 import { Bell, Settings, LogOut, Menu } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "./components/ui/sheet";
 
 const MainNavigation = [
   { label: "Jugadores", href: "/players" },
