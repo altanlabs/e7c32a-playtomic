@@ -65,11 +65,7 @@ export default function Layout({
         <Link
           key={index}
           to={item.href}
-          className={`text-base font-medium transition-colors hover:text-[#029455] ${
-            location.pathname === item.href
-              ? "text-[#029455]"
-              : isScrolled ? "text-white" : "text-white"
-          }`}
+          className={`text-base font-semibold transition-colors ${location.pathname === item.href ? 'text-[#029455]' : isScrolled ? 'text-white' : 'text-gray-800 drop-shadow-sm'} hover:text-[#029455]`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
           {item.label}
@@ -92,9 +88,7 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-            isScrolled ? 'bg-[#029455]' : 'bg-transparent'
-          }`}>
+          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent'}`}>
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation together */}
