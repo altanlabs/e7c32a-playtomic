@@ -6,18 +6,18 @@ import { WaitlistForm } from "@/components/blocks/waitlist-form"
 
 export default function IndexPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black">
+    <div className="min-h-screen bg-[#fff6e7]">
       {/* Hero Section */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/headers/basketball-hoop.jpg')] bg-cover bg-center opacity-20" />
+        <div className="absolute inset-0 bg-[url('/headers/basketball-hoop.jpg')] bg-cover bg-center opacity-10" />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl">
-            <h1 className="hero-title text-6xl md:text-8xl tracking-tight text-white space-y-2">
+            <h1 className="hero-title text-6xl md:text-8xl tracking-tight text-black space-y-2">
               <div>Dribla.</div>
               <div>Reserva.</div>
               <div>Juega.</div>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light mt-8">
+            <p className="text-xl md:text-2xl text-gray-700 mb-8 font-light mt-8">
               Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -30,7 +30,7 @@ export default function IndexPage() {
               </Link>
               <Link to="/aros">
                 <Button size="lg" variant="outline" 
-                  className="glass-effect text-white px-8 py-6 text-lg rounded-full hover-scale">
+                  className="bg-white/50 backdrop-blur-sm border-gray-200 text-gray-800 px-8 py-6 text-lg rounded-full hover-scale hover:bg-white/80">
                   Ver aros disponibles
                 </Button>
               </Link>
@@ -61,14 +61,14 @@ export default function IndexPage() {
               }
             ].map((feature, index) => (
               <Card key={index} 
-                className="glass-card p-8 hover-scale">
-                <div className="glass-effect inline-block p-4 rounded-2xl mb-6">
+                className="bg-white/50 backdrop-blur-sm border-gray-200 p-8 hover-scale rounded-2xl">
+                <div className="bg-white/80 inline-block p-4 rounded-2xl mb-6">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-4 text-white">
+                <h3 className="text-xl font-semibold mb-4 text-gray-800">
                   {feature.title}
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-600">
                   {feature.description}
                 </p>
               </Card>
@@ -88,16 +88,15 @@ export default function IndexPage() {
               { number: "98%", label: "Usuarios satisfechos" }
             ].map((stat, index) => (
               <div key={index} 
-                className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600/20 to-indigo-600/20 p-8 text-center hover-scale border border-white/10">
+                className="relative overflow-hidden rounded-2xl bg-white/50 backdrop-blur-sm p-8 text-center hover-scale border border-gray-200">
                 <div className="relative z-10">
-                  <div className="text-5xl font-bold text-white mb-2">
+                  <div className="text-5xl font-bold text-gray-800 mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-blue-300 font-medium">
+                  <div className="text-gray-600 font-medium">
                     {stat.label}
                   </div>
                 </div>
-                <div className="absolute inset-0 bg-blue-500/5 backdrop-blur-sm" />
               </div>
             ))}
           </div>
@@ -106,12 +105,12 @@ export default function IndexPage() {
 
       {/* Waitlist Section */}
       <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 backdrop-blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-indigo-500/5" />
         <div className="container mx-auto px-4 text-center relative">
-          <h2 className="text-4xl font-bold mb-4 text-white">
+          <h2 className="text-4xl font-bold mb-4 text-gray-800">
             ¿Quieres ser de los primeros en probar Dribla?
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto font-light">
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
             Únete a nuestra lista de espera y sé el primero en enterarte cuando lancemos en tu ciudad.
           </p>
           <div className="max-w-md mx-auto">
@@ -126,7 +125,7 @@ export default function IndexPage() {
           <h2 className="text-4xl font-bold mb-4 gradient-text">
             ¿Listo para jugar?
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto font-light">
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
             Únete a la comunidad de baloncesto más grande de España
           </p>
           <Link to="/booking">
