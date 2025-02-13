@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDatabase } from '@altanlabs/database';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -14,10 +14,14 @@ export const WaitlistForm = () => {
 
     setIsSubmitting(true);
     try {
+      const region = Intl.DateTimeFormat().resolvedOptions().timeZone || 
+                    navigator.language || 
+                    'unknown';
+                    
       await addRecord(
         { 
           email,
-          region: 'auto' // We'll handle this server-side
+          region
         },
         (error) => {
           console.error('Failed to add to waitlist:', error);
