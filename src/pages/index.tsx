@@ -31,7 +31,7 @@ export default function IndexPage() {
             <p className="subtitle-font text-xl md:text-2xl text-gray-200 mb-8 font-light mt-8">
               Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
-            <div className="max-w-md">
+            <div className="max-w-3xl">
               <WaitlistForm />
             </div>
           </div>
