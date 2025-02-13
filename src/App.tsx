@@ -6,7 +6,7 @@ import { Routes } from "./routes";
 const config = {
   API_BASE_URL: "https://api.altan.ai/galaxia/hook/mo6VsG",
   SAMPLE_TABLES: {
-    waitlist: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616"
+    waitlist: "d627090e-a358-4b0b-ad60-22af8b0485a1"  // Updated to correct table ID
   }
 };
 
