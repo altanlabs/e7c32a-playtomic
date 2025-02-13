@@ -65,7 +65,13 @@ export default function Layout({
         <Link
           key={index}
           to={item.href}
-          className={`text-base font-semibold transition-colors ${location.pathname === item.href ? 'text-[#029455]' : isScrolled ? 'text-white' : 'text-gray-800 drop-shadow-sm'} hover:text-[#029455]`}
+          className={`text-base font-semibold transition-colors ${
+            location.pathname === item.href
+              ? 'text-[#029455]'
+              : isScrolled
+              ? 'text-white'
+              : 'text-gray-800 drop-shadow-sm'
+          } hover:text-[#029455]`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
           {item.label}
@@ -79,7 +85,7 @@ export default function Layout({
       {/* Optional Sidebar */}
       {showSidebar && sidebarConfig && (
         <AppSidebar 
-          className="h-full border-r border-border hidden lg:block" 
+          className="h-full border-r border-border hidden lg:block"
           {...sidebarConfig}
         />
       )}
@@ -88,20 +94,22 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent'}`}>
+          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+            isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent'
+          }`}>
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation together */}
                 <div className="flex items-center">
                   <Link to="/" className="flex items-center">
                     <img 
-                      src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
-                      alt="Dribla" 
+                      src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
+                      alt="Dribla"
                       className="h-10 w-auto hidden md:block"
                     />
                     <img 
-                      src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
-                      alt="Dribla" 
+                      src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
+                      alt="Dribla"
                       className="h-10 w-auto md:hidden"
                     />
                   </Link>
@@ -116,10 +124,12 @@ export default function Layout({
                 <div className="flex items-center space-x-4">
                   {/* Notifications */}
                   {header.showNotifications && (
-                    <Button variant="ghost" size="icon" 
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       className={`rounded-full ${
-                        isScrolled 
-                          ? "bg-white/20 text-white hover:bg-white/30" 
+                        isScrolled
+                          ? "bg-white/20 text-white hover:bg-white/30"
                           : "bg-black/20 text-white hover:bg-black/30"
                       }`}
                     >
@@ -131,10 +141,11 @@ export default function Layout({
                   {header.showUserMenu && (
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" 
+                        <Button
+                          variant="ghost"
                           className={`h-8 w-8 rounded-full overflow-hidden p-0 ${
-                            isScrolled 
-                              ? "bg-white/20 hover:bg-white/30" 
+                            isScrolled
+                              ? "bg-white/20 hover:bg-white/30"
                               : "bg-black/20 hover:bg-black/30"
                           }`}
                         >
@@ -146,8 +157,11 @@ export default function Layout({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="bg-white/95 backdrop-blur-sm border-gray-200">
                         {header.userMenuItems?.map((item, index) => (
-                          <DropdownMenuItem key={index} onClick={item.onClick}
-                            className="hover:text-[#029455]">
+                          <DropdownMenuItem
+                            key={index}
+                            onClick={item.onClick}
+                            className="hover:text-[#029455]"
+                          >
                             {item.icon}
                             {item.label}
                           </DropdownMenuItem>
@@ -159,10 +173,12 @@ export default function Layout({
                   {/* Mobile Menu Button */}
                   <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                     <SheetTrigger asChild className="md:hidden">
-                      <Button variant="ghost" size="icon" 
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         className={`rounded-full ${
-                          isScrolled 
-                            ? "bg-white/20 text-white hover:bg-white/30" 
+                          isScrolled
+                            ? "bg-white/20 text-white hover:bg-white/30"
                             : "bg-black/20 text-white hover:bg-black/30"
                         }`}
                       >
@@ -172,8 +188,8 @@ export default function Layout({
                     <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
                       <div className="flex justify-center mb-6">
                         <img 
-                          src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
-                          alt="Dribla" 
+                          src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
+                          alt="Dribla"
                           className="h-10 w-auto"
                         />
                       </div>
