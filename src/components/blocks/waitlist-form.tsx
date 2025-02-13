@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 import { toast } from "sonner"
-import { Database } from "@altanlabs/database"
+import { createClient } from "@altanlabs/database"
 
 // Initialize database client
-const db = new Database({
+const db = createClient({
   baseId: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616",
   apiBaseUrl: "https://api.altan.ai/galaxia/hook/mo6VsG"
 })
