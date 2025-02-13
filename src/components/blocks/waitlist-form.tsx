@@ -9,29 +9,46 @@ export const WaitlistForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!name.trim()) return;
+
     try {
-      await addRecord({ name });
+      await addRecord(
+        { name },
+        (error) => {
+          console.error('Failed to add to waitlist:', error);
+          alert('Failed to join waitlist. Please try again.');
+        }
+      );
       setName('');
-      alert('You have been added to the waitlist!');
-    } catch (err) {
-      console.error('Failed to add to waitlist:', err);
+      alert('Successfully joined the waitlist!');
+    } catch (error) {
+      console.error('Unexpected error:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+    <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
       <Input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
         required
-        className="p-2 border rounded"
+        className="flex-1 bg-white/90 text-black"
+        disabled={isLoading}
       />
-      <Button type="submit" disabled={isLoading} className="bg-blue-500 text-white p-2 rounded">
-        {isLoading ? 'Adding...' : 'Join Waitlist'}
+      <Button 
+        type="submit" 
+        disabled={isLoading} 
+        className="bg-[#029455] hover:bg-[#029455]/90 text-white"
+      >
+        {isLoading ? 'Joining...' : 'Join Waitlist'}
       </Button>
-      {error && <p className="text-red-500">Error: {error}</p>}
+      {error && (
+        <p className="text-red-500 text-sm mt-2">
+          Error: {error}
+        </p>
+      )}
     </form>
   );
 };
