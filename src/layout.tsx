@@ -9,9 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Bell, Settings, LogOut, Menu } from "lucide-react";
-import { Toggle } from "@radix-ui/react-toggle";
-import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
-import { useTheme } from "@/theme/theme-provider";
 import { useEffect, useRef, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -25,7 +22,6 @@ const MainNavigation = [
 const DefaultHeader = {
   showNotifications: true,
   showUserMenu: true,
-  showThemeToggle: true,
   userMenuItems: [
     { icon: <Settings className="mr-2 h-4 w-4" />, label: "Ajustes" },
     { icon: <LogOut className="mr-2 h-4 w-4" />, label: "Cerrar sesión" },
@@ -52,7 +48,6 @@ export default function Layout({
   children
 }) {
   const location = useLocation();
-  const { theme, setTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -120,21 +115,6 @@ export default function Layout({
 
                 {/* Right side elements */}
                 <div className="flex items-center space-x-4">
-                  {/* Theme Toggle */}
-                  {header.showThemeToggle && (
-                    <Toggle
-                      pressed={theme === "dark"}
-                      onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                      className={`p-2 rounded-full ${
-                        isScrolled 
-                          ? "bg-white/20 text-white hover:bg-white/30" 
-                          : "bg-black/20 text-white hover:bg-black/30"
-                      }`}
-                    >
-                      {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
-                    </Toggle>
-                  )}
-
                   {/* Notifications */}
                   {header.showNotifications && (
                     <Button variant="ghost" size="icon" 
