@@ -4,24 +4,29 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
 export const WaitlistForm = () => {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [region, setRegion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { addRecord } = useDatabase('waitlist', { autoFetch: false });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || isSubmitting) return;
+    if (!email.trim() || !region.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
     try {
       await addRecord(
-        { name },
+        { 
+          email,
+          region
+        },
         (error) => {
           console.error('Failed to add to waitlist:', error);
           alert('Failed to join waitlist. Please try again.');
         }
       );
-      setName('');
+      setEmail('');
+      setRegion('');
       alert('Successfully joined the waitlist!');
     } catch (error) {
       console.error('Unexpected error:', error);
@@ -31,12 +36,21 @@ export const WaitlistForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <Input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email"
+        required
+        className="flex-1 bg-white/90 text-black"
+        disabled={isSubmitting}
+      />
       <Input
         type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter your name"
+        value={region}
+        onChange={(e) => setRegion(e.target.value)}
+        placeholder="Enter your region"
         required
         className="flex-1 bg-white/90 text-black"
         disabled={isSubmitting}
