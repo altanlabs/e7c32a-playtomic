@@ -50,7 +50,6 @@ export default function IndexPage() {
         </div>
       </section>
 
-      {/* Rest of the sections remain the same */}
       {/* Features Section */}
       <section className="py-32 bg-[#fff6e7]">
         <div className="container mx-auto px-4">
