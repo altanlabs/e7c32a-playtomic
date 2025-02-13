@@ -101,9 +101,9 @@ export default function Layout({
             isScrolled ? 'glass-effect' : 'bg-transparent'
           }`}>
             <div className="container mx-auto px-4">
-              <div className="flex h-16 items-center">
-                {/* Logo and Desktop Navigation */}
-                <div className="flex items-center flex-1">
+              <div className="flex h-16 items-center justify-between">
+                {/* Logo and Desktop Navigation together */}
+                <div className="flex items-center">
                   <Link to="/" className="flex items-center">
                     <img 
                       src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
@@ -112,13 +112,14 @@ export default function Layout({
                     />
                   </Link>
                   
-                  {/* Desktop Navigation - Now with ml-auto to push it to the right */}
-                  <nav className="hidden md:flex items-center ml-auto space-x-12">
+                  {/* Desktop Navigation - Now directly next to logo */}
+                  <nav className="hidden md:flex items-center ml-8 space-x-8">
                     <NavigationLinks />
                   </nav>
                 </div>
 
-                <div className="flex items-center space-x-4 ml-8">
+                {/* Right side elements */}
+                <div className="flex items-center space-x-4">
                   {/* Theme Toggle */}
                   {header.showThemeToggle && (
                     <Toggle
