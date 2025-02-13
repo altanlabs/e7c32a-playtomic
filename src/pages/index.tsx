@@ -8,7 +8,7 @@ export default function IndexPage() {
   return (
     <div className="min-h-screen bg-[#fff6e7]">
       {/* Hero Section with Background Image */}
-      <section className="relative min-h-screen flex items-center">
+      <section className="relative min-h-screen flex items-center -mt-16"> {/* Negative margin to pull up under header */}
         <div 
           className="absolute inset-0"
           style={{
@@ -21,7 +21,7 @@ export default function IndexPage() {
           <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 pt-16"> {/* Added padding-top to account for header */}
           <div className="max-w-3xl">
             <h1 className="hero-title text-6xl md:text-8xl tracking-tight text-white space-y-2">
               <div>Dribla.</div>
@@ -50,6 +50,7 @@ export default function IndexPage() {
         </div>
       </section>
 
+      {/* Rest of the sections remain the same */}
       {/* Features Section */}
       <section className="py-32 bg-[#fff6e7]">
         <div className="container mx-auto px-4">
