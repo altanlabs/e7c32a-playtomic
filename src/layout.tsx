@@ -106,9 +106,9 @@ export default function Layout({
                 <div className="flex items-center space-x-12">
                   <Link to="/" className="flex items-center">
                     <img 
-                      src="/dribla-logo.png" 
+                      src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
                       alt="Dribla" 
-                      className="h-8 w-auto"
+                      className="h-10 w-auto"
                     />
                   </Link>
                   
@@ -173,9 +173,9 @@ export default function Layout({
                     <SheetContent side="right" className="glass-effect border-none">
                       <div className="flex justify-center mb-6">
                         <img 
-                          src="/dribla-logo.png" 
+                          src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
                           alt="Dribla" 
-                          className="h-8 w-auto"
+                          className="h-10 w-auto"
                         />
                       </div>
                       <nav className="flex flex-col space-y-6">
