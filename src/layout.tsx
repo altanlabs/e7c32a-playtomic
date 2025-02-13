@@ -97,7 +97,12 @@ export default function Layout({
                     <img 
                       src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
                       alt="Dribla" 
-                      className="h-10 w-auto"
+                      className="h-10 w-auto hidden md:block"
+                    />
+                    <img 
+                      src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
+                      alt="Dribla" 
+                      className="h-10 w-auto md:hidden"
                     />
                   </Link>
                   
@@ -167,7 +172,7 @@ export default function Layout({
                     <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
                       <div className="flex justify-center mb-6">
                         <img 
-                          src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
+                          src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
                           alt="Dribla" 
                           className="h-10 w-auto"
                         />
