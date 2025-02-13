@@ -23,14 +23,14 @@ export default function IndexPage() {
             <div className="flex flex-wrap gap-4">
               <Link to="/booking">
                 <Button size="lg" 
-                  className="button-gradient text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
+                  className="bg-[#fd3132] hover:bg-[#e62b2c] text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
                   Reserva tu aro
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/aros">
                 <Button size="lg" variant="outline" 
-                  className="button-secondary text-white px-8 py-6 text-lg rounded-full hover-scale">
+                  className="bg-white/50 backdrop-blur-sm border-gray-200 text-gray-800 px-8 py-6 text-lg rounded-full hover-scale hover:bg-white/80">
                   Ver aros disponibles
                 </Button>
               </Link>
@@ -61,8 +61,8 @@ export default function IndexPage() {
               }
             ].map((feature, index) => (
               <Card key={index} 
-                className="bg-white border-2 border-[#029455] p-8 hover-scale rounded-2xl">
-                <div className="bg-white inline-block p-4 rounded-2xl mb-6 shadow-sm">
+                className="bg-white shadow-sm p-8 hover-scale rounded-2xl">
+                <div className="bg-[#fff6e7] inline-block p-4 rounded-2xl mb-6">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">
@@ -82,18 +82,18 @@ export default function IndexPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { number: "150+", label: "Aros disponibles" },
-              { number: "2,500+", label: "Jugadores activos" },
-              { number: "10K+", label: "Reservas realizadas" },
-              { number: "98%", label: "Usuarios satisfechos" }
+              { number: "150+", label: "Aros disponibles", color: "#fd3132" },
+              { number: "2,500+", label: "Jugadores activos", color: "#029455" },
+              { number: "10K+", label: "Reservas realizadas", color: "#fd3132" },
+              { number: "98%", label: "Usuarios satisfechos", color: "#029455" }
             ].map((stat, index) => (
               <div key={index} 
-                className="relative overflow-hidden rounded-2xl bg-white border-2 border-[#fd3132] p-8 text-center hover-scale">
+                className="bg-white shadow-sm rounded-2xl p-8 text-center hover-scale">
                 <div className="relative z-10">
-                  <div className="text-5xl font-bold text-[#fd3132] mb-2">
+                  <div className={`text-5xl font-bold mb-2`} style={{ color: stat.color }}>
                     {stat.number}
                   </div>
-                  <div className="text-[#029455] font-medium">
+                  <div className="text-gray-600 font-medium">
                     {stat.label}
                   </div>
                 </div>
@@ -105,7 +105,7 @@ export default function IndexPage() {
 
       {/* Waitlist Section */}
       <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fd3132]/5 to-[#029455]/5" />
+        <div className="absolute inset-0 bg-[#029455]/5" />
         <div className="container mx-auto px-4 text-center relative">
           <h2 className="text-4xl font-bold mb-4 text-gray-800">
             ¿Quieres ser de los primeros en probar Dribla?
@@ -122,7 +122,7 @@ export default function IndexPage() {
       {/* CTA Section */}
       <section className="py-32">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4 gradient-text">
+          <h2 className="text-4xl font-bold mb-4 text-[#029455]">
             ¿Listo para jugar?
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
@@ -130,7 +130,7 @@ export default function IndexPage() {
           </p>
           <Link to="/booking">
             <Button size="lg" 
-              className="button-gradient text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
+              className="bg-[#fd3132] hover:bg-[#e62b2c] text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
               Reserva tu aro ahora
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
