@@ -70,14 +70,10 @@ export default function Layout({
         <Link
           key={index}
           to={item.href}
-          className={`text-base font-medium transition-colors ${
-            isScrolled
-              ? location.pathname === item.href
-                ? "text-white font-bold"
-                : "text-white/90 hover:text-white"
-              : location.pathname === item.href
-                ? "text-[#fd3132]"
-                : "text-gray-600 hover:text-[#fd3132]"
+          className={`text-base font-medium transition-colors hover:text-[#fd3132] ${
+            location.pathname === item.href
+              ? "text-[#fd3132]"
+              : isScrolled ? "text-white" : "text-gray-600"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
@@ -131,8 +127,8 @@ export default function Layout({
                       onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
                       className={`p-2 rounded-full ${
                         isScrolled 
-                          ? 'bg-white/20 text-white hover:bg-white/30' 
-                          : 'bg-white/50 text-gray-600 hover:bg-white'
+                          ? "bg-white/20 text-white hover:bg-white/30" 
+                          : "bg-white/50 text-gray-600 hover:bg-white"
                       }`}
                     >
                       {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
@@ -144,8 +140,8 @@ export default function Layout({
                     <Button variant="ghost" size="icon" 
                       className={`rounded-full ${
                         isScrolled 
-                          ? 'bg-white/20 text-white hover:bg-white/30' 
-                          : 'bg-white/50 text-gray-600 hover:bg-white'
+                          ? "bg-white/20 text-white hover:bg-white/30" 
+                          : "bg-white/50 text-gray-600 hover:bg-white"
                       }`}>
                       <Bell className="h-5 w-5" />
                     </Button>
@@ -158,8 +154,8 @@ export default function Layout({
                         <Button variant="ghost" 
                           className={`h-8 w-8 rounded-full overflow-hidden p-0 ${
                             isScrolled 
-                              ? 'bg-white/20 hover:bg-white/30' 
-                              : 'bg-white/50 hover:bg-white'
+                              ? "bg-white/20 hover:bg-white/30" 
+                              : "bg-white/50 hover:bg-white"
                           }`}>
                           <Avatar>
                             <AvatarImage src={header.avatarSrc} alt="User" />
@@ -167,7 +163,7 @@ export default function Layout({
                           </Avatar>
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-white border-gray-200">
+                      <DropdownMenuContent align="end" className="bg-white shadow-lg border-gray-200">
                         {header.userMenuItems?.map((item, index) => (
                           <DropdownMenuItem key={index} onClick={item.onClick}
                             className="hover:text-[#fd3132]">
@@ -185,8 +181,8 @@ export default function Layout({
                       <Button variant="ghost" size="icon" 
                         className={`rounded-full ${
                           isScrolled 
-                            ? 'bg-white/20 text-white hover:bg-white/30' 
-                            : 'bg-white/50 text-gray-600 hover:bg-white'
+                            ? "bg-white/20 text-white hover:bg-white/30" 
+                            : "bg-white/50 text-gray-600 hover:bg-white"
                         }`}>
                         <Menu className="h-6 w-6" />
                       </Button>
@@ -217,7 +213,7 @@ export default function Layout({
 
         {/* Footer */}
         {footer && showFooter && (
-          <footer className="border-t-2 border-[#029455] bg-white">
+          <footer className="border-t border-gray-200 bg-white/50">
             <div className="container flex h-14 items-center justify-between">
               <span className="text-sm text-gray-600">
                 {footer.text}
