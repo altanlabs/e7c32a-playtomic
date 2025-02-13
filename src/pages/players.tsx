@@ -51,7 +51,7 @@ export default function PlayersPage() {
     <div className="min-h-screen bg-[#fff6e7]">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[#029455]">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(https://api.altan.ai/platform/media/aec34100-0b8f-4149-9767-49897eb3fdef?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae)' }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative">
