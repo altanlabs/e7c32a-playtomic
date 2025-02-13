@@ -108,7 +108,7 @@ export default function Layout({
                   </Link>
                   
                   {/* Desktop Navigation - Now directly next to logo */}
-                  <nav className="hidden md:flex items-center ml-8 space-x-8">
+                  <nav className="hidden md:flex items-center ml-12 space-x-12">
                     <NavigationLinks />
                   </nav>
                 </div>
