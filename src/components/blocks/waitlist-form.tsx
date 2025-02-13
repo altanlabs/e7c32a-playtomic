@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDatabase } from '@altanlabs/database';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 
 export const WaitlistForm = () => {
   const [name, setName] = useState('');
