@@ -86,13 +86,17 @@ export default function IndexPage() {
               { number: "10K+", label: "Reservas realizadas" },
               { number: "98%", label: "Usuarios satisfechos" }
             ].map((stat, index) => (
-              <div key={index} className="glass-card p-8 text-center hover-scale">
-                <div className="text-5xl font-bold gradient-text mb-2">
-                  {stat.number}
+              <div key={index} 
+                className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600/20 to-indigo-600/20 p-8 text-center hover-scale border border-white/10">
+                <div className="relative z-10">
+                  <div className="text-5xl font-bold text-white mb-2">
+                    {stat.number}
+                  </div>
+                  <div className="text-blue-300 font-medium">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="text-gray-400 font-medium">
-                  {stat.label}
-                </div>
+                <div className="absolute inset-0 bg-blue-500/5 backdrop-blur-sm" />
               </div>
             ))}
           </div>
