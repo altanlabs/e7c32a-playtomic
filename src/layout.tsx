@@ -73,7 +73,7 @@ export default function Layout({
           className={`text-base font-medium transition-colors hover:text-blue-500 ${
             location.pathname === item.href
               ? "text-blue-500"
-              : "text-gray-400"
+              : "text-gray-600"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
@@ -84,7 +84,7 @@ export default function Layout({
   );
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
+    <div className="flex min-h-screen w-full flex-col bg-[#fff6e7]">
       {/* Optional Sidebar */}
       {showSidebar && sidebarConfig && (
         <AppSidebar 
@@ -98,7 +98,7 @@ export default function Layout({
         {/* Configurable Header */}
         {header && showHeader && (
           <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-            isScrolled ? 'glass-effect' : 'bg-transparent'
+            isScrolled ? 'bg-white/80 backdrop-blur-sm border-b border-gray-200' : 'bg-transparent'
           }`}>
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
@@ -125,7 +125,7 @@ export default function Layout({
                     <Toggle
                       pressed={theme === "dark"}
                       onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                      className="p-2 rounded-full glass-effect text-gray-400 hover:text-blue-500"
+                      className="p-2 rounded-full bg-white/50 text-gray-600 hover:text-blue-500 hover:bg-white"
                     >
                       {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
                     </Toggle>
@@ -134,7 +134,7 @@ export default function Layout({
                   {/* Notifications */}
                   {header.showNotifications && (
                     <Button variant="ghost" size="icon" 
-                      className="glass-effect rounded-full text-gray-400 hover:text-blue-500">
+                      className="bg-white/50 rounded-full text-gray-600 hover:text-blue-500 hover:bg-white">
                       <Bell className="h-5 w-5" />
                     </Button>
                   )}
@@ -144,14 +144,14 @@ export default function Layout({
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" 
-                          className="h-8 w-8 rounded-full overflow-hidden glass-effect p-0">
+                          className="h-8 w-8 rounded-full overflow-hidden bg-white/50 p-0 hover:bg-white">
                           <Avatar>
                             <AvatarImage src={header.avatarSrc} alt="User" />
                             <AvatarFallback>{header.avatarFallback}</AvatarFallback>
                           </Avatar>
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="glass-effect">
+                      <DropdownMenuContent align="end" className="bg-white/95 backdrop-blur-sm border-gray-200">
                         {header.userMenuItems?.map((item, index) => (
                           <DropdownMenuItem key={index} onClick={item.onClick}
                             className="hover:text-blue-500">
@@ -167,11 +167,11 @@ export default function Layout({
                   <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                     <SheetTrigger asChild className="md:hidden">
                       <Button variant="ghost" size="icon" 
-                        className="glass-effect rounded-full text-gray-400 hover:text-blue-500">
+                        className="bg-white/50 rounded-full text-gray-600 hover:text-blue-500 hover:bg-white">
                         <Menu className="h-6 w-6" />
                       </Button>
                     </SheetTrigger>
-                    <SheetContent side="right" className="glass-effect border-none">
+                    <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
                       <div className="flex justify-center mb-6">
                         <img 
                           src="https://api.altan.ai/platform/media/b7e8d173-6c2b-4669-ae3a-322ee9e7e2d2?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae" 
@@ -197,9 +197,9 @@ export default function Layout({
 
         {/* Footer */}
         {footer && showFooter && (
-          <footer className="border-t border-white/10 glass-effect">
+          <footer className="border-t border-gray-200 bg-white/50">
             <div className="container flex h-14 items-center justify-between">
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-gray-600">
                 {footer.text}
               </span>
               <nav className="flex items-center gap-4">
@@ -207,7 +207,7 @@ export default function Layout({
                   <Link
                     key={index}
                     to={link.href}
-                    className="text-sm text-gray-400 hover:text-blue-500 transition-colors"
+                    className="text-sm text-gray-600 hover:text-blue-500 transition-colors"
                   >
                     {link.label}
                   </Link>
