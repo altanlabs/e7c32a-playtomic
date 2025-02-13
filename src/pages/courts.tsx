@@ -66,7 +66,7 @@ export default function CourtsPage() {
     <div className="min-h-screen bg-[#fff6e7]">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[#029455]">
+        <div className="absolute inset-0" style={{ backgroundImage: 'url(https://api.altan.ai/platform/media/69cc2738-5a95-46c7-9c5e-46f11d6fc5af?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative">

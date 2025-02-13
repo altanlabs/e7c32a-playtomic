@@ -114,8 +114,7 @@ export default function CourtsPage() {
       >
         {/* Hero Section */}
         <div className="relative h-[300px] rounded-2xl overflow-hidden">
-          <img
-            src="https://www.fiba3x3.com/img/grounds/grounds-hero.jpg"
+          <img src="https://api.altan.ai/platform/media/69cc2738-5a95-46c7-9c5e-46f11d6fc5af?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
             alt="3x3 Basketball Courts"
             className="absolute inset-0 w-full h-full object-cover"
           />
