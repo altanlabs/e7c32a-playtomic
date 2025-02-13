@@ -1,7 +1,7 @@
 import { DatabaseProvider } from "@altanlabs/database";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider } from "@/theme/theme-provider";
-import { Routes } from "@/pages/_app";
+import { ThemeProvider } from "./theme/theme-provider";
+import { Routes } from "./routes";
 
 const config = {
   API_BASE_URL: "https://api.altan.ai/galaxia/hook/mo6VsG",
