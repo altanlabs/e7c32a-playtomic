@@ -31,20 +31,8 @@ export default function IndexPage() {
             <p className="subtitle-font text-xl md:text-2xl text-gray-200 mb-8 font-light mt-8">
               Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link to="/booking">
-                <Button size="lg" 
-                  className="bg-[#029455] hover:bg-[#029455]/90 text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
-                  Reserva tu aro
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/aros">
-                <Button size="lg" variant="outline" 
-                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white px-8 py-6 text-lg rounded-full hover-scale hover:bg-white/20">
-                  Ver aros disponibles
-                </Button>
-              </Link>
+            <div className="max-w-md">
+              <WaitlistForm />
             </div>
           </div>
         </div>
@@ -110,22 +98,6 @@ export default function IndexPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Waitlist Section */}
-      <section className="py-32 bg-[#fff6e7] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#029455]/5" />
-        <div className="container mx-auto px-4 text-center relative">
-          <h2 className="text-4xl font-bold mb-4 text-gray-800">
-            ¿Quieres ser de los primeros en probar Dribla?
-          </h2>
-          <p className="subtitle-font text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
-            Únete a nuestra lista de espera y sé el primero en enterarte cuando lancemos en tu ciudad.
-          </p>
-          <div className="max-w-md mx-auto">
-            <WaitlistForm />
           </div>
         </div>
       </section>
