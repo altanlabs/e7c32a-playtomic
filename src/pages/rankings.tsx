@@ -69,7 +69,7 @@ export default function RankingsPage() {
     <div className="min-h-screen bg-[#fff6e7]">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[#029455]">
+        <div className="absolute inset-0" style={{ backgroundImage: 'url(https://api.altan.ai/platform/media/128213ef-e90d-4471-b296-91b0bad4b14f?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative">
