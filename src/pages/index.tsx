@@ -28,7 +28,7 @@ export default function IndexPage() {
               <div>Reserva.</div>
               <div>Juega.</div>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 font-light mt-8">
+            <p className="subtitle-font text-xl md:text-2xl text-gray-200 mb-8 font-light mt-8">
               Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -79,7 +79,7 @@ export default function IndexPage() {
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="subtitle-font text-gray-600">
                   {feature.description}
                 </p>
               </Card>
@@ -104,7 +104,7 @@ export default function IndexPage() {
                   <div className="text-5xl font-bold mb-2 text-[#029455]">
                     {stat.number}
                   </div>
-                  <div className="text-gray-600 font-medium">
+                  <div className="subtitle-font text-gray-600 font-medium">
                     {stat.label}
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export default function IndexPage() {
           <h2 className="text-4xl font-bold mb-4 text-gray-800">
             ¿Quieres ser de los primeros en probar Dribla?
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
+          <p className="subtitle-font text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
             Únete a nuestra lista de espera y sé el primero en enterarte cuando lancemos en tu ciudad.
           </p>
           <div className="max-w-md mx-auto">
@@ -136,7 +136,7 @@ export default function IndexPage() {
           <h2 className="text-4xl font-bold mb-4 text-[#029455]">
             ¿Listo para jugar?
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
+          <p className="subtitle-font text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-light">
             Únete a la comunidad de baloncesto más grande de España
           </p>
           <Link to="/booking">
