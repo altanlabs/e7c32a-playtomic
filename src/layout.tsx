@@ -70,10 +70,14 @@ export default function Layout({
         <Link
           key={index}
           to={item.href}
-          className={`text-base font-medium transition-colors hover:text-[#fd3132] ${
-            location.pathname === item.href
-              ? "text-[#fd3132]"
-              : "text-gray-600"
+          className={`text-base font-medium transition-colors ${
+            isScrolled
+              ? location.pathname === item.href
+                ? "text-white font-bold"
+                : "text-white/90 hover:text-white"
+              : location.pathname === item.href
+                ? "text-[#fd3132]"
+                : "text-gray-600 hover:text-[#fd3132]"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
