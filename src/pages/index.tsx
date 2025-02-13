@@ -23,7 +23,7 @@ export default function IndexPage() {
             <div className="flex flex-wrap gap-4">
               <Link to="/booking">
                 <Button size="lg" 
-                  className="bg-[#fd3132] hover:bg-[#e62b2c] text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
+                  className="bg-[#029455] hover:bg-[#029455]/90 text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
                   Reserva tu aro
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -45,7 +45,7 @@ export default function IndexPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <MapPin className="h-8 w-8 text-[#fd3132]" />,
+                icon: <MapPin className="h-8 w-8 text-[#029455]" />,
                 title: "Encuentra tu aro",
                 description: "Localiza los mejores aros de baloncesto cerca de ti"
               },
@@ -55,7 +55,7 @@ export default function IndexPage() {
                 description: "Proceso de reserva simple y rápido, sin complicaciones"
               },
               {
-                icon: <Users className="h-8 w-8 text-[#fd3132]" />,
+                icon: <Users className="h-8 w-8 text-[#029455]" />,
                 title: "Juega y disfruta",
                 description: "Únete a partidos o crea los tuyos propios"
               }
@@ -82,15 +82,15 @@ export default function IndexPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { number: "150+", label: "Aros disponibles", color: "#fd3132" },
-              { number: "2,500+", label: "Jugadores activos", color: "#029455" },
-              { number: "10K+", label: "Reservas realizadas", color: "#fd3132" },
-              { number: "98%", label: "Usuarios satisfechos", color: "#029455" }
+              { number: "150+", label: "Aros disponibles" },
+              { number: "2,500+", label: "Jugadores activos" },
+              { number: "10K+", label: "Reservas realizadas" },
+              { number: "98%", label: "Usuarios satisfechos" }
             ].map((stat, index) => (
               <div key={index} 
                 className="bg-white shadow-sm rounded-2xl p-8 text-center hover-scale">
                 <div className="relative z-10">
-                  <div className={`text-5xl font-bold mb-2`} style={{ color: stat.color }}>
+                  <div className="text-5xl font-bold mb-2 text-[#029455]">
                     {stat.number}
                   </div>
                   <div className="text-gray-600 font-medium">
@@ -130,7 +130,7 @@ export default function IndexPage() {
           </p>
           <Link to="/booking">
             <Button size="lg" 
-              className="bg-[#fd3132] hover:bg-[#e62b2c] text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
+              className="bg-[#029455] hover:bg-[#029455]/90 text-white font-medium px-8 py-6 text-lg rounded-full hover-scale">
               Reserva tu aro ahora
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
