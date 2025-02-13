@@ -12,11 +12,12 @@ export default function IndexPage() {
         <div className="absolute inset-0 bg-[url('/headers/basketball-hoop.jpg')] bg-cover bg-center opacity-20" />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 gradient-text tracking-tight">
-              DRIBLA
-              <span className="block text-white">RESERVA JUEGA</span>
+            <h1 className="hero-title text-6xl md:text-8xl tracking-tight text-white space-y-2">
+              <div>Dribla.</div>
+              <div>Reserva.</div>
+              <div>Juega.</div>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light">
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light mt-8">
               Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
             </p>
             <div className="flex flex-wrap gap-4">
