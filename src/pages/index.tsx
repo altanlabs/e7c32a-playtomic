@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { MapPin, Users, Trophy } from "lucide-react"
+import { WaitlistForm } from "@/components/blocks/waitlist-form"
 
 export default function IndexPage() {
   return (
@@ -90,6 +91,19 @@ export default function IndexPage() {
               <div className="text-gray-400">Usuarios satisfechos</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Waitlist Section */}
+      <section className="py-20 bg-gray-900">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-white">
+            ¿Quieres ser de los primeros en probar Dribla?
+          </h2>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Únete a nuestra lista de espera y sé el primero en enterarte cuando lancemos en tu ciudad.
+          </p>
+          <WaitlistForm />
         </div>
       </section>
 
