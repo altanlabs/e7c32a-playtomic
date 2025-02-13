@@ -2,6 +2,13 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
+import { Database } from "@altanlabs/database"
+
+// Initialize database client
+const db = new Database({
+  baseId: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616",
+  apiBaseUrl: "https://api.altan.ai/galaxia/hook/mo6VsG"
+})
 
 export function WaitlistForm() {
   const [email, setEmail] = useState("")
@@ -12,28 +19,14 @@ export function WaitlistForm() {
     setIsLoading(true)
 
     try {
-      const response = await fetch("https://api.altan.ai/galaxia/hook/mo6VsG", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          base_id: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616",
-          table: "Waitlist",
-          fields: {
-            email: {
-              value: email
-            }
-          }
-        }),
+      // Create a new entry in the Waitlist table
+      await db.from("Waitlist").insert({
+        email: email,
+        region: "España" // Default region
       })
 
-      if (response.ok) {
-        toast.success("¡Gracias por unirte a la lista de espera!")
-        setEmail("")
-      } else {
-        throw new Error("Error al registrar el email")
-      }
+      toast.success("¡Gracias por unirte a la lista de espera!")
+      setEmail("")
     } catch (error) {
       toast.error("No se pudo registrar el email. Por favor, inténtalo de nuevo.")
       console.error("Error:", error)
