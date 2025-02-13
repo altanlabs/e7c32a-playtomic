@@ -73,7 +73,7 @@ export default function Layout({
           className={`text-base font-medium transition-colors hover:text-[#029455] ${
             location.pathname === item.href
               ? "text-[#029455]"
-              : isScrolled ? "text-gray-600" : "text-white"
+              : isScrolled ? "text-white" : "text-white"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
@@ -97,17 +97,10 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header 
-            className={`sticky top-0 z-50 w-full transition-all duration-300`}
-            style={{
-              backgroundImage: isScrolled ? 'none' : 'url("https://api.altan.ai/platform/media/39266f5d-9785-498b-b5bc-5fc0daa0172c?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae")',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundColor: isScrolled ? '#029455' : 'transparent',
-            }}
-          >
-            <div className="absolute inset-0 bg-black/40" style={{ display: isScrolled ? 'none' : 'block' }} />
-            <div className="container mx-auto px-4 relative z-10">
+          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+            isScrolled ? 'bg-[#029455]' : 'bg-transparent'
+          }`}>
+            <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation together */}
                 <div className="flex items-center">
@@ -135,7 +128,7 @@ export default function Layout({
                       className={`p-2 rounded-full ${
                         isScrolled 
                           ? "bg-white/20 text-white hover:bg-white/30" 
-                          : "bg-white/10 text-white hover:bg-white/20"
+                          : "bg-black/20 text-white hover:bg-black/30"
                       }`}
                     >
                       {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
@@ -148,7 +141,7 @@ export default function Layout({
                       className={`rounded-full ${
                         isScrolled 
                           ? "bg-white/20 text-white hover:bg-white/30" 
-                          : "bg-white/10 text-white hover:bg-white/20"
+                          : "bg-black/20 text-white hover:bg-black/30"
                       }`}
                     >
                       <Bell className="h-5 w-5" />
@@ -163,7 +156,7 @@ export default function Layout({
                           className={`h-8 w-8 rounded-full overflow-hidden p-0 ${
                             isScrolled 
                               ? "bg-white/20 hover:bg-white/30" 
-                              : "bg-white/10 hover:bg-white/20"
+                              : "bg-black/20 hover:bg-black/30"
                           }`}
                         >
                           <Avatar>
@@ -191,7 +184,7 @@ export default function Layout({
                         className={`rounded-full ${
                           isScrolled 
                             ? "bg-white/20 text-white hover:bg-white/30" 
-                            : "bg-white/10 text-white hover:bg-white/20"
+                            : "bg-black/20 text-white hover:bg-black/30"
                         }`}
                       >
                         <Menu className="h-6 w-6" />
