@@ -38,10 +38,20 @@ export function WaitlistForm() {
         throw new Error("Error al registrar el email")
       }
 
-      toast.success("¡Gracias por unirte a la lista de espera!")
+      toast.success("¡Gracias por unirte a la lista de espera!", {
+        style: {
+          color: 'black',
+          backgroundColor: 'white'
+        }
+      })
       setEmail("")
     } catch (error) {
-      toast.error("No se pudo registrar el email. Por favor, inténtalo de nuevo.")
+      toast.error("No se pudo registrar el email. Por favor, inténtalo de nuevo.", {
+        style: {
+          color: 'black',
+          backgroundColor: 'white'
+        }
+      })
       console.error("Error:", error)
     } finally {
       setIsLoading(false)
