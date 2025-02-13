@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@altanlabs/auth": "^0.1.0",
-    "@altanlabs/database": "^1.1.7",
+    "@altanlabs/database": "^1.1.9",
     "@hookform/resolvers": "^3.10.0",
     "@iconify/react": "^5.2.0",
     "@radix-ui/colors": "^3.0.0",
