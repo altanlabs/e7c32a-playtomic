@@ -18,10 +18,12 @@ export function WaitlistForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          base_id: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616",
           table: "Waitlist",
-          data: {
-            email: email,
-            region: "Spain" // Default region
+          fields: {
+            email: {
+              value: email
+            }
           }
         }),
       })
@@ -34,6 +36,7 @@ export function WaitlistForm() {
       }
     } catch (error) {
       toast.error("No se pudo registrar el email. Por favor, inténtalo de nuevo.")
+      console.error("Error:", error)
     } finally {
       setIsLoading(false)
     }
@@ -52,7 +55,7 @@ export function WaitlistForm() {
       <Button 
         type="submit" 
         disabled={isLoading}
-        className="bg-[#FFA726] hover:bg-[#FF9800] text-black font-bold"
+        className="bg-[#FFA726] hover:bg-[#FF9800] text-black font-bold whitespace-nowrap"
       >
         {isLoading ? "Registrando..." : "Unirme a la lista"}
       </Button>
