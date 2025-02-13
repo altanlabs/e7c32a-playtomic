@@ -4,7 +4,7 @@
  
 @layer base {
   :root {
-    --background: 240 20% 97%;
+    --background: 39 100% 95%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -27,7 +27,7 @@
   }
  
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 39 100% 95%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -61,7 +61,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-[#fff6e7] text-foreground antialiased;
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
