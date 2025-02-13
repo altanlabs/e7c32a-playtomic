@@ -5,12 +5,14 @@ import { Button } from '../ui/button';
 
 export const WaitlistForm = () => {
   const [name, setName] = useState('');
-  const { addRecord, isLoading, error } = useDatabase('waitlist');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addRecord } = useDatabase('waitlist', { autoFetch: false });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim() || isSubmitting) return;
 
+    setIsSubmitting(true);
     try {
       await addRecord(
         { name },
@@ -23,6 +25,8 @@ export const WaitlistForm = () => {
       alert('Successfully joined the waitlist!');
     } catch (error) {
       console.error('Unexpected error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -35,20 +39,15 @@ export const WaitlistForm = () => {
         placeholder="Enter your name"
         required
         className="flex-1 bg-white/90 text-black"
-        disabled={isLoading}
+        disabled={isSubmitting}
       />
       <Button 
         type="submit" 
-        disabled={isLoading} 
+        disabled={isSubmitting} 
         className="bg-[#029455] hover:bg-[#029455]/90 text-white"
       >
-        {isLoading ? 'Joining...' : 'Join Waitlist'}
+        {isSubmitting ? 'Joining...' : 'Join Waitlist'}
       </Button>
-      {error && (
-        <p className="text-red-500 text-sm mt-2">
-          Error: {error}
-        </p>
-      )}
     </form>
   );
 };
