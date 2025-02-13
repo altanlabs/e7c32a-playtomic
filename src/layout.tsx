@@ -55,6 +55,15 @@ export default function Layout({
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const NavigationLinks = () => (
     <>
@@ -62,9 +71,9 @@ export default function Layout({
         <Link
           key={index}
           to={item.href}
-          className={`text-lg transition-colors hover:text-white ${
+          className={`text-base font-medium transition-colors hover:text-blue-500 ${
             location.pathname === item.href
-              ? "text-white font-medium"
+              ? "text-blue-500"
               : "text-gray-400"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
@@ -89,12 +98,14 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className="sticky top-0 z-50 w-full bg-[#0A0F1C] border-b border-border">
+          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+            isScrolled ? 'glass-effect' : 'bg-transparent'
+          }`}>
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation */}
                 <div className="flex items-center space-x-12">
-                  <Link to="/" className="text-white text-2xl font-bold">
+                  <Link to="/" className="text-2xl font-bold gradient-text">
                     Dribla
                   </Link>
                   
@@ -110,7 +121,7 @@ export default function Layout({
                     <Toggle
                       pressed={theme === "dark"}
                       onPressedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
-                      className="px-2 py-2 rounded-md text-gray-400 hover:text-white"
+                      className="p-2 rounded-full glass-effect text-gray-400 hover:text-blue-500"
                     >
                       {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
                     </Toggle>
@@ -118,7 +129,8 @@ export default function Layout({
 
                   {/* Notifications */}
                   {header.showNotifications && (
-                    <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                    <Button variant="ghost" size="icon" 
+                      className="glass-effect rounded-full text-gray-400 hover:text-blue-500">
                       <Bell className="h-5 w-5" />
                     </Button>
                   )}
@@ -127,16 +139,18 @@ export default function Layout({
                   {header.showUserMenu && (
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 rounded-full">
+                        <Button variant="ghost" 
+                          className="h-8 w-8 rounded-full overflow-hidden glass-effect p-0">
                           <Avatar>
                             <AvatarImage src={header.avatarSrc} alt="User" />
                             <AvatarFallback>{header.avatarFallback}</AvatarFallback>
                           </Avatar>
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuContent align="end" className="glass-effect">
                         {header.userMenuItems?.map((item, index) => (
-                          <DropdownMenuItem key={index} onClick={item.onClick}>
+                          <DropdownMenuItem key={index} onClick={item.onClick}
+                            className="hover:text-blue-500">
                             {item.icon}
                             {item.label}
                           </DropdownMenuItem>
@@ -148,11 +162,12 @@ export default function Layout({
                   {/* Mobile Menu Button */}
                   <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                     <SheetTrigger asChild className="md:hidden">
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                      <Button variant="ghost" size="icon" 
+                        className="glass-effect rounded-full text-gray-400 hover:text-blue-500">
                         <Menu className="h-6 w-6" />
                       </Button>
                     </SheetTrigger>
-                    <SheetContent side="right" className="w-[240px] bg-[#0A0F1C]">
+                    <SheetContent side="right" className="glass-effect border-none">
                       <nav className="flex flex-col space-y-6 mt-6">
                         <NavigationLinks />
                       </nav>
@@ -171,9 +186,9 @@ export default function Layout({
 
         {/* Footer */}
         {footer && showFooter && (
-          <footer className="border-t border-border bg-[#0A0F1C]">
+          <footer className="border-t border-white/10 glass-effect">
             <div className="container flex h-14 items-center justify-between">
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm text-gray-400">
                 {footer.text}
               </span>
               <nav className="flex items-center gap-4">
@@ -181,7 +196,7 @@ export default function Layout({
                   <Link
                     key={index}
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground"
+                    className="text-sm text-gray-400 hover:text-blue-500 transition-colors"
                   >
                     {link.label}
                   </Link>
