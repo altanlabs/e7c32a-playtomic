@@ -49,6 +49,13 @@
   }
 }
 
+@font-face {
+  font-family: 'DribleFont';
+  src: url('/fonts/neue-haas-grotesk-display-pro.woff2') format('woff2');
+  font-weight: bold;
+  font-style: italic;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -59,6 +66,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+.hero-title {
+  font-family: 'DribleFont', sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 1;
 }
 
 .glass-effect {
