@@ -23,7 +23,6 @@ const MainNavigation = [
 ];
 
 const DefaultHeader = {
-  title: "Dribla",
   showNotifications: true,
   showUserMenu: true,
   showThemeToggle: true,
@@ -105,8 +104,12 @@ export default function Layout({
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation */}
                 <div className="flex items-center space-x-12">
-                  <Link to="/" className="text-2xl font-bold gradient-text">
-                    Dribla
+                  <Link to="/" className="flex items-center">
+                    <img 
+                      src="/dribla-logo.png" 
+                      alt="Dribla" 
+                      className="h-8 w-auto"
+                    />
                   </Link>
                   
                   {/* Desktop Navigation */}
@@ -168,7 +171,14 @@ export default function Layout({
                       </Button>
                     </SheetTrigger>
                     <SheetContent side="right" className="glass-effect border-none">
-                      <nav className="flex flex-col space-y-6 mt-6">
+                      <div className="flex justify-center mb-6">
+                        <img 
+                          src="/dribla-logo.png" 
+                          alt="Dribla" 
+                          className="h-8 w-auto"
+                        />
+                      </div>
+                      <nav className="flex flex-col space-y-6">
                         <NavigationLinks />
                       </nav>
                     </SheetContent>
