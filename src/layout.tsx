@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const MainNavigation = [
   { label: "Jugadores", href: "/players" },
-  { label: "Canchas", href: "/courts" },  // Updated from /aros to /courts
+  { label: "Canchas", href: "/courts" },
   { label: "Torneos", href: "/tournaments" },
   { label: "Rankings", href: "/rankings" },
 ];
@@ -47,28 +47,8 @@ export default function Layout({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const NavigationLinks = () => (
-    <>
-      {MainNavigation.map((item, index) => (
-        <Link
-          key={index}
-          to={item.href}
-          className={`text-base font-semibold transition-colors ${
-            location.pathname === item.href
-              ? 'text-[#029455]'
-              : 'text-gray-800'
-          } hover:text-[#029455] transition-all duration-200`}
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          {item.label}
-        </Link>
-      ))}
-    </>
-  );
-
   return (
     <div className="flex min-h-screen w-full flex-col">
-      {/* Optional Sidebar */}
       {showSidebar && sidebarConfig && (
         <AppSidebar 
           className="h-full border-r border-border hidden lg:block"
@@ -76,14 +56,15 @@ export default function Layout({
         />
       )}
 
-      {/* Main Content */}
       <div className="flex flex-1 flex-col">
-        {/* Configurable Header */}
         {header && showHeader && (
-          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent'}`}>
+          <header 
+            className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+              isScrolled ? 'bg-[#029455] shadow-md' : ''
+            }`}
+          >
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
-                {/* Logo and Desktop Navigation together */}
                 <div className="flex items-center">
                   <Link to="/" className="flex items-center">
                     <img 
@@ -98,7 +79,6 @@ export default function Layout({
                     />
                   </Link>
                   
-                  {/* Desktop Navigation - Now directly next to logo */}
                   <nav className="hidden md:flex items-center ml-12 space-x-12">
                     {MainNavigation.map((item, index) => (
                       <Link
@@ -108,9 +88,9 @@ export default function Layout({
                           location.pathname === item.href
                             ? 'text-[#029455]'
                             : isScrolled
-                            ? 'text-white'
-                            : 'text-gray-800 drop-shadow-sm'
-                        } hover:text-[#029455] transition-all duration-200`}
+                            ? 'text-white hover:text-white/80'
+                            : 'text-gray-800 hover:text-[#029455]'
+                        }`}
                       >
                         {item.label}
                       </Link>
@@ -118,7 +98,6 @@ export default function Layout({
                   </nav>
                 </div>
 
-                {/* Mobile Menu Button */}
                 <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                   <SheetTrigger asChild className="md:hidden">
                     <Button
@@ -126,14 +105,14 @@ export default function Layout({
                       size="icon"
                       className={`rounded-full ${
                         isScrolled
-                          ? "bg-white/20 text-white hover:bg-white/30"
-                          : "bg-black/20 text-white hover:bg-black/30"
+                          ? "text-white hover:bg-white/10"
+                          : "text-gray-800 hover:bg-black/10"
                       }`}
                     >
                       <Menu className="h-6 w-6" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="right" className="bg-white border-gray-200">
+                  <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                     <div className="flex justify-center mb-6">
                       <img 
                         src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
@@ -141,8 +120,21 @@ export default function Layout({
                         className="h-10 w-auto"
                       />
                     </div>
-                    <nav className="flex flex-col space-y-6">
-                      <NavigationLinks />
+                    <nav className="flex flex-col space-y-4">
+                      {MainNavigation.map((item, index) => (
+                        <Link
+                          key={index}
+                          to={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`text-base font-semibold transition-colors ${
+                            location.pathname === item.href
+                              ? 'text-[#029455]'
+                              : 'text-gray-800 hover:text-[#029455]'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
                     </nav>
                   </SheetContent>
                 </Sheet>
@@ -151,29 +143,29 @@ export default function Layout({
           </header>
         )}
 
-        {/* Main Content Area */}
-        <main className="flex-1">
+        <main className="flex-1 pt-16">
           {children}
         </main>
 
-        {/* Footer */}
         {footer && showFooter && (
           <footer className="border-t border-gray-200 bg-white/50">
-            <div className="container flex h-14 items-center justify-between">
-              <span className="text-sm text-gray-600">
-                {footer.text}
-              </span>
-              <nav className="flex items-center gap-4">
-                {footer.links?.map((link, index) => (
-                  <Link
-                    key={index}
-                    to={link.href}
-                    className="text-sm text-gray-600 hover:text-[#029455] transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
+            <div className="container mx-auto px-4">
+              <div className="flex h-14 items-center justify-between">
+                <span className="text-sm text-gray-600">
+                  {footer.text}
+                </span>
+                <nav className="flex items-center gap-4">
+                  {footer.links?.map((link, index) => (
+                    <Link
+                      key={index}
+                      to={link.href}
+                      className="text-sm text-gray-600 hover:text-[#029455] transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
             </div>
           </footer>
         )}
