@@ -23,22 +23,6 @@ export default function IndexPage() {
             <div className="absolute inset-0 bg-black/75" />
           </div>
 
-<<<<<<< HEAD
-          <div className="container mx-auto px-4 relative z-10 pt-16">
-            <div className="max-w-3xl">
-              <h1 className="hero-title text-6xl md:text-7xl tracking-tight text-white space-y-4">
-                <div>📍 Busca y reserva</div>
-                <div>tu aro más cercano</div>
-              </h1>
-              <p className="subtitle-font text-xl md:text-2xl text-gray-200 mb-8 font-light mt-8 space-y-2">
-                <div>🤝 Conecta con jugadores y crea partidos</div>
-                <div>🔜 Únete tan solo con tu email y sé el primero en jugar</div>
-                <div className="mt-4">👉 Regístrate ahora</div>
-              </p>
-              <div className="max-w-md">
-                <WaitlistForm />
-              </div>
-=======
           <div className="relative z-10 text-center px-4">
             <h1 className="text-[80px] sm:text-[120px] md:text-[150px] leading-[0.9] tracking-tight text-white font-bold uppercase italic mb-8">
               DRIBLA
@@ -55,7 +39,6 @@ export default function IndexPage() {
             </div>
             <div className="mt-12 max-w-md mx-auto">
               <WaitlistForm />
->>>>>>> dev
             </div>
           </div>
         </section>
