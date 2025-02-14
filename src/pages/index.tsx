@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { MapPin, Users, Trophy, ArrowRight } from "lucide-react"
 import { WaitlistForm } from "@/components/blocks/waitlist-form"
-import Layout from "../layout"
+import Layout from "@/layout"
 
 export default function IndexPage() {
   return (
     <Layout showHeader={true} showFooter={true}>
       <div className="min-h-screen bg-[#fff6e7]">
         {/* Hero Section with Background Image */}
-        <section className="relative min-h-screen flex items-center -mt-16">
+        <section className="relative min-h-screen flex items-center justify-center">
           <div 
             className="absolute inset-0"
             style={{
@@ -20,9 +20,10 @@ export default function IndexPage() {
               backgroundRepeat: 'no-repeat',
             }}
           >
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/75" />
           </div>
 
+<<<<<<< HEAD
           <div className="container mx-auto px-4 relative z-10 pt-16">
             <div className="max-w-3xl">
               <h1 className="hero-title text-6xl md:text-7xl tracking-tight text-white space-y-4">
@@ -37,6 +38,24 @@ export default function IndexPage() {
               <div className="max-w-md">
                 <WaitlistForm />
               </div>
+=======
+          <div className="relative z-10 text-center px-4">
+            <h1 className="text-[80px] sm:text-[120px] md:text-[150px] leading-[0.9] tracking-tight text-white font-bold uppercase italic mb-8">
+              DRIBLA
+              <br />
+              RESERVA
+              <br />
+              JUEGA
+            </h1>
+            <div className="text-2xl md:text-3xl text-white font-medium space-y-6">
+              <p>📍 Busca y reserva tu aro más cercano</p>
+              <p>🤝 Conecta con jugadores y crea partidos</p>
+              <p>🔜 Únete tan solo con tu email y sé el primero en jugar</p>
+              <p>👉 Regístrate ahora</p>
+            </div>
+            <div className="mt-12 max-w-md mx-auto">
+              <WaitlistForm />
+>>>>>>> dev
             </div>
           </div>
         </section>
