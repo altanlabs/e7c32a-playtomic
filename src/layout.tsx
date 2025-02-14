@@ -67,7 +67,7 @@ export default function Layout({
   );
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-[#fff6e7]">
+    <div className="flex min-h-screen w-full flex-col">
       {/* Optional Sidebar */}
       {showSidebar && sidebarConfig && (
         <AppSidebar 
@@ -80,9 +80,9 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-[#029455] shadow-md' : ''}`}>
-            <div className="container mx-auto px-4 bg-transparent">
-              <div className="flex h-16 items-center justify-between bg-transparent">
+          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent'}`}>
+            <div className="container mx-auto px-4">
+              <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation together */}
                 <div className="flex items-center">
                   <Link to="/" className="flex items-center">
