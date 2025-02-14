@@ -1,62 +1,61 @@
-import { useState } from 'react';
-import { useDatabase } from '@altanlabs/database';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
+import { makeApiCall } from "@altanlabs/database"
 
-export const WaitlistForm = () => {
-  const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { addRecord } = useDatabase('waitlist', { autoFetch: false });
+export function WaitlistForm() {
+  const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim() || isSubmitting) return;
+    e.preventDefault()
+    setIsLoading(true)
 
-    setIsSubmitting(true);
     try {
-      const region = Intl.DateTimeFormat().resolvedOptions().timeZone || 
-                    navigator.language || 
-                    'unknown';
-                    
-      await addRecord(
-        { 
-          email,
-          region
-        },
-        (error) => {
-          console.error('Failed to add to waitlist:', error);
-          alert('No se pudo unir a la lista de espera. Por favor, inténtalo de nuevo.');
+      await makeApiCall({
+        method: "POST",
+        url: "https://api.altan.ai/platform/database/records",
+        body: {
+          table_id: "550e8400-e29b-41d4-a716-446655440000",
+          record: {
+            email,
+            created_at: new Date().toISOString()
+          }
         }
-      );
-      setEmail('');
-      alert('¡Te has unido a la lista de espera con éxito!');
+      })
+
+      toast({
+        title: "¡Gracias por tu interés!",
+        description: "Te avisaremos cuando estemos listos.",
+      })
+      
+      setEmail("")
     } catch (error) {
-      console.error('Unexpected error:', error);
+      toast({
+        title: "No pudimos registrar tu email",
+        description: "Por favor, inténtalo de nuevo más tarde.",
+        variant: "destructive",
+      })
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
-    <div className="flex items-center justify-center w-full max-w-3xl mx-auto">
-      <form onSubmit={handleSubmit} className="flex w-full gap-2">
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Introduce tu email"
-          required
-          className="flex-1 bg-white/90 text-black h-12 px-4"
-          disabled={isSubmitting}
-        />
-        <Button 
-          type="submit" 
-          disabled={isSubmitting} 
-          className="bg-[#029455] hover:bg-[#029455]/90 text-white h-12 px-6"
-        >
-          {isSubmitting ? 'Uniendo...' : 'Unirse'}
-        </Button>
-      </form>
-    </div>
-  );
-};
+    <form onSubmit={handleSubmit} className="flex w-full max-w-sm items-center space-x-2">
+      <Input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="bg-white"
+        required
+      />
+      <Button type="submit" className="bg-[#029455] hover:bg-[#029455]/90" disabled={isLoading}>
+        {isLoading ? "Enviando..." : "Unirse"}
+      </Button>
+    </form>
+  )
+}
