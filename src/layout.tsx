@@ -56,9 +56,7 @@ export default function Layout({
           className={`text-base font-semibold transition-colors ${
             location.pathname === item.href
               ? 'text-[#029455]'
-              : isScrolled
-              ? 'text-white'
-              : 'text-gray-800 drop-shadow-sm'
+              : 'text-gray-800'
           } hover:text-[#029455]`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
@@ -104,7 +102,21 @@ export default function Layout({
                   
                   {/* Desktop Navigation - Now directly next to logo */}
                   <nav className="hidden md:flex items-center ml-12 space-x-12">
-                    <NavigationLinks />
+                    {MainNavigation.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={item.href}
+                        className={`text-base font-semibold transition-colors ${
+                          location.pathname === item.href
+                            ? 'text-[#029455]'
+                            : isScrolled
+                            ? 'text-white'
+                            : 'text-gray-800 drop-shadow-sm'
+                        } hover:text-[#029455]`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
                   </nav>
                 </div>
 
@@ -123,7 +135,7 @@ export default function Layout({
                       <Menu className="h-6 w-6" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
+                  <SheetContent side="right" className="bg-white border-gray-200">
                     <div className="flex justify-center mb-6">
                       <img 
                         src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
