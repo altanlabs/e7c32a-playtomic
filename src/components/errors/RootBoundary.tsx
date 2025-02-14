@@ -1,88 +1,30 @@
-import * as React from 'react';
-import { memo } from 'react';
-import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
-import { AlertCircle, RefreshCw, Copy, Check } from 'lucide-react';
-import { Card, Text, Button, Flex, Heading } from '@radix-ui/themes';
+import { useRouteError } from "react-router-dom"
+import { Button } from "@/components/ui/button"
 
-
-const RootBoundary = () => {
-  const error = useRouteError();
-  const [copied, setCopied] = React.useState(false);
+export default function RootBoundary() {
+  const error = useRouteError()
   
-  let errorMessage = "An unexpected error occurred";
-  
-  if (isRouteErrorResponse(error)) {
-    errorMessage = error.statusText || error.data?.message;
-  } else if (error instanceof Error) {
-    errorMessage = error.message;
-  }
-
-  const copyError = async () => {
-    const errorText = error instanceof Error 
-      ? `Error: ${error.message}\n\nStack Trace:\n${error.stack}`
-      : errorMessage;
-    
-    await navigator.clipboard.writeText(errorText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <Flex className="fixed inset-0" align="center" justify="center" p="4">
-      <Card size="4" style={{ maxWidth: '32rem' }}>
-        <Flex direction="column" gap="4" align="center">
-          <Flex gap="2" align="center">
-            <AlertCircle />
-            <Heading size="5">Error Detected</Heading>
-          </Flex>
-          
-          <Text color="gray" size="3">
-            Try to copy and send it to the AI to fix it. 
-          </Text>
-
-          <Text color="gray" size="2">
-            {errorMessage}
-          </Text>
-
-          {error instanceof Error && (
-            <Card variant="surface" style={{ width: '100%', position: 'relative' }}>
-              <Button
-                variant="ghost"
-                onClick={copyError}
-                style={{ 
-                  position: 'absolute',
-                  right: 8,
-                  top: 8
-                }}
-              >
-                {copied ? (
-                  <Check width="16" height="16" />
-                ) : (
-                  <Copy width="16" height="16" />
-                )}
-              </Button>
-              <Text size="1" color="gray" style={{ 
-                maxHeight: '50vh',
-                overflow: 'auto',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word'
-              }}>
-                {error.stack}
-              </Text>
-            </Card>
-          )}
-
+    <div className="min-h-screen bg-[#fff6e7] flex items-center justify-center p-4">
+      <div className="max-w-md w-full space-y-4 text-center">
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold tracking-tighter">
+            Oops! Algo salió mal
+          </h1>
+          <p className="text-muted-foreground">
+            No te preocupes, estamos trabajando en ello
+          </p>
+        </div>
+        
+        <div className="flex justify-center">
           <Button 
-            variant="surface" 
             onClick={() => window.location.reload()}
+            className="bg-[#029455] hover:bg-[#029455]/90"
           >
-            <RefreshCw width="16" height="16" />
-            Reload
+            Intentar de nuevo
           </Button>
-        </Flex>
-      </Card>
-    </Flex>
-  );
-};
-
-export default memo(RootBoundary);
+        </div>
+      </div>
+    </div>
+  )
+}
