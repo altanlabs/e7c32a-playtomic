@@ -1,10 +1,31 @@
-import { DatabaseProvider } from "@altanlabs/database";
+import axios from 'axios';
 
-const config = {
-  API_BASE_URL: "https://api.altan.ai/galaxia/hook/mo6VsG",
-  SAMPLE_TABLES: {
-    waitlist: "4ff1558e-4247-40d3-b4d5-3ce2d4cc5616"
+const API_BASE_URL = "https://api.altan.ai/platform/database";
+
+export const makeApiCall = async ({
+  method,
+  url,
+  body,
+  headers = {}
+}: {
+  method: string;
+  url: string;
+  body?: any;
+  headers?: Record<string, string>;
+}) => {
+  try {
+    const response = await axios({
+      method,
+      url,
+      data: body,
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('API call failed:', error);
+    throw error;
   }
 };
-
-export const databaseProvider = new DatabaseProvider(config);
