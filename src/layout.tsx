@@ -1,15 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { AppSidebar } from "@/components/blocks/app-sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Bell, Settings, LogOut, Menu } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const MainNavigation = [
@@ -20,13 +13,8 @@ const MainNavigation = [
 ];
 
 const DefaultHeader = {
-  showNotifications: true,
-  showUserMenu: true,
-  userMenuItems: [
-    { icon: <Settings className="mr-2 h-4 w-4" />, label: "Ajustes" },
-    { icon: <LogOut className="mr-2 h-4 w-4" />, label: "Cerrar sesión" },
-  ],
-  avatarFallback: "JD",
+  showNotifications: false,
+  showUserMenu: false,
 };
 
 const DefaultFooter = {
@@ -120,10 +108,9 @@ export default function Layout({
                   </nav>
                 </div>
 
-                {/* Right side elements */}
-                <div className="flex items-center space-x-4">
-                  {/* Notifications */}
-                  {header.showNotifications && (
+                {/* Mobile Menu Button */}
+                <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                  <SheetTrigger asChild className="md:hidden">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -133,72 +120,22 @@ export default function Layout({
                           : "bg-black/20 text-white hover:bg-black/30"
                       }`}
                     >
-                      <Bell className="h-5 w-5" />
+                      <Menu className="h-6 w-6" />
                     </Button>
-                  )}
-
-                  {/* User Menu */}
-                  {header.showUserMenu && (
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          className={`h-8 w-8 rounded-full overflow-hidden p-0 ${
-                            isScrolled
-                              ? "bg-white/20 hover:bg-white/30"
-                              : "bg-black/20 hover:bg-black/30"
-                          }`}
-                        >
-                          <Avatar>
-                            <AvatarImage src={header.avatarSrc} alt="User" />
-                            <AvatarFallback>{header.avatarFallback}</AvatarFallback>
-                          </Avatar>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-white/95 backdrop-blur-sm border-gray-200">
-                        {header.userMenuItems?.map((item, index) => (
-                          <DropdownMenuItem
-                            key={index}
-                            onClick={item.onClick}
-                            className="hover:text-[#029455]"
-                          >
-                            {item.icon}
-                            {item.label}
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  )}
-
-                  {/* Mobile Menu Button */}
-                  <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                    <SheetTrigger asChild className="md:hidden">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className={`rounded-full ${
-                          isScrolled
-                            ? "bg-white/20 text-white hover:bg-white/30"
-                            : "bg-black/20 text-white hover:bg-black/30"
-                        }`}
-                      >
-                        <Menu className="h-6 w-6" />
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
-                      <div className="flex justify-center mb-6">
-                        <img 
-                          src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
-                          alt="Dribla"
-                          className="h-10 w-auto"
-                        />
-                      </div>
-                      <nav className="flex flex-col space-y-6">
-                        <NavigationLinks />
-                      </nav>
-                    </SheetContent>
-                  </Sheet>
-                </div>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="bg-white/95 backdrop-blur-sm border-gray-200">
+                    <div className="flex justify-center mb-6">
+                      <img 
+                        src="https://api.altan.ai/platform/media/7fbaf883-19c6-4dd5-ae8b-5c9a990c3506?account_id=00e70dcf-ba54-4e8c-9d06-dc8372251dae"
+                        alt="Dribla"
+                        className="h-10 w-auto"
+                      />
+                    </div>
+                    <nav className="flex flex-col space-y-6">
+                      <NavigationLinks />
+                    </nav>
+                  </SheetContent>
+                </Sheet>
               </div>
             </div>
           </header>
