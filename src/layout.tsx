@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const MainNavigation = [
   { label: "Jugadores", href: "/players" },
-  { label: "Canchas", href: "/aros" },
+  { label: "Canchas", href: "/courts" },  // Updated from /aros to /courts
   { label: "Torneos", href: "/tournaments" },
   { label: "Rankings", href: "/rankings" },
 ];
