@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
-import { Button } from "../components/ui/button"
-import { Card } from "../components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { MapPin, Users, Trophy, ArrowRight } from "lucide-react"
-import { WaitlistForm } from "../components/blocks/waitlist-form"
+import { WaitlistForm } from "@/components/blocks/waitlist-form"
 import Layout from "../layout"
 
 export default function IndexPage() {
@@ -10,7 +10,7 @@ export default function IndexPage() {
     <Layout showHeader={true} showFooter={true}>
       <div className="min-h-screen bg-[#fff6e7]">
         {/* Hero Section with Background Image */}
-        <section className="relative min-h-screen flex items-center">
+        <section className="relative min-h-screen flex items-center -mt-16">
           <div 
             className="absolute inset-0"
             style={{
@@ -23,8 +23,8 @@ export default function IndexPage() {
             <div className="absolute inset-0 bg-black/40" />
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl mt-16">
+          <div className="container mx-auto px-4 relative z-10 pt-16">
+            <div className="max-w-3xl">
               <h1 className="hero-title text-6xl md:text-8xl tracking-tight text-white space-y-2">
                 <div>Dribla.</div>
                 <div>Reserva.</div>
@@ -33,7 +33,7 @@ export default function IndexPage() {
               <p className="subtitle-font text-xl md:text-2xl text-gray-200 mb-8 font-light mt-8">
                 Encuentra tu aro, jugadores y torneos. Todo en un solo lugar.
               </p>
-              <div className="max-w-3xl">
+              <div className="max-w-md">
                 <WaitlistForm />
               </div>
             </div>
