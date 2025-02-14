@@ -41,7 +41,7 @@ export default function Layout({
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -57,7 +57,7 @@ export default function Layout({
             location.pathname === item.href
               ? 'text-[#029455]'
               : 'text-gray-800'
-          } hover:text-[#029455]`}
+          } hover:text-[#029455] transition-all duration-200`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
           {item.label}
@@ -80,9 +80,7 @@ export default function Layout({
       <div className="flex flex-1 flex-col">
         {/* Configurable Header */}
         {header && showHeader && (
-          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-            isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent'
-          }`}>
+          <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-[#029455] shadow-md' : 'bg-transparent backdrop-blur-none'}`}>
             <div className="container mx-auto px-4">
               <div className="flex h-16 items-center justify-between">
                 {/* Logo and Desktop Navigation together */}
@@ -112,7 +110,7 @@ export default function Layout({
                             : isScrolled
                             ? 'text-white'
                             : 'text-gray-800 drop-shadow-sm'
-                        } hover:text-[#029455]`}
+                        } hover:text-[#029455] transition-all duration-200`}
                       >
                         {item.label}
                       </Link>
