@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Trophy, Users, Calendar, Home } from "lucide-react"
+import { Trophy, Users, MapPin, Home } from "lucide-react"
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -10,19 +10,19 @@ export function AppSidebar({ className }: SidebarProps) {
 
   const routes = [
     {
-      label: "Inicio",
-      icon: Home,
-      href: "/",
+      label: "Jugadores",
+      icon: Users,
+      href: "/players",
+    },
+    {
+      label: "Canchas",
+      icon: MapPin,
+      href: "/courts",
     },
     {
       label: "Torneos",
-      icon: Calendar,
+      icon: Trophy,
       href: "/tournaments",
-    },
-    {
-      label: "Equipos",
-      icon: Users,
-      href: "/teams",
     },
     {
       label: "Rankings",
@@ -32,27 +32,43 @@ export function AppSidebar({ className }: SidebarProps) {
   ]
 
   return (
-    <div className={cn("pb-6", className)}>
-      <div className="space-y-2 py-2">
-        <div className="px-2">
-          <nav className="space-y-1">
-            {routes.map((route) => (
-              <Link
-                key={route.href}
-                to={route.href}
+    <div className={cn("pb-6 min-h-screen bg-white border-r", className)}>
+      {/* Logo section */}
+      <div className="px-6 py-5 border-b">
+        <Link to="/">
+          <img
+            src="/dribla-logo.png"
+            alt="Dribla"
+            className="h-8 w-auto"
+          />
+        </Link>
+      </div>
+
+      {/* Navigation */}
+      <div className="px-4 py-6">
+        <nav className="space-y-2">
+          {routes.map((route) => (
+            <Link
+              key={route.href}
+              to={route.href}
+            >
+              <Button
+                variant={location.pathname === route.href ? "secondary" : "ghost"}
+                size="lg"
+                className={cn(
+                  "w-full justify-start font-medium",
+                  "text-sm h-11",
+                  location.pathname === route.href
+                    ? "bg-primary/10 text-primary hover:bg-primary/20"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                )}
               >
-                <Button
-                  variant={location.pathname === route.href ? "secondary" : "ghost"}
-                  size="sm"
-                  className="w-full justify-start h-8 text-xs"
-                >
-                  <route.icon className="mr-2 h-3 w-3" />
-                  {route.label}
-                </Button>
-              </Link>
-            ))}
-          </nav>
-        </div>
+                <route.icon className="mr-3 h-5 w-5" />
+                {route.label}
+              </Button>
+            </Link>
+          ))}
+        </nav>
       </div>
     </div>
   )
