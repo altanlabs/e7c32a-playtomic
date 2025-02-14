@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useDatabase } from "@altanlabs/database"
+import { toast } from "sonner"
 
 export function WaitlistForm() {
   const [email, setEmail] = useState("")
@@ -18,14 +19,12 @@ export function WaitlistForm() {
         created_at: new Date().toISOString()
       })
 
-      // Show success toast using sonner
       toast.success("¡Gracias por tu interés!", {
         description: "Te avisaremos cuando estemos listos."
       })
       
       setEmail("")
     } catch (error) {
-      // Show error toast using sonner
       toast.error("No pudimos registrar tu email", {
         description: "Por favor, inténtalo de nuevo más tarde."
       })
@@ -41,7 +40,7 @@ export function WaitlistForm() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="bg-white"
+        className="bg-white text-gray-900 placeholder:text-gray-500"
         required
       />
       <Button type="submit" className="bg-[#029455] hover:bg-[#029455]/90" disabled={isLoading}>
